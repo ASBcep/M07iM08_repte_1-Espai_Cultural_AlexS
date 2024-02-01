@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "asb.m07im08.espai_cultural_alexs"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "asb.m07im08.espai_cultural_alexs"

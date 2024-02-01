@@ -13,10 +13,19 @@
         android:theme="@style/Theme.Espai_Cultural_AlexS"
         tools:targetApi="31">
         <activity
+            android:name=".Gestio_Numerada"
+            android:exported="false" />
+        <activity
+            android:name=".Gestio_No_Numerada"
+            android:exported="false" />
+        <activity
+            android:name=".Gestio_Event"
+            android:exported="false" />
+        <activity
             android:name=".Detall"
             android:exported="false" />
         <activity
-            android:name=".Llistat"
+            android:name=".Llistat_Events"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
