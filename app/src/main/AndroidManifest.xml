@@ -19,13 +19,13 @@
             android:name=".Gestio_No_Numerada"
             android:exported="false" />
         <activity
-            android:name=".Gestio_Event"
+            android:name=".Gestio_Esdeveniment"
             android:exported="false" />
         <activity
             android:name=".Detall"
             android:exported="false" />
         <activity
-            android:name=".Llistat_Events"
+            android:name=".Llistat_Esdeveniments"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
