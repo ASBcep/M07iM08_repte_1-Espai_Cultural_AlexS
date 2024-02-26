@@ -9,30 +9,33 @@
         android:id="@+id/ImgListEsdeveniment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
         android:src="@drawable/escut"
-        android:layout_margin="32dp"
-        android:layout_weight="1"
-        tools:ignore="Suspicious0dp" />
+        android:layout_margin="10dp"
+        android:layout_weight="3"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
         <TextView
-            android:id="@+id/NomListElement"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="32dp"
+            android:id="@+id/NomListEsdeveniment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="24sp"
             android:text="Títol esdeveniment"/>
         <TextView
+            android:id="@+id/dataHoraEsdeveniment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dia i hora esdeveniment"/>
         <TextView
+            android:id="@+id/preuEsdeveniment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Preu €"/>

@@ -9,28 +9,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
-class EsdevenimentAdapter(val elements: List<Esdeveniment>, val onItemClick: (Esdeveniment) -> Unit) :
-    RecyclerView.Adapter<EsdevenimentAdapter.ElementViewHolder>() {
+class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick: (Esdeveniment) -> Unit) :
+    RecyclerView.Adapter<EsdevenimentAdapter.EsdevenimentViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EsdevenimentViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.esdeveniment_layout, parent, false)
-        return ElementViewHolder(view)
+        return EsdevenimentViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ElementViewHolder, position: Int) {
-        val element = elements[position]
-        holder.bindElement(element)
+    override fun onBindViewHolder(holder: EsdevenimentViewHolder, position: Int) {
+        val esdeveniment = esdeveniments[position]
+        holder.bindElement(esdeveniment)
 
         // Configurar el clic del elemento
         holder.itemView.setOnClickListener {
-            onItemClick(element)
+            onItemClick(esdeveniment)
         }
     }
 
-    override fun getItemCount(): Int = elements.size
+    override fun getItemCount(): Int = esdeveniments.size
 
-    class ElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class EsdevenimentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindElement(esdeveniment: Esdeveniment) {
             val imgVwElement = itemView.findViewById<ImageView>(R.id.ImgListEsdeveniment)
@@ -45,9 +45,15 @@ class EsdevenimentAdapter(val elements: List<Esdeveniment>, val onItemClick: (Es
             }
             imgVwElement.setImageBitmap(bitmap)
 
+            //assigno dades als textviews
+            val esdevenimentNom = itemView.findViewById<TextView>(R.id.NomListEsdeveniment)
+            esdevenimentNom.text = esdeveniment.nom
+            val esdevenimentData = itemView.findViewById<TextView>(R.id.dataHoraEsdeveniment)
+            esdevenimentData.text = esdeveniment.data.toString()
+            val esdevenimentPreu = itemView.findViewById<TextView>(R.id.preuEsdeveniment)
+            esdevenimentPreu.text = "Preu: " + esdeveniment.preu.toString() + "€"
 
-            val elementNom = itemView.findViewById<TextView>(R.id.NomListElement)
-            elementNom.text = esdeveniment.nom
+
         }
     }
 }

@@ -54,12 +54,11 @@
                     android:paddingBottom="10dp"/>
 
                 <Button
-                    android:id="@+id/btnGestio"
+                    android:id="@+id/btnLlistat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gestió d'esdeveniments"
-                    android:textSize="20sp"
-                    android:onClick="obrirLlistatEsdeveniments"/>
+                    android:textSize="20sp"/>
             </LinearLayout>
 
         </LinearLayout>
