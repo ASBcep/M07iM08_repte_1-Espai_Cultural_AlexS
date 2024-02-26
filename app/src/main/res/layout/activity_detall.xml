@@ -10,14 +10,6 @@
         android:orientation="horizontal"
         android:paddingTop="10dp">
 
-        <!--TextView
-            android:id="@+id/botonatras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/fletxaEnrere"
-            android:textSize="30sp" /-->
-
         <TextView
             android:id="@+id/act3FrameText"
             android:layout_width="match_parent"
@@ -29,13 +21,6 @@
             android:gravity="center"
             android:padding="10dp"/>
 
-        <!--TextView
-            android:id="@+id/botonpasar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/fletxaEndavant"
-            android:textSize="30sp" /-->
     </LinearLayout>
 
     <LinearLayout
@@ -67,6 +52,19 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/lvDetalls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+        <!--LinearLayout>
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="10dp"
@@ -74,27 +72,27 @@
             <TextView
                 android:id="@+id/TxtVwDescripcio"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:text="A l'escola d'informàtica de NovaGenius, cada alumne té una singularitat sorprenent: una mutació similar a la dels X-Men. Des dels joves programadors amb la capacitat de manipular codi amb la ment fins als dissenyadors web capaços de visualitzar i modificar llocs web amb un simple toc, l'escola està plena de talents extraordinaris. Els professors, acompanyats d'alumnes dotats amb habilitats informàtiques inimaginables, treballen junts per explorar i entendre aquestes mutacions, potenciant-les per a la innovació tecnològica. Tot i les seves diferències, els estudiants comparteixen un objectiu comú: utilitzar les seves habilitats extraordinàries per millorar el món digital i convertir-se en herois de la nova era de la informàtica.
 
 Però amb els poders, també venen els reptes. Alguns estudiants lluiten per controlar les seves noves habilitats, mentre altres s'enfronten al prejudici i a la por de la societat cap a allò que no entenen. A mesura que l'escola creix i les històries dels alumnes es despleguen, sorgeixen tensions entre aquells que veuen les mutacions com una oportunitat i els qui les consideren una amenaça. Malgrat les dificultats, l'escola d'informàtica continua sent un refugi per als que s'arrisquen a abraçar el seu poder únic i un far d'esperança per a un futur on la tecnologia i la diversitat es donen la mà per aconseguir grans fites."
                 android:scrollbars = "vertical"
                 android:layout_weight="1"/>
             <ListView
-                android:id="@+id/lvCaract1"
+                android:id="@+id/lvDetalls"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:layout_weight="1">
 
             </ListView>
 
-        </LinearLayout>
+        </LinearLayout-->
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/buttonsInferior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
         android:layout_weight="0"
         android:gravity="bottom|center"
         android:padding="10dp">
