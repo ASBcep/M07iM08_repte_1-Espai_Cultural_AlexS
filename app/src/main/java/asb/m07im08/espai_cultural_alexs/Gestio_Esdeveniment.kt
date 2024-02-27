@@ -13,7 +13,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_gestio_esdeveniment)
-        val lvDetalls = findViewById<ListView>(R.id.lvDetalls)
+        /*val lvDetalls = findViewById<ListView>(R.id.lvDetalls)
 
         val headerView = layoutInflater.inflate(R.layout.textview_layout, null, false)
         val TxtVwPersonalitzat = headerView.findViewById<TextView>(R.id.TxtVwPersonalitzat)
@@ -25,7 +25,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val llistaDetalls = listOf("Element 1", "Element 2", "Element 3", "Element 4")
 
         val adaptador = ArrayAdapter(this, android.R.layout.simple_list_item_1, llistaDetalls)
-        lvDetalls.adapter = adaptador
-
+        lvDetalls.adapter = adaptador*/
     }
 }
