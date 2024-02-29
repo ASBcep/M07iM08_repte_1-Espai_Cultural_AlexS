@@ -1,13 +1,16 @@
 package asb.m07im08.espai_cultural_alexs
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDateTime
 
 class Llistat_Esdeveniments : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_llistat_esdeveniments)
@@ -43,6 +46,14 @@ class Llistat_Esdeveniments : AppCompatActivity() {
 
         // Assignar l'adaptador al RecyclerView
         recyclerView.adapter = adapter
+
+        //obro gestió esdeveniment.
+        val btnNou = findViewById<Button>(R.id.btnNou)
+        btnNou.setOnClickListener {
+            val intent = Intent(this, Gestio_Esdeveniment::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }
