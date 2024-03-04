@@ -38,7 +38,7 @@ class Detall : AppCompatActivity() {
         //obro reservar numerada
         val btnReservar2 = findViewById<Button>(R.id.btnReservar2)
         btnReservar2.setOnClickListener {
-            val intent = Intent(this, Reservar_Numerada::class.java)
+            val intent = Intent(this, Reservar::class.java)
             startActivity(intent)
         }
    }
