@@ -115,7 +115,7 @@ Però amb els poders, també venen els reptes. Alguns estudiants lluiten per con
             android:layout_height="wrap_content"
             android:text="Cancel·lar" />
         <Button
-            android:id="@+id/btnReservar"
+            android:id="@+id/btnReservar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

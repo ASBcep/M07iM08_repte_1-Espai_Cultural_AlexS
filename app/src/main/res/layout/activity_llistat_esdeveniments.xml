@@ -11,14 +11,6 @@
         android:layout_weight="0"
         android:orientation="horizontal">
 
-        <!--TextView
-            android:id="@+id/botonatras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/fletxaEnrere"
-            android:textSize="30sp" /-->
-
         <TextView
             android:id="@+id/act1FrameText"
             android:layout_width="match_parent"
@@ -30,13 +22,6 @@
             android:gravity="center"
             android:padding="10dp"/>
 
-        <!--TextView
-            android:id="@+id/botonpasar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/fletxaEndavant"
-            android:textSize="30sp" /-->
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +48,7 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/reserves"
+            android:id="@+id/btnReserves"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

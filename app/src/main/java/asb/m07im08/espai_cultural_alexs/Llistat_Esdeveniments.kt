@@ -53,6 +53,12 @@ class Llistat_Esdeveniments : AppCompatActivity() {
             val intent = Intent(this, Gestio_Esdeveniment::class.java)
             startActivity(intent)
         }
+        //obro gestió esdeveniment.
+        val btnReserves = findViewById<Button>(R.id.btnReserves)
+        btnNou.setOnClickListener {
+            val intent = Intent(this, Esdeveniments_Reservats::class.java)
+            startActivity(intent)
+        }
 
 
     }

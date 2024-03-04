@@ -18,8 +18,8 @@ class Detall : AppCompatActivity() {
         val lvDetalls = findViewById<ListView>(R.id.lvDetalls)
 
         val headerView = layoutInflater.inflate(R.layout.textview_layout, null, false)
-        val TxtVwPersonalitzat = headerView.findViewById<TextView>(R.id.TxtVwPersonalitzat)
-        TxtVwPersonalitzat.text = getString(R.string.descripcio_demo)
+        val txtVwPersonalitzat = headerView.findViewById<TextView>(R.id.txtVwPersonalitzat)
+        txtVwPersonalitzat.text = getString(R.string.descripcio_demo)
 
         // Afegir l'encapçalament abans de configurar l'adaptador
         lvDetalls.addHeaderView(headerView)
@@ -29,9 +29,16 @@ class Detall : AppCompatActivity() {
         val adaptador = ArrayAdapter(this, android.R.layout.simple_list_item_1, llistaDetalls)
         lvDetalls.adapter = adaptador
 
+        //obro gestió esdeveniment.
         val btnModificar = findViewById<Button>(R.id.btnModificar)
         btnModificar.setOnClickListener {
             val intent = Intent(this, Gestio_Esdeveniment::class.java)
+            startActivity(intent)
+        }
+        //obro reservar numerada
+        val btnReservar2 = findViewById<Button>(R.id.btnReservar2)
+        btnReservar2.setOnClickListener {
+            val intent = Intent(this, Reservar_Numerada::class.java)
             startActivity(intent)
         }
    }
