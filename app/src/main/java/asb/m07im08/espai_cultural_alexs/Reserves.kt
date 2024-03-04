@@ -1,15 +1,15 @@
 package asb.m07im08.espai_cultural_alexs
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class Esdeveniments_Reservats : AppCompatActivity() {
+class Reserves : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_esdeveniments_reservats)
+        setContentView(R.layout.activity_reserves)
+
 
         var index = 0
         val columnesRecyclerView = 1

@@ -9,4 +9,12 @@ class Esdeveniment (
     val image: String,
     val descripcio: String,
     val data: LocalDateTime,
-    val preu: Float):Serializable
+    val preu: Float,
+    val numerat: Boolean,
+    val tipus: String,
+    val entrades: MutableList<Entrada>,
+    val especific1: String,
+    val especific2: String,
+    val especific3: String,
+    val especific4: MutableList<String>,
+):Serializable

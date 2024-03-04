@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Títol esdeveniment RESERVAR"
+            android:text="GESTIONAR ENTRADES esdeveniment"
             android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -54,26 +54,15 @@
                 android:orientation="vertical"
                 android:padding="10dp">
                 <TextView
-                    android:id="@+id/tvTipusEntrades"
+                    android:id="@+id/tvTitularsEntrades"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Entrades [no] numerades"/>
-                <LinearLayout
-                    android:id="@+id/llNumeradesNomPersona"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Introduir nom de la persona que reserva:"/>
-                    <EditText
-                        android:id="@+id/etNomReserva"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                    android:text="Titular[s] entrades"/>
 
-                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTaulaEntrades"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Número d\'entrades a reservar:"/>
+                        android:text="Canviar número d\'entrades reservades:"/>
                     <Spinner
                         android:id="@+id/spEntrades"
                         android:layout_width="wrap_content"
@@ -93,9 +82,10 @@
                     android:id="@+id/tvEntradesAssignades"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Se t\'han preassignat les entrades X, Y, Z."
+                    android:text="Se t\'han assignat les entrades X, Y, Z."
                     android:paddingTop="10dp"/>
                 <LinearLayout
+                    android:id="@+id/llTotalLocalitats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -109,7 +99,7 @@
                         android:id="@+id/tvLocalitatsDisponible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Localitats: 50"
+                        android:text="Disponibles: 50"
                         android:paddingLeft="10dp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -130,11 +120,17 @@
             android:layout_marginLeft="20dp"
             android:text="Enrere" />
         <Button
-            android:id="@+id/btnFormalitzarReserva"
+            android:id="@+id/btnModificarReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Formalitzar reserva" />
+            android:text="Modificar reserva" />
+        <Button
+            android:id="@+id/btnCancelarReserva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="Cancel·lar reserva" />
 
     </LinearLayout>
 </LinearLayout>
