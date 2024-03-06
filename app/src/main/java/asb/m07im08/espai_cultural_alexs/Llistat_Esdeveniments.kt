@@ -38,7 +38,8 @@ class Llistat_Esdeveniments : AppCompatActivity() {
                 preu = 10.5f,
                 numerat = false,
                 tipus = "Pel·lícula",
-                entrades = MutableList(Esdeveniment_Manager.aforament) { _ -> Entrada(0, "Alexito Numerario") },
+                //entrades = MutableList(Esdeveniment_Manager.aforament) { _ -> Entrada(0, "Alexito Numerario") },
+                entrades = MutableList(Esdeveniment_Manager.aforament) { index -> Entrada(index, "Alexito Numerario") },
                 especific1 = "Frenando Prueba",
                 especific2 = 1999.toString(),
                 especific3 = 111.toString(),
@@ -121,7 +122,7 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         }
         //obro gestió esdeveniment.
         val btnReserves = findViewById<Button>(R.id.btnReserves)
-        btnNou.setOnClickListener {
+        btnReserves.setOnClickListener {
             val intent = Intent(this, Reserves::class.java)
             startActivity(intent)
         }
