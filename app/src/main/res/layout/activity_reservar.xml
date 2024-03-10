@@ -128,13 +128,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Enrere" />
+            android:text="Enrere"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnFormalitzarReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Formalitzar reserva" />
+            android:text="Formalitzar reserva"
+            android:backgroundTint="@color/colorButton" />
 
     </LinearLayout>
 </LinearLayout>

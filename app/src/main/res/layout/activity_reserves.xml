@@ -142,13 +142,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Enrere" />
+            android:text="Enrere"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnModificarReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Modificar reserva" />
+            android:text="Modificar reserva"
+            android:backgroundTint="@color/colorButton" />
         <!--Button
             android:id="@+id/btnCancelarReserva"
             android:layout_width="wrap_content"

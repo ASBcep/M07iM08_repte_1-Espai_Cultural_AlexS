@@ -48,8 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Imatge HR (en alta resolució) de l'esdeveniment"
-                android:textAlignment="center"
-                />
+                android:textAlignment="center" />
             <ImageView
                 android:id="@+id/imgShownElement"
                 android:layout_width="match_parent"
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="Carrega una imatge del dispositiu"
                 android:gravity="top"
-                />
+                android:backgroundTint="@color/colorButton" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -99,7 +98,8 @@
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Carrega una imatge del dispositiu"/>
+                        android:text="Carrega una imatge del dispositiu"
+                        android:backgroundTint="@color/colorButton" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -393,18 +393,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Enrere" />
+            android:text="Enrere"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnModifiCrear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="ModifiCrear" />
+            android:text="ModifiCrear"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Eliminar del llistat" />
+            android:text="Eliminar del llistat"
+            android:backgroundTint="@color/colorButton" />
 
 
     </LinearLayout>

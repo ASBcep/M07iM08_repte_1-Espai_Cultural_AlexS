@@ -52,13 +52,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Veure reserves" />
+            android:text="Veure reserves"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnNou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="Nou esdeveniment" />
+            android:text="Nou esdeveniment"
+            android:backgroundTint="@color/colorButton" />
 
     </LinearLayout>
 </LinearLayout>

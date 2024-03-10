@@ -102,24 +102,28 @@ Però amb els poders, també venen els reptes. Alguns estudiants lluiten per con
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Enrere" />
+            android:text="Enrere"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnModificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Modificar" />
+            android:text="Modificar"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel·lar" />
+            android:text="Cancel·lar"
+            android:backgroundTint="@color/colorButton" />
         <Button
             android:id="@+id/btnReservar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="Reservar" />
+            android:text="Reservar"
+            android:backgroundTint="@color/colorButton" />
 
     </LinearLayout>
 </LinearLayout>
