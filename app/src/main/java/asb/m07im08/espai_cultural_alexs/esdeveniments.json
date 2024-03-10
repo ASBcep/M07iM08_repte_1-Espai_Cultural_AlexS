@@ -1,0 +1,150 @@
+[
+  {
+    "id": 1,
+    "nom": "Peli 1",
+    "image": "imatge1.jpg",
+    "descripcio": "Descripció esdeveniment 1",
+    "data": "2024-03-10T12:34:56",
+    "preu": 10.5,
+    "numerat": true,
+    "tipus": "Pel·lícula",
+    "entrades": [
+      {
+        "id": 1,
+        "nom_reserva": "Alexito Numerario"
+      },
+      {
+        "id": 2,
+        "nom_reserva": "Alícia Afortunada"
+      },
+      {
+        "id": 3,
+        "nom_reserva": "Benito Billete"
+      }
+    ],
+    "especific1": "Frenando Prueba",
+    "especific2": "1999",
+    "especific3": "111",
+    "especific4": [
+      "Kenoa Ribes",
+      "Catering Zeta Joan",
+      "Garrison Porc"
+    ]
+  },
+  {
+    "id": 2,
+    "nom": "Xerrada Esdeveniment 2",
+    "image": "imatge1.jpg",
+    "descripcio": "Descripció esdeveniment 2",
+    "data": "2024-03-10T12:34:56",
+    "preu": 10.5,
+    "numerat": false,
+    "tipus": "Xerrada",
+    "entrades": [
+      {
+        "id": 1,
+        "nom_reserva": "Anna"
+      },
+      {
+        "id": 2,
+        "nom_reserva": "Joan"
+      },
+      {
+        "id": 3,
+        "nom_reserva": "Marc"
+      }
+    ],
+    "especific1": "",
+    "especific2": "",
+    "especific3": "",
+    "especific4": ["Alex Bolea", "Marcos Garcia", "Luis José"]
+  },
+  {
+    "id": 3,
+    "nom": "Concert Esdeveniment 3",
+    "image": "imatge1.jpg",
+    "descripcio": "Descripció esdeveniment 3",
+    "data": "2024-03-10T12:34:56",
+    "preu": 10.5,
+    "numerat": true,
+    "tipus": "Concert",
+    "entrades": [
+      {
+        "id": 1,
+        "nom_reserva": "Marta"
+      },
+      {
+        "id": 2,
+        "nom_reserva": "David"
+      },
+      {
+        "id": 3,
+        "nom_reserva": "Laura"
+      },
+      {
+        "id": 4,
+        "nom_reserva": "Carlos"
+      }
+    ],
+    "especific1": "Joan Guillems",
+    "especific2": "Orfeó Ca Talà",
+    "especific3": "Orquesta Simfònica del Va Llest",
+    "especific4": ["Josep Violante", "Anna Guitarrín", "Mariví Piana", "Guillermina Flautènsia", "Ramon Tambort"]
+  },
+  {
+    "id": 4,
+    "nom": "Pel·lícula Esdeveniment 4",
+    "image": "imatge1.jpg",
+    "descripcio": "Descripció esdeveniment 4",
+    "data": "2024-03-10T12:34:56",
+    "preu": 10.5,
+    "numerat": false,
+    "tipus": "Pel·lícula",
+    "entrades": [
+      {
+        "id": 1,
+        "nom_reserva": "Pau"
+      },
+      {
+        "id": 2,
+        "nom_reserva": "Clara"
+      },
+      {
+        "id": 3,
+        "nom_reserva": "Sara"
+      },
+      {
+        "id": 4,
+        "nom_reserva": "Pol"
+      },
+      {
+        "id": 5,
+        "nom_reserva": "Júlia"
+      },
+      {
+        "id": 6,
+        "nom_reserva": "Hugo"
+      },
+      {
+        "id": 7,
+        "nom_reserva": "Berta"
+      },
+      {
+        "id": 8,
+        "nom_reserva": "Eric"
+      },
+      {
+        "id": 9,
+        "nom_reserva": "Eva"
+      },
+      {
+        "id": 10,
+        "nom_reserva": "Miquel"
+      }
+    ],
+    "especific1": "Frenando Prueba",
+    "especific2": "1999",
+    "especific3": "111",
+    "especific4": ["Kenoa Ribes", "Catering Zeta Joan", "Garrison Porc"]
+  }
+]
