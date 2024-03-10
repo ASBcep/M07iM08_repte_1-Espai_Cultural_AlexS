@@ -19,12 +19,6 @@
             android:name=".Reservar"
             android:exported="false" />
         <activity
-            android:name=".Gestio_Numerada"
-            android:exported="false" />
-        <activity
-            android:name=".Gestio_No_Numerada"
-            android:exported="false" />
-        <activity
             android:name=".Gestio_Esdeveniment"
             android:exported="false" />
         <activity

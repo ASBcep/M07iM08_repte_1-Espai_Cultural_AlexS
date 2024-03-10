@@ -2,6 +2,7 @@ package asb.m07im08.espai_cultural_alexs
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,5 +32,10 @@ class Reserves : AppCompatActivity() {
 
         // Assignar l'adaptador al RecyclerView
         recyclerView.adapter = adapter
+
+        val btnEnrereRsrvNum = findViewById<Button>(R.id.btnEnrereRsrvNum)
+        btnEnrereRsrvNum.setOnClickListener {
+            finish()
+        }
     }
 }

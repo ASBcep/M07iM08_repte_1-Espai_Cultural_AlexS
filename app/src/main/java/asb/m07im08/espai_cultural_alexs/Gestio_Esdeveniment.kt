@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -56,6 +57,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         etEspecific4.setText(llistaEnString)
         llEspecificDreta4.visibility = View.GONE
+
+        val btnEnrere = findViewById<Button>(R.id.btnEnrere)
+        btnEnrere.setOnClickListener {
+            finish()
+        }
 
     }
     //funció per buidar camps específics

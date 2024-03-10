@@ -2,5 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorButton">#FF0000</color>
+    <color name="fons">#FFBC81</color>
+    <color name="detalls">#2196F3</color>
+    <color name="boto">#4FD655</color>
+    <color name="titol">#FF0000</color>
+    <color name="quadreEditable">#FFEB3B</color>
+    <color name="enrere">#761E85</color>
+    <color name="contenidorImatge">#FFFFFF</color>
+
 </resources>

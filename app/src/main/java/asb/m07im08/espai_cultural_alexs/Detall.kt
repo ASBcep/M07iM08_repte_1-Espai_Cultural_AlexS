@@ -41,5 +41,9 @@ class Detall : AppCompatActivity() {
             val intent = Intent(this, Reservar::class.java)
             startActivity(intent)
         }
+        val btnEnrere = findViewById<Button>(R.id.btnEnrere)
+        btnEnrere.setOnClickListener {
+            finish()
+        }
    }
 }

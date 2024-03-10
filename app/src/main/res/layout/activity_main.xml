@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fons">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,14 +51,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:paddingBottom="10dp"/>
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/titol"/>
 
                 <Button
                     android:id="@+id/btnLlistat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gestió d'esdeveniments"
-                    android:backgroundTint="@color/colorButton"
+                    android:backgroundTint="@color/boto"
                     android:textSize="20sp"/>
             </LinearLayout>
 

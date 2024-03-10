@@ -44,8 +44,7 @@ class Esdeveniments_Reservats : AppCompatActivity() {
         //obro gestió esdeveniment.
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         btnEnrere.setOnClickListener {
-            val intent = Intent(this, Reserves::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }
