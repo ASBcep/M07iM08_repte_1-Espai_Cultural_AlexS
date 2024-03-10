@@ -16,17 +16,7 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         setContentView(R.layout.activity_llistat_esdeveniments)
 
         val columnesRecyclerView = 1;
-
-        //falta funció per cridar a lectura json en una classe a banda, i si no troba el json que ompli la llista.
-
-        // Crear una llista d'exemple d'esdeveniments (substitueix-ho per la teva llista real)
-        /*var esdeveniments = mutableListOf<Esdeveniment>(
-            Esdeveniment(1, "Nom Esdeveniment 1", "imatge1.jpg", "Descripció esdeveniment 1",LocalDateTime.now(),10.5f,false,"Pel·lícula",
-                MutableList(Esdeveniment_Manager.aforament) { _ -> Entrada(0,"Alexito Numerario") },"Frenando Prueba",1999.toString(),111.toString(),MutableList<String>("Kenoa Ribes","Catering Zeta Joan","Garrison Porc"),),
-            Esdeveniment(2, "Nom Esdeveniment 2", "imatge2.jpg", "Descripció esdeveniment 2",LocalDateTime.of(2024,3,30,15,30),15.0f),
-            Esdeveniment(3, "Nom Esdeveniment 3", "imatge2.jpg", "Descripció esdeveniment 3",LocalDateTime.of(2024,5,2,21,0),15.0f),
-            Esdeveniment(4, "Nom Esdeveniment 4", "imatge2.jpg", "Descripció esdeveniment 4",LocalDateTime.of(2024,8,5,19,45),15.0f)
-        )*/
+/*
         // Creació de la llista mutable d'Esdeveniments
         var esdeveniments = mutableListOf<Esdeveniment>(
             Esdeveniment(
@@ -92,11 +82,8 @@ class Llistat_Esdeveniments : AppCompatActivity() {
             ),
 
         )
-
-        Esdeveniment_Manager.esdeveniments.clear()
-        Esdeveniment_Manager.esdeveniments.addAll(esdeveniments)
-
-        val esdevenimentsJson = ActualitzarLlistat(this);
+*/
+        ActualitzarLlistat(this)
 
         // Trobar el RecyclerView pel seu ID
         val recyclerView = findViewById<RecyclerView>(R.id.ListEsdeveniments)
@@ -106,7 +93,7 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        val adapter = EsdevenimentAdapter(esdeveniments) { esdeveniment ->
+        val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment ->
             // Gestiona el clic de l'esdeveniment
 
             val intent = Intent(this, Detall::class.java)

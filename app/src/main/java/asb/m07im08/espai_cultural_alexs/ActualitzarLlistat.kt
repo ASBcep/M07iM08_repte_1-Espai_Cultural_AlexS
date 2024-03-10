@@ -2,9 +2,11 @@ package asb.m07im08.espai_cultural_alexs
 
 import android.content.Context
 import android.widget.Toast
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import java.io.FileReader
-import com.google.gson.Gson
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.FileWriter
+import java.io.IOException
 import java.time.LocalDateTime
 
 //aquesta classe permet llegir i escriure desde i a JSON
@@ -12,10 +14,109 @@ import java.time.LocalDateTime
 class ActualitzarLlistat (context: Context) {
 
     private val jsonFilePath = context.filesDir.toString() + "/json/esdeveniments.json"
-    private val esdeveniments: MutableList<Esdeveniment>
 
-    //inicialitzo la llista LOCAL d'esdeveniments
+    private var esdeveniments: MutableList<Esdeveniment> = mutableListOf()
+
     init {
+        try {
+            val jsonFile = FileReader(jsonFilePath)
+            val jsonObject = JSONObject(jsonFile.readText())
+
+            val entradesJsonArray = jsonObject.getJSONArray("entrades")
+            val entrades: MutableList<Entrada> = mutableListOf()
+
+            // Llegir les entrades per a cada esdeveniment
+            for (j in 0 until entradesJsonArray.length()) {
+                val entradaJsonObject = entradesJsonArray.getJSONObject(j)
+                val entrada = Entrada(
+                    id = entradaJsonObject.getInt("id"),
+                    nom_reserva = entradaJsonObject.getString("nom_reserva")
+                )
+                entrades.add(entrada)
+            }
+
+            val esdeveniment = Esdeveniment(
+                id = jsonObject.getInt("id"),
+                nom = jsonObject.getString("nom"),
+                image = jsonObject.getString("image"),
+                descripcio = jsonObject.getString("descripcio"),
+                data = LocalDateTime.parse(jsonObject.getString("data")),
+                preu = jsonObject.getDouble("preu").toFloat(),
+                numerat = jsonObject.getBoolean("numerat"),
+                tipus = jsonObject.getString("tipus"),
+                entrades = entrades,
+                especific1 = jsonObject.getString("especific1"),
+                especific2 = jsonObject.getString("especific2"),
+                especific3 = jsonObject.getString("especific3"),
+                especific4 = mutableListOf<String>().apply {
+                    val especific4Array = jsonObject.getJSONArray("especific4")
+                    for (j in 0 until especific4Array.length()) {
+                        add(especific4Array.getString(j))
+                    }
+                }
+            )
+            esdeveniments.add(esdeveniment)
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(
+                context,
+                "Error en llegir el JSON d'esdeveniments: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        Esdeveniment_Manager.esdeveniments = esdeveniments
+    }
+
+    fun guardarEsdeveniments(context: Context) {
+        try {
+            val jsonArray = JSONArray()//si no funciona potser ha de ser jsonobject en comptes de jsonarray
+
+            // Recorrer la llista d'esdeveniments i afegir-los a l'array JSON
+            for (esdeveniment in esdeveniments) {
+                val jsonObject = JSONObject().apply {
+                    put("id", esdeveniment.id)
+                    put("nom", esdeveniment.nom)
+                    put("image", esdeveniment.image)
+                    put("descripcio", esdeveniment.descripcio)
+                    put("data", esdeveniment.data.toString())
+                    put("preu", esdeveniment.preu.toDouble())
+                    put("numerat", esdeveniment.numerat)
+                    put("tipus", esdeveniment.tipus)
+                    put("especific1", esdeveniment.especific1)
+                    put("especific2", esdeveniment.especific2)
+                    put("especific3", esdeveniment.especific3)
+                    put("especific4", JSONArray(esdeveniment.especific4))
+
+                    // Afegir les entrades a l'objecte JSON de l'esdeveniment
+                    val entradesJsonArray = JSONArray()
+                    for (entrada in esdeveniment.entrades) {
+                        val entradaJsonObject = JSONObject().apply {
+                            put("id", entrada.id)
+                            put("nom_reserva", entrada.nom_reserva)
+                        }
+                        entradesJsonArray.put(entradaJsonObject)
+                    }
+                    put("entrades", entradesJsonArray)
+                }
+
+                jsonArray.put(jsonObject)
+            }
+
+            // Escriure l'array JSON a l'arxiu
+            val fileWriter = FileWriter(jsonFilePath)
+            fileWriter.use { it.write(jsonArray.toString()) }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(
+                context,
+                "Error en escriure el JSON d'esdeveniments: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+}
+    /*
         esdeveniments = try {
             val jsonFile = FileReader(jsonFilePath)
             val listEsdevenimentsType = object : TypeToken<List<Esdeveniment>>() {}.type
@@ -129,7 +230,7 @@ class ActualitzarLlistat (context: Context) {
             ) // Retorna una llista amb 4 esdeveniments per defecte en cas d'excepció per evitar valors nuls
         }
         Esdeveniment_Manager.esdeveniments = esdeveniments
-    }
+    }*/
 
     /*public fun llegirEsdeveniments(
         context: Context,
@@ -169,6 +270,6 @@ class ActualitzarLlistat (context: Context) {
                 esdevenimentsField = esdeveniments
             }
             return esdevenimentsField
-        }*/
-    }
-}
+        }
+
+}*/
