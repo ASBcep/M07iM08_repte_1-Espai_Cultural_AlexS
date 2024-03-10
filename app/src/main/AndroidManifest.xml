@@ -34,6 +34,9 @@
             android:name=".Llistat_Esdeveniments"
             android:exported="false" />
         <activity
+            android:name=".Esdeveniments_Reservats"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

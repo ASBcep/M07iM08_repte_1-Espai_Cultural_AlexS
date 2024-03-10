@@ -77,7 +77,7 @@ class Llistat_Esdeveniments : AppCompatActivity() {
             ),
             Esdeveniment(
                 id = 4,
-                nom = "Nom Esdeveniment 4",
+                nom = "Nom Esdeveniment 4 sense entrades reservades",
                 image = "imatge1.jpg",
                 descripcio = "Descripció esdeveniment 4",
                 data = LocalDateTime.now(),
@@ -120,12 +120,19 @@ class Llistat_Esdeveniments : AppCompatActivity() {
             val intent = Intent(this, Gestio_Esdeveniment::class.java)
             startActivity(intent)
         }
-        //obro gestió esdeveniment.
+        //obro esdeveniments reservats.
+        val btnReserves = findViewById<Button>(R.id.btnReserves)
+        btnReserves.setOnClickListener {
+            //val intent = Intent(this, Reserves::class.java)
+            val intent = Intent(this, Esdeveniments_Reservats::class.java)
+            startActivity(intent)
+        }
+        /*//obro reserves.
         val btnReserves = findViewById<Button>(R.id.btnReserves)
         btnReserves.setOnClickListener {
             val intent = Intent(this, Reserves::class.java)
             startActivity(intent)
-        }
+        }*/
 
 
     }

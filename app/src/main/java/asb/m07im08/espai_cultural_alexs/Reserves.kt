@@ -11,8 +11,6 @@ class Reserves : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserves)
 
-        Toast.makeText(this, "falta una activity per triar esdeveniment", Toast.LENGTH_SHORT).show()
-
 
         var index = 0
         val columnesRecyclerView = 1
