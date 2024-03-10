@@ -96,6 +96,8 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         Esdeveniment_Manager.esdeveniments.clear()
         Esdeveniment_Manager.esdeveniments.addAll(esdeveniments)
 
+        val esdevenimentsJson = ActualitzarLlistat(this);
+
         // Trobar el RecyclerView pel seu ID
         val recyclerView = findViewById<RecyclerView>(R.id.ListEsdeveniments)
 
