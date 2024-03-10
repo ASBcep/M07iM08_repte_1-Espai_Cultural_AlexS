@@ -14,48 +14,52 @@ import java.time.LocalDateTime
 class ActualitzarLlistat (context: Context) {
 
     private val jsonFilePath = context.filesDir.toString() + "/json/esdeveniments.json"
-
     private var esdeveniments: MutableList<Esdeveniment> = mutableListOf()
 
     init {
         try {
             val jsonFile = FileReader(jsonFilePath)
-            val jsonObject = JSONObject(jsonFile.readText())
+            val jsonArray = JSONArray(jsonFile.readText()) // Llegir com un JSONArray
 
-            val entradesJsonArray = jsonObject.getJSONArray("entrades")
-            val entrades: MutableList<Entrada> = mutableListOf()
+            // Recórrer cada esdeveniment de la llista JSON
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
 
-            // Llegir les entrades per a cada esdeveniment
-            for (j in 0 until entradesJsonArray.length()) {
-                val entradaJsonObject = entradesJsonArray.getJSONObject(j)
-                val entrada = Entrada(
-                    id = entradaJsonObject.getInt("id"),
-                    nom_reserva = entradaJsonObject.getString("nom_reserva")
-                )
-                entrades.add(entrada)
-            }
-
-            val esdeveniment = Esdeveniment(
-                id = jsonObject.getInt("id"),
-                nom = jsonObject.getString("nom"),
-                image = jsonObject.getString("image"),
-                descripcio = jsonObject.getString("descripcio"),
-                data = LocalDateTime.parse(jsonObject.getString("data")),
-                preu = jsonObject.getDouble("preu").toFloat(),
-                numerat = jsonObject.getBoolean("numerat"),
-                tipus = jsonObject.getString("tipus"),
-                entrades = entrades,
-                especific1 = jsonObject.getString("especific1"),
-                especific2 = jsonObject.getString("especific2"),
-                especific3 = jsonObject.getString("especific3"),
-                especific4 = mutableListOf<String>().apply {
-                    val especific4Array = jsonObject.getJSONArray("especific4")
-                    for (j in 0 until especific4Array.length()) {
-                        add(especific4Array.getString(j))
-                    }
+                // Llegir les entrades per a cada esdeveniment
+                val entradesJsonArray = jsonObject.getJSONArray("entrades")
+                val entrades: MutableList<Entrada> = mutableListOf()
+                for (j in 0 until entradesJsonArray.length()) {
+                    val entradaJsonObject = entradesJsonArray.getJSONObject(j)
+                    val entrada = Entrada(
+                        id = entradaJsonObject.getInt("id"),
+                        nom_reserva = entradaJsonObject.getString("nom_reserva")
+                    )
+                    entrades.add(entrada)
                 }
-            )
-            esdeveniments.add(esdeveniment)
+
+                // Crear l'objecte Esdeveniment i afegir-lo a la llista
+                val esdeveniment = Esdeveniment(
+                    id = jsonObject.getInt("id"),
+                    nom = jsonObject.getString("nom"),
+                    image = jsonObject.getString("image"),
+                    descripcio = jsonObject.getString("descripcio"),
+                    data = LocalDateTime.parse(jsonObject.getString("data")),
+                    preu = jsonObject.getDouble("preu").toFloat(),
+                    numerat = jsonObject.getBoolean("numerat"),
+                    tipus = jsonObject.getString("tipus"),
+                    entrades = entrades,
+                    especific1 = jsonObject.getString("especific1"),
+                    especific2 = jsonObject.getString("especific2"),
+                    especific3 = jsonObject.getString("especific3"),
+                    especific4 = mutableListOf<String>().apply {
+                        val especific4Array = jsonObject.getJSONArray("especific4")
+                        for (j in 0 until especific4Array.length()) {
+                            add(especific4Array.getString(j))
+                        }
+                    }
+                )
+                esdeveniments.add(esdeveniment)
+            }
 
         } catch (e: IOException) {
             e.printStackTrace()
@@ -67,6 +71,7 @@ class ActualitzarLlistat (context: Context) {
         }
         Esdeveniment_Manager.esdeveniments = esdeveniments
     }
+
 
     fun guardarEsdeveniments(context: Context) {
         try {
