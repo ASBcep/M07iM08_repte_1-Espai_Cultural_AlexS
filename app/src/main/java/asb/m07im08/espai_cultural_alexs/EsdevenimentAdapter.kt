@@ -39,7 +39,7 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
 
         fun bindElement(esdeveniment: Esdeveniment) {
             val imgVwElement = itemView.findViewById<ImageView>(R.id.ImgListEsdeveniment)
-            val imgElementPath = itemView.context.getFilesDir().toString() + "/imgelements/" + "hr." + esdeveniment.image
+            val imgElementPath = itemView.context.getFilesDir().toString() + "/imgelements/" + "HR." + esdeveniment.imatgeHR
             //val bitmap = BitmapFactory.decodeFile(imgElementPath)
             //val bitmap = BitmapFactory.decodeResource(itemView.resources, R.drawable.defaultelement)
 

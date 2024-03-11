@@ -2,7 +2,8 @@
   {
     "id": 1,
     "nom": "Peli 1",
-    "image": "imatge1.jpg",
+    "imatgeHR": "hr.imatge1.jpg",
+    "imatgeSR": "sr.imatge1.jpg",
     "descripcio": "Descripció esdeveniment 1",
     "data": "2024-03-10T12:34:56",
     "preu": 10.5,
@@ -34,7 +35,8 @@
   {
     "id": 2,
     "nom": "Xerrada Esdeveniment 2",
-    "image": "imatge1.jpg",
+    "imatgeHR": "hr.imatge1.jpg",
+    "imatgeSR": "sr.imatge1.jpg",
     "descripcio": "Descripció esdeveniment 2",
     "data": "2024-03-10T12:34:56",
     "preu": 10.5,
@@ -62,7 +64,8 @@
   {
     "id": 3,
     "nom": "Concert Esdeveniment 3",
-    "image": "imatge1.jpg",
+    "imatgeHR": "hr.imatge1.jpg",
+    "imatgeSR": "sr.imatge1.jpg",
     "descripcio": "Descripció esdeveniment 3",
     "data": "2024-03-10T12:34:56",
     "preu": 10.5,
@@ -94,7 +97,8 @@
   {
     "id": 4,
     "nom": "Pel·lícula Esdeveniment 4",
-    "image": "imatge1.jpg",
+    "imatgeHR": "hr.imatge1.jpg",
+    "imatgeSR": "sr.imatge1.jpg",
     "descripcio": "Descripció esdeveniment 4",
     "data": "2024-03-10T12:34:56",
     "preu": 10.5,

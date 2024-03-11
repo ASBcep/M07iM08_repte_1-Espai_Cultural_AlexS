@@ -6,10 +6,11 @@ import java.time.LocalDateTime
 class Esdeveniment (
     val id: Int,
     val nom: String,
-    val image: String,
+    val imatgeHR: String,
+    val imatgeSR: String,
     val descripcio: String,
     val data: LocalDateTime,
-    val preu: Float,
+    val preu: Double,
     val numerat: Boolean,
     val tipus: String,
     val entrades: MutableList<Entrada>,
