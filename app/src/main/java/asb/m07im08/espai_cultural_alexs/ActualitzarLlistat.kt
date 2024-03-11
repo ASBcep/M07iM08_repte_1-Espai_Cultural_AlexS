@@ -75,7 +75,7 @@ class ActualitzarLlistat (context: Context) {
 
     fun guardarEsdeveniments(context: Context) {
         try {
-            val jsonArray = JSONArray()//si no funciona potser ha de ser jsonobject en comptes de jsonarray
+            val jsonArray = JSONArray()
 
             // Recorrer la llista d'esdeveniments i afegir-los a l'array JSON
             for (esdeveniment in esdeveniments) {

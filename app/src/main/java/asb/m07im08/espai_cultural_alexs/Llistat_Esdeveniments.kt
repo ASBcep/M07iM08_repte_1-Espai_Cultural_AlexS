@@ -93,9 +93,9 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment ->
+        val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
             // Gestiona el clic de l'esdeveniment
-
+            Esdeveniment_Manager.index = position
             val intent = Intent(this, Detall::class.java)
             startActivity(intent)
         }

@@ -31,9 +31,9 @@ class Esdeveniments_Reservats : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        val adapter = EsdevenimentAdapter(esdevenimentsReservats) { esdeveniment ->
+        val adapter = EsdevenimentAdapter(esdevenimentsReservats) { esdeveniment, position ->
             // Gestiona el clic de l'esdeveniment
-
+            Esdeveniment_Manager.index = position
             val intent = Intent(this, Reserves::class.java)
             startActivity(intent)
         }

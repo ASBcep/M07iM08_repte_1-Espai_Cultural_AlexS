@@ -17,9 +17,14 @@ class Detall : AppCompatActivity() {
         setContentView(R.layout.activity_detall)
         val lvDetalls = findViewById<ListView>(R.id.lvDetalls)
 
+        val esdevenimentDetall = Esdeveniment_Manager.esdeveniments[Esdeveniment_Manager.index]
+
+        //header del listview:
         val headerView = layoutInflater.inflate(R.layout.textview_layout, null, false)
+
         val txtVwPersonalitzat = headerView.findViewById<TextView>(R.id.txtVwPersonalitzat)
-        txtVwPersonalitzat.text = getString(R.string.descripcio_demo)
+        //txtVwPersonalitzat.text = getString(R.string.descripcio_demo)
+        txtVwPersonalitzat.text = esdevenimentDetall.descripcio
 
         // Afegir l'encapçalament abans de configurar l'adaptador
         lvDetalls.addHeaderView(headerView)

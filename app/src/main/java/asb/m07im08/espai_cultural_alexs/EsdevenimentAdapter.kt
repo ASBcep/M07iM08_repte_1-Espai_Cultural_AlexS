@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
-class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick: (Esdeveniment) -> Unit) :
+class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick: (Esdeveniment, Int) -> Unit) :
     RecyclerView.Adapter<EsdevenimentAdapter.EsdevenimentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EsdevenimentViewHolder {
@@ -24,9 +24,14 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
 
         // Configurar el clic del elemento
         holder.itemView.setOnClickListener {
-            onItemClick(esdeveniment)
+            //onItemClick(esdeveniment)
+            onItemClick(esdeveniment,position)
         }
     }
+
+    /*private fun onItemClick(esdeveniment: Esdeveniment, position: Int) {
+        Esdeveniment_Manager.index = position
+    }*/
 
     override fun getItemCount(): Int = esdeveniments.size
 
@@ -34,7 +39,7 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
 
         fun bindElement(esdeveniment: Esdeveniment) {
             val imgVwElement = itemView.findViewById<ImageView>(R.id.ImgListEsdeveniment)
-            val imgElementPath = itemView.context.getFilesDir().toString() + "/imgelements/" + esdeveniment.image
+            val imgElementPath = itemView.context.getFilesDir().toString() + "/imgelements/" + "hr." + esdeveniment.image
             //val bitmap = BitmapFactory.decodeFile(imgElementPath)
             //val bitmap = BitmapFactory.decodeResource(itemView.resources, R.drawable.defaultelement)
 
@@ -49,7 +54,8 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
             val esdevenimentNom = itemView.findViewById<TextView>(R.id.NomListEsdeveniment)
             esdevenimentNom.text = esdeveniment.nom
             val esdevenimentData = itemView.findViewById<TextView>(R.id.dataHoraEsdeveniment)
-            esdevenimentData.text = esdeveniment.data.toString()
+            //esdevenimentData.text = esdeveniment.data.toString()
+            esdevenimentData.text = ConversorDateTime.convertir(esdeveniment.data)
             val esdevenimentPreu = itemView.findViewById<TextView>(R.id.preuEsdeveniment)
             esdevenimentPreu.text = "Preu: " + esdeveniment.preu.toString() + "€"
 
