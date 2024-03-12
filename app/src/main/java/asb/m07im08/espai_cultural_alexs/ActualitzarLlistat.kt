@@ -41,8 +41,7 @@ class ActualitzarLlistat (context: Context) {
                 val esdeveniment = Esdeveniment(
                     id = jsonObject.getInt("id"),
                     nom = jsonObject.getString("nom"),
-                    imatgeHR = jsonObject.getString("imageHR"),
-                    imatgeSR = jsonObject.getString("imageSR"),
+                    imatge = jsonObject.getString("imatge"),
                     descripcio = jsonObject.getString("descripcio"),
                     data = LocalDateTime.parse(jsonObject.getString("data")),
                     preu = jsonObject.getDouble("preu"),
@@ -83,8 +82,7 @@ class ActualitzarLlistat (context: Context) {
                 val jsonObject = JSONObject().apply {
                     put("id", esdeveniment.id)
                     put("nom", esdeveniment.nom)
-                    put("imageHR", esdeveniment.imatgeHR)
-                    put("imageSR", esdeveniment.imatgeSR)
+                    put("imatge", esdeveniment.imatge)
                     put("descripcio", esdeveniment.descripcio)
                     put("data", esdeveniment.data.toString())
                     put("preu", esdeveniment.preu.toDouble())

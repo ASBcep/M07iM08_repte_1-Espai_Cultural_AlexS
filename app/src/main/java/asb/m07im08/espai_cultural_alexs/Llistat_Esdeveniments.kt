@@ -30,7 +30,12 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
             // Gestiona el clic de l'esdeveniment
             Esdeveniment_Manager.index = position
-            val intent = Intent(this, Detall::class.java)
+            //val intent = Intent(this, Detall::class.java)//canvio la classe
+            val intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
+                putExtra("detall", true)
+                //putExtra("nou", true)
+                //putExtra("modificar", false)
+            }
             startActivity(intent)
         }
 
@@ -41,9 +46,9 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         val btnNou = findViewById<Button>(R.id.btnNou)
         btnNou.setOnClickListener {
             val intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
-                putExtra("detall", false)
+                //putExtra("detall", false)
                 putExtra("nou", true)
-                putExtra("modificar", false)
+                //putExtra("modificar", false)
             }
             startActivity(intent)
         }

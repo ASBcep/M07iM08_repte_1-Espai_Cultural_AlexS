@@ -12,7 +12,7 @@
         android:paddingTop="10dp">
 
         <TextView
-            android:id="@+id/TVtitol"
+            android:id="@+id/tvTitol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -22,7 +22,7 @@
             android:padding="10dp"
             android:textColor="@color/titol"/>
         <EditText
-            android:id="@+id/ETtitol"
+            android:id="@+id/etTitol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -32,7 +32,8 @@
             android:gravity="center"
             android:padding="10dp"
             android:inputType="text"
-            android:backgroundTint="@color/quadreEditable"/>
+            android:backgroundTint="@color/quadreEditable"
+            android:textColor="@color/titol"/>
 
     </LinearLayout>
 
@@ -289,7 +290,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:hint="número"
-                                android:layout_weight="1"/>
+                                android:layout_weight="1"
+                                android:inputType="number"
+                                android:backgroundTint="@color/quadreEditable"/>
                         </LinearLayout>
                         <RadioGroup
                             android:layout_width="wrap_content"
@@ -331,6 +334,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Concert d'òpera"/>
+                        <TextView
+                            android:id="@+id/tvTipus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tipus"/>
                     </RadioGroup>
 
                     <LinearLayout
