@@ -9,6 +9,7 @@ class Esdeveniment (
     val imatge: String,
     val descripcio: String,
     val data: LocalDateTime,
+    val idioma: String,
     val preu: Double,
     val numerat: Boolean,
     val tipus: String,

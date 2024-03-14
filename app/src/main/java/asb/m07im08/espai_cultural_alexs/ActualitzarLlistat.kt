@@ -44,6 +44,7 @@ class ActualitzarLlistat (context: Context) {
                     imatge = jsonObject.getString("imatge"),
                     descripcio = jsonObject.getString("descripcio"),
                     data = LocalDateTime.parse(jsonObject.getString("data")),
+                    idioma = jsonObject.getString("idioma"),
                     preu = jsonObject.getDouble("preu"),
                     numerat = jsonObject.getBoolean("numerat"),
                     tipus = jsonObject.getString("tipus"),
@@ -85,6 +86,7 @@ class ActualitzarLlistat (context: Context) {
                     put("imatge", esdeveniment.imatge)
                     put("descripcio", esdeveniment.descripcio)
                     put("data", esdeveniment.data.toString())
+                    put("data", esdeveniment.idioma.toString())
                     put("preu", esdeveniment.preu.toDouble())
                     put("numerat", esdeveniment.numerat)
                     put("tipus", esdeveniment.tipus)

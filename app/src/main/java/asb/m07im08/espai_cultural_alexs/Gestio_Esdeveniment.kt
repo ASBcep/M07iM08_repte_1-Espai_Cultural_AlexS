@@ -18,6 +18,10 @@ import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import java.time.LocalDateTime
+import java.time.Month
+import java.time.MonthDay
+import java.time.Year
+import java.util.Date
 
 class Gestio_Esdeveniment : AppCompatActivity() {
     private var detall: Boolean = false
@@ -66,14 +70,44 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etHora = findViewById<EditText>(R.id.etHora)
         val etMinuts = findViewById<EditText>(R.id.etMinuts)
 
+        val etIdioma = findViewById<EditText>(R.id.etIdioma)
+        val etPreu = findViewById<EditText>(R.id.etPreu)
+
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
+
+        ivCalendari.visibility = View.GONE
+        etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
+        etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
+
+        val mesFormatat = String.format("%02d", esdevenimentThis.data.monthValue)
 
         if (detall){
             tvTitol.visibility = View.GONE
             etTitol.isEnabled = false
             etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
+            etAny.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.year.toString())
+            etAny.isEnabled = false
+            //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
+            etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
+            etMes.isEnabled = false
+            etDia.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.dayOfMonth.toString())
+            etDia.isEnabled = false
+            etHora.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.hour.toString())
+            etHora.isEnabled = false
+            etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
+            etMinuts.isEnabled = false
             rgEsdeveniment.visibility = View.GONE
+            if (esdevenimentThis.tipus == "Pel·lícula"){
+                rbPeli.isChecked = true
+            } else if (esdevenimentThis.tipus == "Xerrada"){
+                rbXerrada.isChecked = true
+            } else if (esdevenimentThis.tipus == "Concert") {
+                rbConcert.isChecked = true
+            }
+            btnModifiCrear.text = "Modificar"
+            btnEliminar.visibility = View.GONE
+            ivCalendari.visibility = View.GONE
         }
         if (nou){
             rgEsdeveniment.visibility = View.VISIBLE
@@ -81,8 +115,16 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnEliminar.visibility = View.GONE
         }
         if (modificar){
+            etAny.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.year.toString())
+            //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
+            etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
+            etDia.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.dayOfMonth.toString())
+            etHora.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.hour.toString())
+            etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
             etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
-            rgEsdeveniment.visibility = View.VISIBLE
+            rgEsdeveniment.visibility = View.GONE
+            btnModifiCrear.text = "Desar canvis"
+
         }
 
         rgEsdeveniment.setOnCheckedChangeListener{_, isChecked ->
@@ -101,9 +143,32 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 habilitarCamps(esdevenimentThis, "Concert")
             }*/
         }
+        /*
         ivCalendari.setOnClickListener{
-            obrirDatePicker()
+            var any = LocalDateTime.now().year
+            var mes = LocalDateTime.now().month
+            var dia = LocalDateTime.now().dayOfMonth
+            var hora = LocalDateTime.now().hour
+            var minuts = LocalDateTime.now().minute
+
+            if (modificar){
+                any = esdevenimentThis.data.year
+                mes = esdevenimentThis.data.month
+                dia = esdevenimentThis.data.dayOfMonth
+                hora = esdevenimentThis.data.hour
+                minuts = esdevenimentThis.data.minute
+            }
+            var localDateTime: LocalDateTime
+            localDateTime = obrirDatePicker(any, mes.toString().toInt(), dia, hora, minuts)
+
+            etAny.text = Editable.Factory.getInstance().newEditable(localDateTime.year.toString())
+            etMes.text = Editable.Factory.getInstance().newEditable(localDateTime.month.toString())
+            etDia.text = Editable.Factory.getInstance().newEditable(localDateTime.dayOfMonth.toString())
+            etHora.text = Editable.Factory.getInstance().newEditable(localDateTime.hour.toString())
+            etMinuts.text = Editable.Factory.getInstance().newEditable(localDateTime.minute.toString())
+
         }
+        */
 
         val llista = listOf("Llista específica Element 1", "Llista específica Element 2", "Llista específica Element 3", "Llista específica Element 4")
         val llistaEnString = llista.joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
@@ -125,6 +190,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val imatge = ""
         val descripcio = ""
         val data = LocalDateTime.now()
+        val idioma = ""
         val preu = 0.00
         val numerat = false
         val tipus = ""
@@ -133,7 +199,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val especific2 = ""
         val especific3 = ""
         val especific4: MutableList<String> = mutableListOf()
-        var esdeveniment = Esdeveniment(id, nom, imatge, descripcio, data, preu, numerat, tipus, entrades, especific1, especific2, especific3, especific4)
+        var esdeveniment = Esdeveniment(id, nom, imatge, descripcio, data, idioma, preu, numerat, tipus, entrades, especific1, especific2, especific3, especific4)
 
         //comprovar si rebem esdeveniment o se n'ha de crear un de nou
         if (detall){
@@ -142,41 +208,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             esdeveniment = Esdeveniment_Manager.esdeveniments[Esdeveniment_Manager.index]
         } // si es nou retornarà un esdeveniment buit
         return esdeveniment
-    }
-
-    private fun obrirDatePicker() {//falta assignar data als editext
-        // Obre el selector de data
-        var currentDate = Calendar.getInstance()
-        var year = currentDate.get(Calendar.YEAR)
-        var month = currentDate.get(Calendar.MONTH)
-        var day = currentDate.get(Calendar.DAY_OF_MONTH)
-
-        val currentTime = Calendar.getInstance()
-        var hour = currentTime.get(Calendar.HOUR_OF_DAY)
-        var minute = currentTime.get(Calendar.MINUTE)
-
-        val datePickerDialog = DatePickerDialog(this,
-            DatePickerDialog.OnDateSetListener { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-                // Obre el selector d'hora quan es selecciona la data
-
-                hour = currentTime.get(Calendar.HOUR_OF_DAY)
-                minute = currentTime.get(Calendar.MINUTE)
-
-                val timePickerDialog = TimePickerDialog(this,
-                    TimePickerDialog.OnTimeSetListener { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
-                        // Aquí pots fer el que vulguis amb la data i hora seleccionades
-                        val selectedDateTime = Calendar.getInstance()
-                        selectedDateTime.set(selectedYear, selectedMonth, selectedDay, selectedHour, selectedMinute)
-                        println("Data i Hora seleccionades: ${selectedDateTime.time}")
-                    }, hour, minute, true)
-
-                timePickerDialog.show()
-            }, year, month, day)
-
-        datePickerDialog.show()
-    }
-
-    //funció per buidar camps específics
+    }//funció per buidar camps específics
     private fun resetCamps(){
         //declaro Views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
