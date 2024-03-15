@@ -38,17 +38,18 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
     class EsdevenimentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindElement(esdeveniment: Esdeveniment) {
-            val imgVwElement = itemView.findViewById<ImageView>(R.id.ImgListEsdeveniment)
-            val imgElementPath = itemView.context.getFilesDir().toString() + "/imgelements/" + "HR." + esdeveniment.imatge
-            //val bitmap = BitmapFactory.decodeFile(imgElementPath)
-            //val bitmap = BitmapFactory.decodeResource(itemView.resources, R.drawable.defaultelement)
+            val ivListEsdeveniment = itemView.findViewById<ImageView>(R.id.ivListEsdeveniment)
+            /*
+            val imgElementPath = itemView.context.getFilesDir().toString() + "/img/" + "sr" + esdeveniment.imatge
 
             val bitmap = if (File(imgElementPath).exists()) {
                 BitmapFactory.decodeFile(imgElementPath)
             } else {
-                BitmapFactory.decodeResource(itemView.resources, R.drawable.escut)
+                BitmapFactory.decodeResource(itemView.resources, R.drawable.noimg_sr)
             }
-            imgVwElement.setImageBitmap(bitmap)
+            ivListEsdeveniment.setImageBitmap(bitmap)
+            */
+            GestorImatge.inserirImatgeSR(esdeveniment.imatge, itemView.context, ivListEsdeveniment)
 
             //assigno dades als textviews
             val esdevenimentNom = itemView.findViewById<TextView>(R.id.NomListEsdeveniment)

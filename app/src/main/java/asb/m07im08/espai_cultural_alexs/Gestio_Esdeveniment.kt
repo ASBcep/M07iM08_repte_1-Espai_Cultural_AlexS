@@ -3,6 +3,7 @@ package asb.m07im08.espai_cultural_alexs
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,7 @@ import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import org.w3c.dom.Text
+import java.io.File
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.MonthDay
@@ -43,14 +45,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
 
-
-        /*
-        val llEspecific1a3 = findViewById<LinearLayout>(R.id.llEspecific1a3)
-        val llEspecificEntre3i4 = findViewById<LinearLayout>(R.id.llEspecificEntre3i4)
-        */
-        val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
-        val llEspecificDreta4 = findViewById<LinearLayout>(R.id.llEspecificDreta4)
-        val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
+        val ivSR = findViewById<ImageView>(R.id.ivSR)
+        val ivHR = findViewById<ImageView>(R.id.ivHR)
 
         val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
         val etDia = findViewById<EditText>(R.id.etDia)
@@ -73,81 +69,27 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
         val tvTipus = findViewById<TextView>(R.id.tvTipus)
 
+        val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
+        val llEspecificDreta4 = findViewById<LinearLayout>(R.id.llEspecificDreta4)
+        val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
+
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
 
-        ivCalendari.visibility = View.GONE//si puc faré el datetimepicker
+        //TODO //si puc faré el datetimepicker
+        ivCalendari.visibility = View.GONE
+
+
+        //inserirImatgeSR(esdevenimentThis.imatge)
+        //inserirImatgeHR(esdevenimentThis.imatge)
+        GestorImatge.inserirImatgeSR(esdevenimentThis.imatge, this, ivSR)
+        GestorImatge.inserirImatgeHR(esdevenimentThis.imatge, this, ivHR)
 
         resetCamps()
         habilitarCamps(esdevenimentThis)
         val mesFormatat = String.format("%02d", esdevenimentThis.data.monthValue)
 
-        if (detall){/*
-            tvTitol.visibility = View.GONE
-            etTitol.isEnabled = false
-            etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
-            etAny.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.year.toString())
-            etAny.isEnabled = false
-            //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
-            etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
-            etMes.isEnabled = false
-            etDia.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.dayOfMonth.toString())
-            etDia.isEnabled = false
-            etHora.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.hour.toString())
-            etHora.isEnabled = false
-            etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
-            etMinuts.isEnabled = false
-            etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
-            etIdioma.isEnabled = false
-            etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
-            etPreu.isEnabled = false
-            if (esdevenimentThis.numerat){
-                tvAforament.text = "Aforament numerat"
-            } else {
-                tvAforament.text = "Aforament no numerat"
-            }
-            rgNumerat.visibility = View.GONE
-            tvTipus.visibility = View.VISIBLE
-            tvTipus.text = "Tipus d'esdeveniment: " + esdevenimentThis.tipus
-            rgEsdeveniment.visibility = View.GONE
-            if (esdevenimentThis.tipus == "Pel·lícula"){
-                rbPeli.isChecked = true
-            } else if (esdevenimentThis.tipus == "Xerrada"){
-                rbXerrada.isChecked = true
-            } else if (esdevenimentThis.tipus == "Concert") {
-                rbConcert.isChecked = true
-            }
-            habilitarCamps(esdevenimentThis)
-            btnModifiCrear.text = "Modificar"
-            btnEliminar.visibility = View.GONE
-            ivCalendari.visibility = View.GONE*/
-        }
-        if (nou){/*
-
-            rgEsdeveniment.visibility = View.VISIBLE
-            btnModifiCrear.text = "Crear"
-            btnEliminar.visibility = View.GONE
-        }
-        if (modificar){
-            etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
-            etAny.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.year.toString())
-            //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
-            etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
-            etDia.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.dayOfMonth.toString())
-            etHora.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.hour.toString())
-            etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
-            etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
-            etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
-            if (esdevenimentThis.numerat){
-                rbNumerat.isChecked = true
-            } else {
-                rbNoNumerat.isChecked = true
-            }
-            rgEsdeveniment.visibility = View.GONE
-            btnModifiCrear.text = "Desar canvis"
-*/
-        }
 
         rgEsdeveniment.setOnCheckedChangeListener{_, isChecked ->
             resetCamps()
@@ -183,6 +125,33 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         } // si es nou retornarà un esdeveniment buit
         return esdeveniment
     }//funció per buidar camps específics
+
+    private fun inserirImatgeSR (imatge: String){
+        var imgElementPathPNG = this.getFilesDir().toString() + "/img/" + "sr" + imatge + ".png"
+        var imgElementPathJPG = this.getFilesDir().toString() + "/img/" + "sr" + imatge + ".jpg"
+        var bitmap = if (File(imgElementPathPNG).exists()) {
+            BitmapFactory.decodeFile(imgElementPathPNG)
+        } else if (File(imgElementPathJPG).exists()) {
+            BitmapFactory.decodeFile(imgElementPathJPG)
+        } else {
+            BitmapFactory.decodeResource(resources, R.drawable.noimg_sr)
+        }
+        val ivSR = findViewById<ImageView>(R.id.ivSR)
+        ivSR.setImageBitmap(bitmap)
+    }
+    private fun inserirImatgeHR (imatge: String){
+        var imgElementPathPNG = this.getFilesDir().toString() + "/img/" + "hr" + imatge + ".png"
+        var imgElementPathJPG = this.getFilesDir().toString() + "/img/" + "hr" + imatge + ".jpg"
+        var bitmap = if (File(imgElementPathPNG).exists()) {
+            BitmapFactory.decodeFile(imgElementPathPNG)
+        } else if (File(imgElementPathJPG).exists()) {
+            BitmapFactory.decodeFile(imgElementPathJPG)
+        } else {
+            BitmapFactory.decodeResource(resources, R.drawable.noimg_hr)
+        }
+        val ivHR = findViewById<ImageView>(R.id.ivHR)
+        ivHR.setImageBitmap(bitmap)
+    }
     private fun resetCamps(){
         //declaro Views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)

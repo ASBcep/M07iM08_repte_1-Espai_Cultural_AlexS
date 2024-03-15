@@ -2,7 +2,7 @@
   {
     "id": 1,
     "nom": "Peli 1",
-    "imatge": "1.jpg",
+    "imatge": "1",
     "descripcio": "Descripció esdeveniment 1",
     "data": "2024-03-10T12:34:56",
     "idioma": "Català",
@@ -35,7 +35,7 @@
   {
     "id": 2,
     "nom": "Xerrada Esdeveniment 2",
-    "imatge": "2.jpg",
+    "imatge": "2",
     "descripcio": "Descripció esdeveniment 2",
     "data": "2024-03-10T12:34:56",
     "idioma": "Anglès",
@@ -64,7 +64,7 @@
   {
     "id": 3,
     "nom": "Concert Esdeveniment 3",
-    "imatge": "3.jpg",
+    "imatge": "3",
     "descripcio": "Descripció esdeveniment 3",
     "data": "2024-03-10T12:34:56",
     "idioma": "Català",
@@ -80,7 +80,7 @@
   {
     "id": 4,
     "nom": "Pel·lícula Esdeveniment 4",
-    "imatge": "4.jpg",
+    "imatge": "4",
     "descripcio": "Descripció esdeveniment 4",
     "data": "2024-03-10T12:34:56",
     "idioma": "Castellà",

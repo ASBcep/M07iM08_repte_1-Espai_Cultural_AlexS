@@ -3,6 +3,7 @@ package asb.m07im08.espai_cultural_alexs
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +21,9 @@ class Reserves : AppCompatActivity() {
 
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         tvTitol.text = "Gestionar entrades de " + esdeveniment.nom
+
+        val ivHR = findViewById<ImageView>(R.id.ivHR)
+        GestorImatge.inserirImatgeHR(esdeveniment.imatge, this, ivHR)
 
 
         var index = 0

@@ -6,10 +6,10 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/ImgListEsdeveniment"
+        android:id="@+id/ivListEsdeveniment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/escut"
+        android:src="@drawable/noimg_sr"
         android:layout_margin="10dp"
         android:layout_weight="3"
         android:adjustViewBounds="true"

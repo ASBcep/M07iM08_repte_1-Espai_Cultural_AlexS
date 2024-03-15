@@ -55,11 +55,11 @@
                 android:text="Imatge HR (en alta resolució) de l'esdeveniment"
                 android:textAlignment="center"/>
             <ImageView
-                android:id="@+id/imgShownElement"
+                android:id="@+id/ivHR"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/escut"
+                android:src="@drawable/noimg_hr"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:background="@color/contenidorImatge"/>
@@ -87,7 +87,7 @@
                     android:id="@+id/ivSR"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/escut"
+                    android:src="@drawable/noimg_sr"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitStart"
