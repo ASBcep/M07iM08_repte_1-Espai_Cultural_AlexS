@@ -2,6 +2,7 @@ package asb.m07im08.espai_cultural_alexs
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -46,18 +47,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         /*
         val llEspecific1a3 = findViewById<LinearLayout>(R.id.llEspecific1a3)
         val llEspecificEntre3i4 = findViewById<LinearLayout>(R.id.llEspecificEntre3i4)
-        val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
         */
+        val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
         val llEspecificDreta4 = findViewById<LinearLayout>(R.id.llEspecificDreta4)
-        /*
-        val tvEspecific1 = findViewById<TextView>(R.id.tvEspecific1)
-        val tvEspecific2 = findViewById<TextView>(R.id.tvEspecific2)
-        val tvEspecific3 = findViewById<TextView>(R.id.tvEspecific3)
-        val tvEspecific4 = findViewById<TextView>(R.id.tvEspecific4)
-
-        val etEspecific1 = findViewById<EditText>(R.id.etEspecific1)
-        val etEspecific2 = findViewById<EditText>(R.id.etEspecific2)
-        val etEspecific3 = findViewById<EditText>(R.id.etEspecific3)*/
         val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
 
         val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
@@ -81,6 +73,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
         val tvTipus = findViewById<TextView>(R.id.tvTipus)
 
+        val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
 
@@ -159,81 +152,33 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         rgEsdeveniment.setOnCheckedChangeListener{_, isChecked ->
             resetCamps()
             habilitarCamps(esdevenimentThis)
-            /*if (rbPeli.isChecked){
-                //habilitarPeli(esdevenimentThis)
-                habilitarCamps(esdevenimentThis, "Pel·lícula")
-            }
-            if (rbXerrada.isChecked){
-                //habilitarXerrada(esdevenimentThis)
-                habilitarCamps(esdevenimentThis, "Xerrada")
-            }
-            if(rbConcert.isChecked){
-                //habilitarConcert(esdevenimentThis)
-                habilitarCamps(esdevenimentThis, "Concert")
-            }*/
+            //habilito camps comuns
+            llEspecific4.visibility = View.VISIBLE
         }
-        /*
-        ivCalendari.setOnClickListener{
-            var any = LocalDateTime.now().year
-            var mes = LocalDateTime.now().month
-            var dia = LocalDateTime.now().dayOfMonth
-            var hora = LocalDateTime.now().hour
-            var minuts = LocalDateTime.now().minute
-
-            if (modificar){
-                any = esdevenimentThis.data.year
-                mes = esdevenimentThis.data.month
-                dia = esdevenimentThis.data.dayOfMonth
-                hora = esdevenimentThis.data.hour
-                minuts = esdevenimentThis.data.minute
-            }
-            var localDateTime: LocalDateTime
-            localDateTime = obrirDatePicker(any, mes.toString().toInt(), dia, hora, minuts)
-
-            etAny.text = Editable.Factory.getInstance().newEditable(localDateTime.year.toString())
-            etMes.text = Editable.Factory.getInstance().newEditable(localDateTime.month.toString())
-            etDia.text = Editable.Factory.getInstance().newEditable(localDateTime.dayOfMonth.toString())
-            etHora.text = Editable.Factory.getInstance().newEditable(localDateTime.hour.toString())
-            etMinuts.text = Editable.Factory.getInstance().newEditable(localDateTime.minute.toString())
-
-        }
-        */
-
-        //TODO
-        val llista = esdevenimentThis.especific4.joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
-
-        etEspecific4.setText(llista)
-        llEspecificDreta4.visibility = View.GONE
-
-        val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         btnEnrere.setOnClickListener {
             finish()
         }
 
+        btnModifiCrear.setOnClickListener {
+            val intent: Intent
+            if (detall) {
+                intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
+                    putExtra("modificar", true)
+                }
+                startActivity(intent)
+            } else if (modificar) {
+                //TODO //modificar esdeveniment
+            } else if (nou) {
+                //TODO //escriure esdeveniment nou
+            }
+        }
     }
-
     private fun llegirEsdeveniment():Esdeveniment {
 
-        val id = -1
-        val nom = ""
-        val imatge = ""
-        val descripcio = ""
-        val data = LocalDateTime.now()
-        val idioma = ""
-        val preu = 0.00
-        val numerat = false
-        val tipus = ""
-        val entrades: MutableList<Entrada> = mutableListOf()
-        val especific1 = ""
-        val especific2 = ""
-        val especific3 = ""
-        val especific4: MutableList<String> = mutableListOf()
-        var esdeveniment = Esdeveniment(id, nom, imatge, descripcio, data, idioma, preu, numerat, tipus, entrades, especific1, especific2, especific3, especific4)
+        var esdeveniment = Esdeveniment()
 
         //comprovar si rebem esdeveniment o se n'ha de crear un de nou
-        if (detall){
-            esdeveniment = Esdeveniment_Manager.esdeveniments[Esdeveniment_Manager.index]
-        } else if (modificar) {
+        if (detall || modificar){
             esdeveniment = Esdeveniment_Manager.esdeveniments[Esdeveniment_Manager.index]
         } // si es nou retornarà un esdeveniment buit
         return esdeveniment
@@ -269,17 +214,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         //Amago els camps
         rgEsdeveniment.visibility = View.GONE
-
         tvTipus.visibility = View.GONE
-        //tvEspecific1.visibility = View.GONE
-        //tvEspecific2.visibility = View.GONE
-        //tvEspecific3.visibility = View.GONE
-        //tvEspecific4.visibility = View.GONE
-
-        //etEspecific1.visibility = View.GONE
-        //etEspecific2.visibility = View.GONE
-        //etEspecific3.visibility = View.GONE
-        //etEspecific4.visibility = View.GONE
 
         //Buido els camps
         tvEspecific1.text = null
@@ -295,7 +230,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         //  Amago LinearLayouts
         llEspecific1a3.visibility = View.GONE
         llEspecificEntre3i4.visibility = View.GONE
-        //llEspecific4.visibility = View.GONE
+        llEspecific4.visibility = View.GONE
         llEspecificDreta4.visibility = View.GONE
     }
     //funció per habilitar camps específics segons tipus d'esdeveniment
@@ -304,6 +239,15 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         //val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
+
+        val tvCarregaImgHR = findViewById<TextView>(R.id.tvCarregaImgHR)
+        val btnCarregaImgHR = findViewById<Button>(R.id.btnCarregaImgHR)
+
+        val llCarregaImgSR = findViewById<LinearLayout>(R.id.llCarregaImgSR)
+        val ivSR = findViewById<ImageView>(R.id.ivSR)
+        val tvCarregaImgSR = findViewById<TextView>(R.id.tvCarregaImgSR)
+        val btnCarregaImgSR = findViewById<Button>(R.id.btnCarregaImgHR)
+
 
         val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
         val etDia = findViewById<EditText>(R.id.etDia)
@@ -351,15 +295,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         var tipus = esdeveniment.tipus
         val mesFormatat = String.format("%02d", esdeveniment.data.monthValue)
 
-        /*if (modificar || detall){
-            tipus = esdeveniment.tipus
-        } else if (nou) {
-            tipus = rbTipus
-        }*/
+        //activació de radiobutton tipus
         if (rbPeli.isChecked)  {
             tipus = "Pel·lícula"
         } else if (rbXerrada.isChecked) {
-            tipus = "Xerrada o debat"
+            tipus = "Xerrada"
         } else if (rbConcert.isChecked) {
             tipus = "Concert"
         }
@@ -378,6 +318,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             titolEspecific3 = "Orquestra:"
             titolEspecific4 = "Solistes principals:"
         }
+
         //valors dels camps específics (comú)
         val especific1 = esdeveniment.especific1
         val especific2 = esdeveniment.especific2
@@ -397,6 +338,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         } else { //detall
             tvTitol.visibility = View.GONE
             etTitol.isEnabled = false
+            tvCarregaImgHR.visibility = View.GONE
+            btnCarregaImgHR.visibility = View.GONE
+            llCarregaImgSR.visibility = View.GONE
             etAny.isEnabled = false
             etMes.isEnabled = false
             etDia.isEnabled = false
@@ -460,17 +404,12 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnModifiCrear.text = "Desar canvis"
         }
 
-        //habilito camps comuns
-        llEspecific4.visibility = View.VISIBLE
+
         //cribo segons tipus d'esdeveniment per habilitar camps específics
-        if (tipus == "Pel·lícula" || tipus == "Concert"){
+        if (tipus == "Pel·lícula" || tipus == "Concert") {
             llEspecific1a3.visibility = View.VISIBLE
             llEspecificEntre3i4.visibility = View.VISIBLE
             tvEspecific4.visibility = View.VISIBLE
-        } else if (esdeveniment.tipus == "Xerrada") {
-
-        } else {
-
         }
     }
 }
