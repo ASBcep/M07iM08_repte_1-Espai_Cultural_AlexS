@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         val btnLlistat = findViewById<Button>(R.id.btnLlistat)
         btnLlistat.setOnClickListener {
             val intent = Intent(this, Llistat_Esdeveniments::class.java)
+            intent.putExtra("reserves",false)
             startActivity(intent)
         }
     }

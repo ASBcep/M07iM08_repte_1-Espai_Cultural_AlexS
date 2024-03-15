@@ -3,14 +3,23 @@ package asb.m07im08.espai_cultural_alexs
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class Reserves : AppCompatActivity() {
+    private var esdeveniment: Esdeveniment = Esdeveniment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserves)
+
+        //rebo putextra de l'intent
+        //esdeveniment = intent.getSerializableExtra("esdeveniment", Esdeveniment)
+        esdeveniment = intent.getSerializableExtra("esdeveniment") as Esdeveniment? ?: Esdeveniment()
+
+        val tvTitol = findViewById<TextView>(R.id.tvTitol)
+        tvTitol.text = "Gestionar entrades de " + esdeveniment.nom
 
 
         var index = 0
@@ -25,7 +34,7 @@ class Reserves : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        val adapter = TaulaEntradesAdapter(Esdeveniment_Manager.esdeveniments[index].entrades) { entrada ->
+        val adapter = TaulaEntradesAdapter(esdeveniment.entrades) { entrada ->
             // Gestiona el clic de l'esdeveniment
             //obrir popup per modificar entrada??
         }

@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/act1FrameText"
+            android:id="@+id/tvTitol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -49,6 +49,12 @@
         android:gravity="bottom|center"
         android:padding="10dp">
 
+        <Button
+            android:id="@+id/btnEnrere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enrere"
+            android:backgroundTint="@color/enrere" />
         <Button
             android:id="@+id/btnReserves"
             android:layout_width="wrap_content"

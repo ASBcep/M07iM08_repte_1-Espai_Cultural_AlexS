@@ -280,23 +280,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1">
+                            android:paddingVertical="15dp">
                             <TextView
+                                android:id="@+id/tvAforament"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Aforament:"
                                 android:inputType="number"/>
-                            <EditText
+                            <!--EditText
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:hint="número"
                                 android:layout_weight="1"
                                 android:inputType="number"
-                                android:backgroundTint="@color/quadreEditable"/>
+                                android:backgroundTint="@color/quadreEditable"/-->
                         </LinearLayout>
                         <RadioGroup
+                            android:id="@+id/rgNumerat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">

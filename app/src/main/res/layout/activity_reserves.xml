@@ -12,11 +12,11 @@
         android:paddingTop="10dp">
 
         <TextView
-            android:id="@+id/act3FrameText"
+            android:id="@+id/tvTitol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="GESTIONAR ENTRADES DE L'ESDEVENIMENT"
+            android:text="Gestionar entrades de l'esdeveniment"
             android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"

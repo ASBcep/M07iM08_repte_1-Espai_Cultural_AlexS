@@ -71,26 +71,9 @@
     "preu": 10.5,
     "numerat": true,
     "tipus": "Concert",
-    "entrades": [
-      {
-        "id": 1,
-        "nom_reserva": "Marta"
-      },
-      {
-        "id": 2,
-        "nom_reserva": "David"
-      },
-      {
-        "id": 3,
-        "nom_reserva": "Laura"
-      },
-      {
-        "id": 4,
-        "nom_reserva": "Carlos"
-      }
-    ],
+    "entrades": [],
     "especific1": "Joan Guillems",
-    "especific2": "Orfeó Ca Talà",
+    "especific2": "Orfe o català?",
     "especific3": "Orquesta Simfònica del Va Llest",
     "especific4": ["Josep Violante", "Anna Guitarrín", "Mariví Piana", "Guillermina Flautènsia", "Ramon Tambort"]
   },

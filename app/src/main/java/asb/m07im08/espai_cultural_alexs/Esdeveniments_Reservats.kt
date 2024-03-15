@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class Esdeveniments_Reservats : AppCompatActivity() {
+class Esdeveniments_Reservats : AppCompatActivity() {//SENSE ÚS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_esdeveniments_reservats)

@@ -17,6 +17,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
+import org.w3c.dom.Text
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.MonthDay
@@ -40,6 +41,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
+
+        val tvAformament = findViewById<TextView>(R.id.tvAforament)
+        val rgNumerat = findViewById<RadioGroup>(R.id.rgNumerat)
+        val rbNumerat = findViewById<RadioButton>(R.id.rbNumerat)
+        val rbNoNumerat = findViewById<RadioButton>(R.id.rbNoNumerat)
 
         val rbPeli = findViewById<RadioButton>(R.id.rbPeli)
         val rbXerrada = findViewById<RadioButton>(R.id.rbXerrada)
@@ -76,9 +82,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
 
-        ivCalendari.visibility = View.GONE
-        etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
-        etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
+        ivCalendari.visibility = View.GONE//si puc faré el datetimepicker
+
 
         val mesFormatat = String.format("%02d", esdevenimentThis.data.monthValue)
 
@@ -97,6 +102,14 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etHora.isEnabled = false
             etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
             etMinuts.isEnabled = false
+            etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
+            etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
+            if (esdevenimentThis.numerat){
+                tvAformament.text = "Aforament numerat"
+            } else {
+                tvAformament.text = "Aforament no numerat"
+            }
+            rgNumerat.visibility = View.GONE
             rgEsdeveniment.visibility = View.GONE
             if (esdevenimentThis.tipus == "Pel·lícula"){
                 rbPeli.isChecked = true
@@ -105,6 +118,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             } else if (esdevenimentThis.tipus == "Concert") {
                 rbConcert.isChecked = true
             }
+            habilitarCamps(esdevenimentThis)
             btnModifiCrear.text = "Modificar"
             btnEliminar.visibility = View.GONE
             ivCalendari.visibility = View.GONE
@@ -115,13 +129,15 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnEliminar.visibility = View.GONE
         }
         if (modificar){
+            etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
             etAny.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.year.toString())
             //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
             etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
             etDia.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.dayOfMonth.toString())
             etHora.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.hour.toString())
             etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
-            etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
+            etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
+            etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
             rgEsdeveniment.visibility = View.GONE
             btnModifiCrear.text = "Desar canvis"
 
@@ -170,6 +186,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         }
         */
 
+        //TODO
         val llista = listOf("Llista específica Element 1", "Llista específica Element 2", "Llista específica Element 3", "Llista específica Element 4")
         val llistaEnString = llista.joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
 

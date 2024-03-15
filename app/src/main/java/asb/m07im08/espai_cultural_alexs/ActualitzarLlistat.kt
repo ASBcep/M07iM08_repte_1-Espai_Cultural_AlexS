@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 //aquesta classe permet llegir i escriure desde i a JSON
 
-class ActualitzarLlistat (context: Context) {
+class ActualitzarLlistat (context: Context, reserves: Boolean) {
 
     private val jsonFilePath = context.filesDir.toString() + "/json/esdeveniments.json"
     private var esdeveniments: MutableList<Esdeveniment> = mutableListOf()
@@ -59,7 +59,13 @@ class ActualitzarLlistat (context: Context) {
                         }
                     }
                 )
-                esdeveniments.add(esdeveniment)
+                if (reserves){
+                    if(esdeveniment.entrades.count() > 0) {
+                        esdeveniments.add(esdeveniment)
+                    }
+                } else {
+                    esdeveniments.add(esdeveniment)
+                }
             }
 
         } catch (e: IOException) {
@@ -74,11 +80,11 @@ class ActualitzarLlistat (context: Context) {
     }
 
 
-    fun guardarEsdeveniments(context: Context) {
+    fun desarEsdeveniments(context: Context) {
         try {
             val jsonArray = JSONArray()
 
-            // Recorrer la llista d'esdeveniments i afegir-los a l'array JSON
+            // Recórrer la llista d'esdeveniments i afegir-los a l'array JSON
             for (esdeveniment in esdeveniments) {
                 val jsonObject = JSONObject().apply {
                     put("id", esdeveniment.id)
