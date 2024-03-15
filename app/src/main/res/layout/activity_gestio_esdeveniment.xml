@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Imatge HR (en alta resolució) de l'esdeveniment"
-                android:textAlignment="center" />
+                android:textAlignment="center"/>
             <ImageView
                 android:id="@+id/imgShownElement"
                 android:layout_width="match_parent"
@@ -67,7 +67,8 @@
                 android:layout_height="wrap_content"
                 android:text="Carrega una imatge del dispositiu"
                 android:gravity="top"
-                android:backgroundTint="@color/boto" />
+                android:backgroundTint="@color/boto"
+                android:padding="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -92,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="7"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:paddingBottom="10dp">
                     <TextView
                         android:layout_width="match_parent"
@@ -105,6 +106,8 @@
                         android:layout_height="wrap_content"
                         android:text="Carrega una imatge del dispositiu"
                         android:backgroundTint="@color/boto" />
+
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -119,116 +122,130 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Dia: "
-                                />
+                                android:text="Dia: " />
+
                             <EditText
                                 android:id="@+id/etDia"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="DD"
-                                android:inputType="number"
                                 android:layout_weight="3"
-                                android:backgroundTint="@color/quadreEditable"/>
+                                android:backgroundTint="@color/quadreEditable"
+                                android:hint="DD"
+                                android:inputType="number" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Mes: "
-                                />
+                                android:text="Mes: " />
+
                             <EditText
                                 android:id="@+id/etMes"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="MM"
-                                android:inputType="number"
                                 android:layout_weight="3"
-                                android:backgroundTint="@color/quadreEditable"/><TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Any: "
-                            />
+                                android:backgroundTint="@color/quadreEditable"
+                                android:hint="MM"
+                                android:inputType="number" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Any: " />
+
                             <EditText
                                 android:id="@+id/etAny"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="AAAA"
-                                android:inputType="number"
                                 android:layout_weight="3"
-                                android:backgroundTint="@color/quadreEditable"/>
+                                android:backgroundTint="@color/quadreEditable"
+                                android:hint="AAAA"
+                                android:inputType="number" />
+
                             <ImageView
                                 android:id="@+id/ivCalendari"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/calendari"
-                                android:scaleType="centerInside"
                                 android:layout_weight="2"
-                                />
+                                android:scaleType="centerInside"
+                                android:src="@drawable/calendari" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:paddingLeft="10dp">
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1">
+
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:text="Hora:"
                                     android:layout_weight="1"
-                                    android:textAlignment="textEnd"/>
+                                    android:text="Hora:"
+                                    android:textAlignment="textEnd" />
+
                                 <EditText
                                     android:id="@+id/etHora"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/quadreEditable"
                                     android:hint="hh"
                                     android:inputType="number"
-                                    android:layout_weight="1"
-                                    android:paddingHorizontal="10dp"
-                                    android:backgroundTint="@color/quadreEditable"/>
+                                    android:paddingHorizontal="10dp" />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1">
+
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:text="Minuts:"
                                     android:layout_weight="1"
-                                    android:textAlignment="textEnd"/>
+                                    android:text="Minuts:"
+                                    android:textAlignment="textEnd" />
+
                                 <EditText
                                     android:id="@+id/etMinuts"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/quadreEditable"
                                     android:hint="mm"
                                     android:inputType="number"
-                                    android:layout_weight="1"
-                                    android:paddingHorizontal="10dp"
-                                    android:backgroundTint="@color/quadreEditable"/>
+                                    android:paddingHorizontal="10dp" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -237,200 +254,238 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Idioma:"
                                 android:inputType="text"
-                                />
+                                android:text="Idioma:" />
+
                             <EditText
                                 android:id="@+id/etIdioma"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint=""
-                                android:backgroundTint="@color/quadreEditable"/>
+                                android:backgroundTint="@color/quadreEditable"
+                                android:hint="" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
+
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Preu (€):"
-                                android:textAlignment="textEnd"/>
+                                android:textAlignment="textEnd" />
+
                             <EditText
                                 android:id="@+id/etPreu"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:backgroundTint="@color/quadreEditable"
                                 android:hint=""
-                                android:inputType="number"
-                                android:backgroundTint="@color/quadreEditable"/>
+                                android:inputType="number" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            />
+                            android:layout_weight="2" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingVertical="15dp">
+
                             <TextView
                                 android:id="@+id/tvAforament"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Aforament:"
-                                android:inputType="number"/>
-                            <!--EditText
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:hint="número"
-                                android:layout_weight="1"
                                 android:inputType="number"
-                                android:backgroundTint="@color/quadreEditable"/-->
+                                android:text="Aforament:" />
+                            <!--EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="número"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:backgroundTint="@color/quadreEditable"/-->
                         </LinearLayout>
+
                         <RadioGroup
                             android:id="@+id/rgNumerat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <RadioButton
                                 android:id="@+id/rbNumerat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Numerat"/>
+                                android:text="Numerat" />
+
                             <RadioButton
                                 android:id="@+id/rbNoNumerat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="No numerat"/>
+                                android:text="No numerat" />
                         </RadioGroup>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1" />
                     </LinearLayout>
-                    <RadioGroup
-                        android:id="@+id/rgEsdeveniment"
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <RadioButton
-                            android:id="@+id/rbPeli"
+                        android:layout_height="wrap_content">
+
+                        <RadioGroup
+                            android:id="@+id/rgEsdeveniment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pel·lícula"/>
-                        <RadioButton
-                            android:id="@+id/rbXerrada"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Xerrada o debat"/>
-                        <RadioButton
-                            android:id="@+id/rbConcert"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Concert d'òpera"/>
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rbPeli"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pel·lícula" />
+
+                            <RadioButton
+                                android:id="@+id/rbXerrada"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Xerrada o debat" />
+
+                            <RadioButton
+                                android:id="@+id/rbConcert"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Concert d'òpera" />
+                        </RadioGroup>
+
                         <TextView
                             android:id="@+id/tvTipus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tipus"/>
-                    </RadioGroup>
+                            android:paddingVertical="15dp"
+                            android:text="Tipus" />
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:id="@+id/llEspecific1a3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="3">
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                                 <TextView
                                     android:id="@+id/tvEspecific1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Específic1"/>
+                                    android:text="Específic1" />
+
                                 <EditText
                                     android:id="@+id/etEspecific1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/quadreEditable"/>
+                                    android:backgroundTint="@color/quadreEditable" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                                 <TextView
                                     android:id="@+id/tvEspecific2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Específic2"/>
+                                    android:text="Específic2" />
+
                                 <EditText
                                     android:id="@+id/etEspecific2"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/quadreEditable"/>
+                                    android:backgroundTint="@color/quadreEditable" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                                 <TextView
                                     android:id="@+id/tvEspecific3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Específic3"/>
+                                    android:text="Específic3" />
+
                                 <EditText
                                     android:id="@+id/etEspecific3"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:backgroundTint="@color/quadreEditable"/>
+                                    android:backgroundTint="@color/quadreEditable" />
                             </LinearLayout>
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/llEspecificEntre3i4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="horizontal" />
+
                         <LinearLayout
                             android:id="@+id/llEspecific4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:orientation="vertical">
+
                             <TextView
                                 android:id="@+id/tvEspecific4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Específic4 (llista) (premeu intro per separar cada element)"/>
+                                android:text="Específic4 (llista) (premeu intro per separar cada element)" />
+
                             <EditText
                                 android:id="@+id/etEspecific4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="llista"
-                                android:backgroundTint="@color/quadreEditable"/>
+                                android:backgroundTint="@color/quadreEditable"
+                                android:text="llista" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/llEspecificDreta4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:orientation="horizontal"/>
+                            android:orientation="horizontal" />
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>

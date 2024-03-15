@@ -42,15 +42,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
 
-        val tvAformament = findViewById<TextView>(R.id.tvAforament)
-        val rgNumerat = findViewById<RadioGroup>(R.id.rgNumerat)
-        val rbNumerat = findViewById<RadioButton>(R.id.rbNumerat)
-        val rbNoNumerat = findViewById<RadioButton>(R.id.rbNoNumerat)
-
-        val rbPeli = findViewById<RadioButton>(R.id.rbPeli)
-        val rbXerrada = findViewById<RadioButton>(R.id.rbXerrada)
-        val rbConcert = findViewById<RadioButton>(R.id.rbConcert)
-        val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
 
         /*
         val llEspecific1a3 = findViewById<LinearLayout>(R.id.llEspecific1a3)
@@ -79,6 +70,17 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etIdioma = findViewById<EditText>(R.id.etIdioma)
         val etPreu = findViewById<EditText>(R.id.etPreu)
 
+        val tvAformament = findViewById<TextView>(R.id.tvAforament)
+        val rgNumerat = findViewById<RadioGroup>(R.id.rgNumerat)
+        val rbNumerat = findViewById<RadioButton>(R.id.rbNumerat)
+        val rbNoNumerat = findViewById<RadioButton>(R.id.rbNoNumerat)
+
+        val rbPeli = findViewById<RadioButton>(R.id.rbPeli)
+        val rbXerrada = findViewById<RadioButton>(R.id.rbXerrada)
+        val rbConcert = findViewById<RadioButton>(R.id.rbConcert)
+        val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
+        val tvTipus = findViewById<TextView>(R.id.tvTipus)
+
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
 
@@ -103,13 +105,17 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
             etMinuts.isEnabled = false
             etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
+            etIdioma.isEnabled = false
             etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
+            etPreu.isEnabled = false
             if (esdevenimentThis.numerat){
                 tvAformament.text = "Aforament numerat"
             } else {
                 tvAformament.text = "Aforament no numerat"
             }
             rgNumerat.visibility = View.GONE
+            tvTipus.visibility = View.VISIBLE
+            tvTipus.text = "Tipus d'esdeveniment: " + esdevenimentThis.tipus
             rgEsdeveniment.visibility = View.GONE
             if (esdevenimentThis.tipus == "Pel·lícula"){
                 rbPeli.isChecked = true
@@ -138,6 +144,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etMinuts.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.minute.toString())
             etIdioma.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.idioma)
             etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
+            if (esdevenimentThis.numerat){
+                rbNumerat.isChecked = true
+            } else {
+                rbNoNumerat.isChecked = true
+            }
             rgEsdeveniment.visibility = View.GONE
             btnModifiCrear.text = "Desar canvis"
 
@@ -187,10 +198,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         */
 
         //TODO
-        val llista = listOf("Llista específica Element 1", "Llista específica Element 2", "Llista específica Element 3", "Llista específica Element 4")
-        val llistaEnString = llista.joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
+        val llista = esdevenimentThis.especific4.joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
 
-        etEspecific4.setText(llistaEnString)
+        etEspecific4.setText(llista)
         llEspecificDreta4.visibility = View.GONE
 
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
@@ -365,9 +375,13 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         if (nou || modificar){
             rgEsdeveniment.visibility = View.VISIBLE
             tvEspecific4.text = tvEspecific4.text.toString() + "\n(Un per línia)"
-        } else {
+        } else { //detall
             tvTipus.visibility = View.VISIBLE
-            tvTipus.text = esdeveniment.tipus
+            //tvTipus.text = esdeveniment.tipus
+            etEspecific1.isEnabled = false
+            etEspecific2.isEnabled = false
+            etEspecific3.isEnabled = false
+            etEspecific4.isEnabled = false
         }
         if (modificar || detall) {
             etEspecific1.text = Editable.Factory.getInstance().newEditable(especific1)
