@@ -70,7 +70,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etIdioma = findViewById<EditText>(R.id.etIdioma)
         val etPreu = findViewById<EditText>(R.id.etPreu)
 
-        val tvAformament = findViewById<TextView>(R.id.tvAforament)
+        val tvAforament = findViewById<TextView>(R.id.tvAforament)
         val rgNumerat = findViewById<RadioGroup>(R.id.rgNumerat)
         val rbNumerat = findViewById<RadioButton>(R.id.rbNumerat)
         val rbNoNumerat = findViewById<RadioButton>(R.id.rbNoNumerat)
@@ -86,10 +86,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         ivCalendari.visibility = View.GONE//si puc faré el datetimepicker
 
-
+        resetCamps()
+        habilitarCamps(esdevenimentThis)
         val mesFormatat = String.format("%02d", esdevenimentThis.data.monthValue)
 
-        if (detall){
+        if (detall){/*
             tvTitol.visibility = View.GONE
             etTitol.isEnabled = false
             etTitol.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.nom)
@@ -109,9 +110,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etPreu.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.preu.toString())
             etPreu.isEnabled = false
             if (esdevenimentThis.numerat){
-                tvAformament.text = "Aforament numerat"
+                tvAforament.text = "Aforament numerat"
             } else {
-                tvAformament.text = "Aforament no numerat"
+                tvAforament.text = "Aforament no numerat"
             }
             rgNumerat.visibility = View.GONE
             tvTipus.visibility = View.VISIBLE
@@ -127,9 +128,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             habilitarCamps(esdevenimentThis)
             btnModifiCrear.text = "Modificar"
             btnEliminar.visibility = View.GONE
-            ivCalendari.visibility = View.GONE
+            ivCalendari.visibility = View.GONE*/
         }
-        if (nou){
+        if (nou){/*
+
             rgEsdeveniment.visibility = View.VISIBLE
             btnModifiCrear.text = "Crear"
             btnEliminar.visibility = View.GONE
@@ -151,7 +153,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             }
             rgEsdeveniment.visibility = View.GONE
             btnModifiCrear.text = "Desar canvis"
-
+*/
         }
 
         rgEsdeveniment.setOnCheckedChangeListener{_, isChecked ->
@@ -293,25 +295,41 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         //  Amago LinearLayouts
         llEspecific1a3.visibility = View.GONE
         llEspecificEntre3i4.visibility = View.GONE
-        llEspecific4.visibility = View.GONE
+        //llEspecific4.visibility = View.GONE
         llEspecificDreta4.visibility = View.GONE
     }
     //funció per habilitar camps específics segons tipus d'esdeveniment
     private fun habilitarCamps(esdeveniment: Esdeveniment){
         //declaro Views
         //val tvTitol = findViewById<TextView>(R.id.tvTitol)
-        val etTitol = findViewById<TextView>(R.id.etTitol)
+        val tvTitol = findViewById<TextView>(R.id.tvTitol)
+        val etTitol = findViewById<EditText>(R.id.etTitol)
+
+        val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
+        val etDia = findViewById<EditText>(R.id.etDia)
+        val etMes = findViewById<EditText>(R.id.etMes)
+        val etAny = findViewById<EditText>(R.id.etAny)
+        val etHora = findViewById<EditText>(R.id.etHora)
+        val etMinuts = findViewById<EditText>(R.id.etMinuts)
+
+        val etIdioma = findViewById<EditText>(R.id.etIdioma)
+        val etPreu = findViewById<EditText>(R.id.etPreu)
+
+        val tvAforament = findViewById<TextView>(R.id.tvAforament)
+        val rgNumerat = findViewById<RadioGroup>(R.id.rgNumerat)
+        val rbNumerat = findViewById<RadioButton>(R.id.rbNumerat)
+        val rbNoNumerat = findViewById<RadioButton>(R.id.rbNoNumerat)
 
         val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
         val rbPeli = findViewById<RadioButton>(R.id.rbPeli)
         val rbXerrada = findViewById<RadioButton>(R.id.rbXerrada)
         val rbConcert = findViewById<RadioButton>(R.id.rbConcert)
+        val tvTipus = findViewById<TextView>(R.id.tvTipus)
 
         val llEspecific1a3 = findViewById<LinearLayout>(R.id.llEspecific1a3)
         val llEspecificEntre3i4 = findViewById<LinearLayout>(R.id.llEspecificEntre3i4)
         val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
 
-        val tvTipus = findViewById<TextView>(R.id.tvTipus)
         val tvEspecific1 = findViewById<TextView>(R.id.tvEspecific1)
         val tvEspecific2 = findViewById<TextView>(R.id.tvEspecific2)
         val tvEspecific3 = findViewById<TextView>(R.id.tvEspecific3)
@@ -322,13 +340,16 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etEspecific3 = findViewById<EditText>(R.id.etEspecific3)
         val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
 
+        val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
+        val btnEliminar = findViewById<Button>(R.id.btnEliminar)
+
         var titolEspecific1 = ""
         var titolEspecific2 = ""
         var titolEspecific3 = ""
         var titolEspecific4 = ""
 
-        //var tipus = esdeveniment.tipus
         var tipus = esdeveniment.tipus
+        val mesFormatat = String.format("%02d", esdeveniment.data.monthValue)
 
         /*if (modificar || detall){
             tipus = esdeveniment.tipus
@@ -338,7 +359,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         if (rbPeli.isChecked)  {
             tipus = "Pel·lícula"
         } else if (rbXerrada.isChecked) {
-            tipus = "Xerrada"
+            tipus = "Xerrada o debat"
         } else if (rbConcert.isChecked) {
             tipus = "Concert"
         }
@@ -350,14 +371,12 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             titolEspecific3 = "Durada:"
             titolEspecific4 = "Actors principals:"
         } else if (tipus == "Xerrada") {
-            titolEspecific4 = ""
+            titolEspecific4 = "Participants: "
         } else if (tipus == "Concert") {
             titolEspecific1 = "Compositor:"
             titolEspecific2 = "Cor:"
             titolEspecific3 = "Orquestra:"
             titolEspecific4 = "Solistes principals:"
-        } else {
-
         }
         //valors dels camps específics (comú)
         val especific1 = esdeveniment.especific1
@@ -376,7 +395,35 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             rgEsdeveniment.visibility = View.VISIBLE
             tvEspecific4.text = tvEspecific4.text.toString() + "\n(Un per línia)"
         } else { //detall
+            tvTitol.visibility = View.GONE
+            etTitol.isEnabled = false
+            etAny.isEnabled = false
+            etMes.isEnabled = false
+            etDia.isEnabled = false
+            etHora.isEnabled = false
+            etMinuts.isEnabled = false
+            etIdioma.isEnabled = false
+            etPreu.isEnabled = false
+            if (esdeveniment.numerat){
+                tvAforament.text = "Aforament numerat"
+            } else {
+                tvAforament.text = "Aforament no numerat"
+            }
+            rgNumerat.visibility = View.GONE
             tvTipus.visibility = View.VISIBLE
+            tvTipus.text = "Tipus d'esdeveniment: " + esdeveniment.tipus
+            rgEsdeveniment.visibility = View.GONE
+            if (esdeveniment.tipus == "Pel·lícula"){
+                rbPeli.isChecked = true
+            } else if (esdeveniment.tipus == "Xerrada"){
+                rbXerrada.isChecked = true
+            } else if (esdeveniment.tipus == "Concert") {
+                rbConcert.isChecked = true
+            }
+            btnModifiCrear.text = "Modificar"
+            btnEliminar.visibility = View.GONE
+            ivCalendari.visibility = View.GONE
+
             //tvTipus.text = esdeveniment.tipus
             etEspecific1.isEnabled = false
             etEspecific2.isEnabled = false
@@ -384,10 +431,33 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etEspecific4.isEnabled = false
         }
         if (modificar || detall) {
+            etTitol.text = Editable.Factory.getInstance().newEditable(esdeveniment.nom)
+            etAny.text = Editable.Factory.getInstance().newEditable(esdeveniment.data.year.toString())
+            //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
+            etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
+            etDia.text = Editable.Factory.getInstance().newEditable(esdeveniment.data.dayOfMonth.toString())
+            etHora.text = Editable.Factory.getInstance().newEditable(esdeveniment.data.hour.toString())
+            etMinuts.text = Editable.Factory.getInstance().newEditable(esdeveniment.data.minute.toString())
+            etIdioma.text = Editable.Factory.getInstance().newEditable(esdeveniment.idioma)
+            etPreu.text = Editable.Factory.getInstance().newEditable(esdeveniment.preu.toString())
+
             etEspecific1.text = Editable.Factory.getInstance().newEditable(especific1)
             etEspecific2.text = Editable.Factory.getInstance().newEditable(especific2)
             etEspecific3.text = Editable.Factory.getInstance().newEditable(especific3)
             etEspecific4.text = Editable.Factory.getInstance().newEditable(especific4)
+        }
+        if (nou) {
+            btnModifiCrear.text = "Crear"
+            btnEliminar.visibility = View.GONE
+        }
+        if (modificar) {
+            if (esdeveniment.numerat){
+                rbNumerat.isChecked = true
+            } else {
+                rbNoNumerat.isChecked = true
+            }
+            rgEsdeveniment.visibility = View.GONE
+            btnModifiCrear.text = "Desar canvis"
         }
 
         //habilito camps comuns
@@ -396,11 +466,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         if (tipus == "Pel·lícula" || tipus == "Concert"){
             llEspecific1a3.visibility = View.VISIBLE
             llEspecificEntre3i4.visibility = View.VISIBLE
+            tvEspecific4.visibility = View.VISIBLE
         } else if (esdeveniment.tipus == "Xerrada") {
 
         } else {
 
         }
     }
-
 }
