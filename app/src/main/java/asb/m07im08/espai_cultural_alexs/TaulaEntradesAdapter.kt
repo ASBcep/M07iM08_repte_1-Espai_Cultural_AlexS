@@ -1,10 +1,14 @@
 package asb.m07im08.espai_cultural_alexs
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class TaulaEntradesAdapter(val entrades: List<Entrada>, val onItemClick: (Entrada) -> Unit) :
     RecyclerView.Adapter<TaulaEntradesAdapter.TaulaEntradesViewHolder>() {
@@ -22,6 +26,8 @@ class TaulaEntradesAdapter(val entrades: List<Entrada>, val onItemClick: (Entrad
         // Configurar el clic del elemento
         holder.itemView.setOnClickListener {
             onItemClick(entrada)
+            //TODO //Obrir Reservar.kt passant l'entrada a modificar com a paràmetre
+
         }
     }
 
@@ -31,10 +37,10 @@ class TaulaEntradesAdapter(val entrades: List<Entrada>, val onItemClick: (Entrad
 
         fun bindElement(entrada: Entrada) {
             //assigno dades als textviews
-            val tvNomReserva = itemView.findViewById<TextView>(R.id.tvNomReserva)
-            tvNomReserva.text = entrada.nom_reserva
             val tvNumEntrada = itemView.findViewById<TextView>(R.id.tvNumEntrada)
             tvNumEntrada.text = entrada.id.toString()
+            val tvNomReserva = itemView.findViewById<TextView>(R.id.tvNomReserva)
+            tvNomReserva.text = entrada.nom_reserva
 
 
         }

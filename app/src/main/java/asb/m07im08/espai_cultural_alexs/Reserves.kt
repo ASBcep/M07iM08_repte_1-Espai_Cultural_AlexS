@@ -1,11 +1,11 @@
 package asb.m07im08.espai_cultural_alexs
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -41,13 +41,17 @@ class Reserves : AppCompatActivity() {
         val adapter = TaulaEntradesAdapter(esdeveniment.entrades) { entrada ->
             // Gestiona el clic de l'esdeveniment
             //obrir popup per modificar entrada??
+            val intent = Intent(this, Reservar::class.java).apply {
+                putExtra("entrada", entrada)
+            }
+            startActivity(intent)
         }
 
         // Assignar l'adaptador al RecyclerView
         recyclerView.adapter = adapter
 
-        val btnEnrereRsrvNum = findViewById<Button>(R.id.btnEnrereRsrvNum)
-        btnEnrereRsrvNum.setOnClickListener {
+        val btnEnrere = findViewById<Button>(R.id.btnEnrere)
+        btnEnrere.setOnClickListener {
             finish()
         }
     }

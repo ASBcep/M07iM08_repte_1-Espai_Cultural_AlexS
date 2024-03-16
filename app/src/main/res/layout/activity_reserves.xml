@@ -140,14 +140,14 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/btnEnrereRsrvNum"
+            android:id="@+id/btnEnrere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="Enrere"
             android:backgroundTint="@color/enrere" />
         <Button
-            android:id="@+id/btnModificarReserva"
+            android:id="@+id/btnModificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

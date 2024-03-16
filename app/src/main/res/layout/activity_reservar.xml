@@ -67,11 +67,12 @@
                     android:orientation="vertical"
                     android:paddingTop="10dp">
                     <TextView
+                        android:id="@+id/tvTitularEntrades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Introduir nom de la persona que reserva:"/>
                     <EditText
-                        android:id="@+id/etNomReserva"
+                        android:id="@+id/etTitularEntrades"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -126,14 +127,14 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/btnEnrereRsrvNum"
+            android:id="@+id/btnEnrere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="Enrere"
             android:backgroundTint="@color/enrere" />
         <Button
-            android:id="@+id/btnFormalitzarReserva"
+            android:id="@+id/btnReservar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

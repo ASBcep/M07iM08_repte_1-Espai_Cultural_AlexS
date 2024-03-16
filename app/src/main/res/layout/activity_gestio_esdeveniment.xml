@@ -524,8 +524,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eliminar del llistat"
-            android:backgroundTint="@color/boto" />
-
-
+            android:backgroundTint="@color/boto"
+            android:layout_marginRight="20dp"/>
+        <Button
+            android:id="@+id/btnReservar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservar entrades"
+            android:backgroundTint="@color/boto"
+            android:layout_marginRight="20dp"/>
     </LinearLayout>
 </LinearLayout>

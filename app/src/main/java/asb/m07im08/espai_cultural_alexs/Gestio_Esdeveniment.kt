@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -42,6 +43,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         var esdevenimentThis = llegirEsdeveniment()
 
+        //declaro views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
 
@@ -76,6 +78,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
+        val btnReservar = findViewById<Button>(R.id.btnReservar)
 
         //TODO //si puc faré el datetimepicker
         ivCalendari.visibility = View.GONE
@@ -109,10 +112,26 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 }
                 startActivity(intent)
             } else if (modificar) {
-                //TODO //modificar esdeveniment
+                //TODO("modificar esdeveniment")
             } else if (nou) {
-                //TODO //escriure esdeveniment nou
+                //TODO("escriure esdeveniment nou")
             }
+        }
+        var eliminar = false
+        btnEliminar.setOnClickListener{
+            if (eliminar){
+                //TODO("cercar esdeveniment al json i eliminar-lo")
+            } else {
+                eliminar = true
+                btnEliminar.setBackgroundColor(Color.RED)
+                btnEliminar.text = "CONFIRMAR ELIMINACIÓ"
+            }
+        }
+        btnReservar.setOnClickListener{
+            val intent = Intent(this, Reservar::class.java).apply {
+                putExtra("novaReserva", true)
+            }
+            startActivity(intent)
         }
     }
     private fun llegirEsdeveniment():Esdeveniment {
@@ -124,34 +143,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             esdeveniment = Esdeveniment_Manager.esdeveniments[Esdeveniment_Manager.index]
         } // si es nou retornarà un esdeveniment buit
         return esdeveniment
-    }//funció per buidar camps específics
-
-    private fun inserirImatgeSR (imatge: String){
-        var imgElementPathPNG = this.getFilesDir().toString() + "/img/" + "sr" + imatge + ".png"
-        var imgElementPathJPG = this.getFilesDir().toString() + "/img/" + "sr" + imatge + ".jpg"
-        var bitmap = if (File(imgElementPathPNG).exists()) {
-            BitmapFactory.decodeFile(imgElementPathPNG)
-        } else if (File(imgElementPathJPG).exists()) {
-            BitmapFactory.decodeFile(imgElementPathJPG)
-        } else {
-            BitmapFactory.decodeResource(resources, R.drawable.noimg_sr)
-        }
-        val ivSR = findViewById<ImageView>(R.id.ivSR)
-        ivSR.setImageBitmap(bitmap)
     }
-    private fun inserirImatgeHR (imatge: String){
-        var imgElementPathPNG = this.getFilesDir().toString() + "/img/" + "hr" + imatge + ".png"
-        var imgElementPathJPG = this.getFilesDir().toString() + "/img/" + "hr" + imatge + ".jpg"
-        var bitmap = if (File(imgElementPathPNG).exists()) {
-            BitmapFactory.decodeFile(imgElementPathPNG)
-        } else if (File(imgElementPathJPG).exists()) {
-            BitmapFactory.decodeFile(imgElementPathJPG)
-        } else {
-            BitmapFactory.decodeResource(resources, R.drawable.noimg_hr)
-        }
-        val ivHR = findViewById<ImageView>(R.id.ivHR)
-        ivHR.setImageBitmap(bitmap)
-    }
+    //funció per buidar camps específics
     private fun resetCamps(){
         //declaro Views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
@@ -175,6 +168,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etEspecific3 = findViewById<EditText>(R.id.etEspecific3)
         val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
 
+        val btnReservar = findViewById<Button>(R.id.btnReservar)
+
         //mostro camps
         tvTitol.visibility = View.VISIBLE
 
@@ -184,6 +179,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         //Amago els camps
         rgEsdeveniment.visibility = View.GONE
         tvTipus.visibility = View.GONE
+        btnReservar.visibility = View.GONE
 
         //Buido els camps
         tvEspecific1.text = null
@@ -205,7 +201,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
     //funció per habilitar camps específics segons tipus d'esdeveniment
     private fun habilitarCamps(esdeveniment: Esdeveniment){
         //declaro Views
-        //val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
 
@@ -255,6 +250,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         val btnModifiCrear = findViewById<Button>(R.id.btnModifiCrear)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
+        val btnReservar = findViewById<Button>(R.id.btnReservar)
 
         var titolEspecific1 = ""
         var titolEspecific2 = ""
@@ -313,6 +309,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etAny.isEnabled = false
             etMes.isEnabled = false
             etDia.isEnabled = false
+            ivCalendari.visibility = View.GONE
             etHora.isEnabled = false
             etMinuts.isEnabled = false
             etIdioma.isEnabled = false
@@ -323,8 +320,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 tvAforament.text = "Aforament no numerat"
             }
             rgNumerat.visibility = View.GONE
-            tvTipus.visibility = View.VISIBLE
-            tvTipus.text = "Tipus d'esdeveniment: " + esdeveniment.tipus
             rgEsdeveniment.visibility = View.GONE
             if (esdeveniment.tipus == "Pel·lícula"){
                 rbPeli.isChecked = true
@@ -333,15 +328,15 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             } else if (esdeveniment.tipus == "Concert") {
                 rbConcert.isChecked = true
             }
-            btnModifiCrear.text = "Modificar"
-            btnEliminar.visibility = View.GONE
-            ivCalendari.visibility = View.GONE
-
-            //tvTipus.text = esdeveniment.tipus
             etEspecific1.isEnabled = false
             etEspecific2.isEnabled = false
             etEspecific3.isEnabled = false
             etEspecific4.isEnabled = false
+
+            btnModifiCrear.text = "Modificar"
+            btnEliminar.visibility = View.GONE
+            btnReservar.visibility = View.VISIBLE
+
         }
         if (modificar || detall) {
             etTitol.text = Editable.Factory.getInstance().newEditable(esdeveniment.nom)
@@ -353,17 +348,19 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etMinuts.text = Editable.Factory.getInstance().newEditable(esdeveniment.data.minute.toString())
             etIdioma.text = Editable.Factory.getInstance().newEditable(esdeveniment.idioma)
             etPreu.text = Editable.Factory.getInstance().newEditable(esdeveniment.preu.toString())
+            tvTipus.visibility = View.VISIBLE
+            tvTipus.text = "Tipus d'esdeveniment: " + esdeveniment.tipus
 
             etEspecific1.text = Editable.Factory.getInstance().newEditable(especific1)
             etEspecific2.text = Editable.Factory.getInstance().newEditable(especific2)
             etEspecific3.text = Editable.Factory.getInstance().newEditable(especific3)
             etEspecific4.text = Editable.Factory.getInstance().newEditable(especific4)
-        }
-        if (nou) {
+        } else { //nou
             btnModifiCrear.text = "Crear"
             btnEliminar.visibility = View.GONE
         }
         if (modificar) {
+
             if (esdeveniment.numerat){
                 rbNumerat.isChecked = true
             } else {
@@ -371,6 +368,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             }
             rgEsdeveniment.visibility = View.GONE
             btnModifiCrear.text = "Desar canvis"
+            btnEliminar.visibility =View.VISIBLE
         }
 
 
