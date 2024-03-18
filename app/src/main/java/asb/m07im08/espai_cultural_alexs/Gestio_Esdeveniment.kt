@@ -130,6 +130,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         btnReservar.setOnClickListener{
             val intent = Intent(this, Reservar::class.java).apply {
                 putExtra("novaReserva", true)
+                putExtra("esdeveniment", esdevenimentThis)
             }
             startActivity(intent)
         }

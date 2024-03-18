@@ -107,12 +107,12 @@
                         android:id="@+id/tvLocalitatsTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Localitats: 100"/>
+                        android:text="Localitats: XX"/>
                     <TextView
-                        android:id="@+id/tvLocalitatsDisponible"
+                        android:id="@+id/tvLocalitatsDisponibles"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Disponibles: 50"
+                        android:text="Disponibles: YY"
                         android:paddingLeft="10dp"/>
                 </LinearLayout>
             </LinearLayout>

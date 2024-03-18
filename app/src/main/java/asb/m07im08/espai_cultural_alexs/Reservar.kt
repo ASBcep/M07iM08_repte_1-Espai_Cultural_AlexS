@@ -20,18 +20,30 @@ class Reservar : AppCompatActivity() {
 
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
-        if (esdevenimentThis.numerat){
-            //TODO("adaptar activity per reservar entrades numerades")
-        } else {
-            //TODO("adaptar activity per reservar entrades no numerades")
-        }
 
         val ivHR = findViewById<ImageView>(R.id.ivHR)
         GestorImatge.inserirImatgeHR(esdevenimentThis.imatge, this, ivHR)
 
+        val tvTipusEntrades = findViewById<TextView>(R.id.tvTipusEntrades)
+        if (esdevenimentThis.numerat){
+            tvTipusEntrades.text = "Entrades numerades"
+            //TODO("adaptar activity per reservar entrades numerades")
+        } else {
+            tvTipusEntrades.text = "Entrades no numerades"
+            //TODO("adaptar activity per reservar entrades no numerades")
+        }
+
+        var aforament = Esdeveniment_Manager.aforament
+
+        val tvLocalitatsTotal = findViewById<TextView>(R.id.tvLocalitatsTotal)
+        tvLocalitatsTotal.text = "Localitats: " + aforament
+        val tvLocalitatsDisponibles = findViewById<TextView>(R.id.tvLocalitatsDisponibles)
+        tvLocalitatsDisponibles.text = "Disponibles: " + GestorEntrades.entradesDisponibles(esdevenimentThis).toString()
+
         val etTitularEntrades = findViewById<TextView>(R.id.etTitularEntrades)
         if (novaReserva == false) {
             etTitularEntrades.text = entradaThis.nom_reserva
+
         }
 
 
