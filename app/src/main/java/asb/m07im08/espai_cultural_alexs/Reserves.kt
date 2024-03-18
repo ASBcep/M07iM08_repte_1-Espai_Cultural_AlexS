@@ -43,6 +43,7 @@ class Reserves : AppCompatActivity() {
             //obrir popup per modificar entrada??
             val intent = Intent(this, Reservar::class.java).apply {
                 putExtra("entrada", entrada)
+                putExtra("esdeveniment", esdeveniment)
             }
             startActivity(intent)
         }
