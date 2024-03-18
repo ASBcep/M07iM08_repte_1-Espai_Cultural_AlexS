@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -38,6 +39,12 @@ private var reserves: Boolean = false
 
         ActualitzarLlistat(this, reserves)
 
+        val esdeveniments = Esdeveniment_Manager.esdeveniments
+
+        if (esdeveniments.isEmpty()){
+            Toast.makeText(this, "llistat d'esdeveniments buit", Toast.LENGTH_SHORT).show()
+        }
+
         // Trobar el RecyclerView pel seu ID
         val recyclerView = findViewById<RecyclerView>(R.id.ListEsdeveniments)
 
@@ -47,7 +54,7 @@ private var reserves: Boolean = false
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
         //val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
-        val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment ->
+        val adapter = EsdevenimentAdapter(esdeveniments) { esdeveniment ->
 
         // Gestiona el clic de l'esdeveniment
             //Esdeveniment_Manager.index = position

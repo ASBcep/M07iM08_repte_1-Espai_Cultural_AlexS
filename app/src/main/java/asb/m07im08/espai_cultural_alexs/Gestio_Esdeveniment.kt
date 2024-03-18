@@ -52,6 +52,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val ivSR = findViewById<ImageView>(R.id.ivSR)
         val ivHR = findViewById<ImageView>(R.id.ivHR)
 
+        val etDescripcio = findViewById<EditText>(R.id.etDescripcio)
         val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
         val etDia = findViewById<EditText>(R.id.etDia)
         val etMes = findViewById<EditText>(R.id.etMes)
@@ -73,6 +74,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
         val tvTipus = findViewById<TextView>(R.id.tvTipus)
 
+        val etEspecific1 = findViewById<EditText>(R.id.etEspecific1)
+        val etEspecific2 = findViewById<EditText>(R.id.etEspecific2)
+        val etEspecific3 = findViewById<EditText>(R.id.etEspecific3)
         val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
         val llEspecificDreta4 = findViewById<LinearLayout>(R.id.llEspecificDreta4)
         val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
@@ -95,8 +99,14 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         habilitarCamps(esdevenimentThis)
         val mesFormatat = String.format("%02d", esdevenimentThis.data.monthValue)
 
+        var aforamentTriat = false
+        rgNumerat.setOnCheckedChangeListener{_, isChecked ->
+            aforamentTriat = true
+        }
 
+        var tipusTriat = false
         rgEsdeveniment.setOnCheckedChangeListener{_, isChecked ->
+            tipusTriat = true
             resetCamps()
             habilitarCamps(esdevenimentThis)
         }
@@ -105,8 +115,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         }
 
         btnModifiCrear.setOnClickListener {
-            val intent: Intent
             if (detall) {
+                val intent: Intent
                 intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
                     putExtra("esdeveniment", esdevenimentThis)
                     putExtra("modificar", true)
@@ -116,28 +126,77 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 //TODO("modificar esdeveniment")
             } else if (nou) {
                 //TODO("escriure esdeveniment nou")
-                val tipus: String = (if (rbPeli.isChecked){"Pel·lícula"} else if (rbXerrada.isChecked){"Xerrada"} else if (rbConcert.isChecked) {"Concert"} else {})
-                ActualitzarLlistat(this, false)
-                val nouEsdeveniment = Esdeveniment(
-                    Esdeveniment_Manager.esdeveniments.last() + 1,//id
-                    etTitol.text.toString(),//nom
-                    (Esdeveniment_Manager.esdeveniments.last() + 1).toString(),//imatge
-                    etDescripcio.text.toString,// descripcio
-                    LocalDateTime.of(etAny.text.toString().toInt(),
-                                    etMes.text.toString().toInt(),
-                                    etDia.text.toString().toInt(),
-                                    etHora.text.toString().toInt(),
-                                    etMinuts.text.toString().toInt()),// data
-                    etIdioma.text.toString(),// idioma
-                    etPreu.toString().toDouble(),// preu
-                    rbNumerat.isChecked,// numerat
-                    tipus,// tipus
-                    ,// entrades
-                    ,// especific1
-                    ,// especific2
-                    ,// especific3
-                    ,// especific4
-                )
+                var esdevenimentCreable = true
+                if (aforamentTriat && tipusTriat){
+                    val tipus: String = (if (rbPeli.isChecked){
+                        "Pel·lícula"
+                    } else if (rbXerrada.isChecked){
+                        "Xerrada"
+                    } else if (rbConcert.isChecked) {
+                        "Concert"
+                    } else {
+                        ""
+                    })
+
+                    val text = etEspecific4.text.toString()
+                    val linies = text.split("\n")
+                    val llistaLinies = mutableListOf<String>()
+                    for (linia in linies) {
+                        llistaLinies.add(linia)
+                    }
+                    val seguentId = Esdeveniment_Manager.esdeveniments.last().id + 1
+                    var any = -1
+                    var mes = -1
+                    var dia = -1
+                    var hora = -1
+                    var minuts = -1
+                    if (etAny.text.isNotEmpty() &&
+                        etMes.text.isNotEmpty() &&
+                        etDia.text.isNotEmpty() &&
+                        etHora.text.isNotEmpty() &&
+                        etMinuts.text.isNotEmpty()){
+                        any = etAny.text.toString().toInt()
+                        mes = etMes.text.toString().toInt()
+                        dia = etDia.text.toString().toInt()
+                        hora = etHora.text.toString().toInt()
+                        minuts = etMinuts.text.toString().toInt()
+                    } else {
+                        esdevenimentCreable = false
+                    }
+                    var data = LocalDateTime.now()
+                    var preu = 1.11
+                    try {
+                        data =  LocalDateTime.of(any, mes, dia, hora, minuts)
+                        preu = etPreu.toString().toDouble()//NO PERMET CONVERTIR EDITTEXT A DOUBLE??
+                    } catch (e: Exception) {
+                        esdevenimentCreable = false
+                    }
+                    if (esdevenimentCreable){
+                        ActualitzarLlistat(this, false)
+                        val nouEsdeveniment = Esdeveniment(
+                            seguentId,//id
+                            etTitol.text.toString(),//nom
+                            seguentId.toString(),//imatge
+                            etDescripcio.text.toString(),// descripcio
+                            data,// data
+                            etIdioma.text.toString(),// idioma
+                            preu,// preu
+                            rbNumerat.isChecked,// numerat
+                            tipus,// tipus
+                            mutableListOf(Entrada()),// entrades
+                            etEspecific1.text.toString(),// especific1
+                            etEspecific2.text.toString(),// especific2
+                            etEspecific3.text.toString(),// especific3
+                            llistaLinies// especific4
+                        )
+                    }
+
+                } else {
+                    esdevenimentCreable = false
+                }
+                if (esdevenimentCreable == false) {
+                    Toast.makeText(this, "Si us plau, omple tots els camps", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         var eliminar = false
@@ -173,6 +232,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         //declaro Views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<TextView>(R.id.etTitol)
+        val etDescripcio = findViewById<EditText>(R.id.etDescripcio)
 
         val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
 
@@ -199,6 +259,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         //habilito camps
         etTitol.isEnabled = true
+        etDescripcio.isEnabled = true
 
         //Amago els camps
         rgEsdeveniment.visibility = View.GONE
@@ -206,6 +267,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         btnReservar.visibility = View.GONE
 
         //Buido els camps
+        etDescripcio.text = null
+
         tvEspecific1.text = null
         tvEspecific2.text = null
         tvEspecific3.text = null
@@ -227,6 +290,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         //declaro Views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
+        val etDescripcio = findViewById<EditText>(R.id.etDescripcio)
 
         val tvCarregaImgHR = findViewById<TextView>(R.id.tvCarregaImgHR)
         val btnCarregaImgHR = findViewById<Button>(R.id.btnCarregaImgHR)
@@ -331,6 +395,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             tvCarregaImgHR.visibility = View.GONE
             btnCarregaImgHR.visibility = View.GONE
             llCarregaImgSR.visibility = View.GONE
+            etDescripcio.isEnabled = false
             etAny.isEnabled = false
             etMes.isEnabled = false
             etDia.isEnabled = false

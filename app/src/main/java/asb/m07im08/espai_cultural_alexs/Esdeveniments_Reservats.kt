@@ -26,7 +26,6 @@ class Esdeveniments_Reservats : AppCompatActivity() {//SENSE ÚS
         val recyclerView = findViewById<RecyclerView>(R.id.rvEsdevenimentsReservats)
 
         // Configurar el layout manager
-
         val layoutManager = GridLayoutManager(this, columnesRecyclerView)
         recyclerView.layoutManager = layoutManager
 

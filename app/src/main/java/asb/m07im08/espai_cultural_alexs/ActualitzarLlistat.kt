@@ -61,10 +61,12 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
                 )
                 if (reserves){
                     if(esdeveniment.entrades.count() > 0) {
-                        afegirEsdeveniment(context,esdeveniment)
+                        //afegirEsdeveniment(context,esdeveniment)
+                        esdeveniments.add(esdeveniment)
                     }
                 } else {
-                    afegirEsdeveniment(context,esdeveniment)
+                    //afegirEsdeveniment(context,esdeveniment)
+                    esdeveniments.add(esdeveniment)
                 }
             }
 
@@ -142,8 +144,8 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
         Esdeveniment_Manager.esdeveniments.add(esdevenimentNou)
         desarEsdeveniments(context)
     }
-    fun afegirEsdeveniment(context: Context, esdevenimentNou: Esdeveniment, index: Int){
-        Esdeveniment_Manager.esdeveniments[index] = esdevenimentNou
+    fun afegirEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int){
+        Esdeveniment_Manager.esdeveniments[index] = esdevenimentModificat
         desarEsdeveniments(context)
     }
 }
