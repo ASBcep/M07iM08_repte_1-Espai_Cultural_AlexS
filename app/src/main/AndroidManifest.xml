@@ -22,9 +22,6 @@
             android:name=".Gestio_Esdeveniment"
             android:exported="false" />
         <activity
-            android:name=".Detall"
-            android:exported="false" />
-        <activity
             android:name=".Llistat_Esdeveniments"
             android:exported="false" />
         <activity

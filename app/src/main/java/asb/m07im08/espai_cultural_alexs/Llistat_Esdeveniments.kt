@@ -1,6 +1,5 @@
 package asb.m07im08.espai_cultural_alexs
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.time.LocalDateTime
 
 class Llistat_Esdeveniments : AppCompatActivity() {
 private var reserves: Boolean = false
@@ -48,9 +46,11 @@ private var reserves: Boolean = false
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
-            // Gestiona el clic de l'esdeveniment
-            Esdeveniment_Manager.index = position
+        //val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
+        val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment ->
+
+        // Gestiona el clic de l'esdeveniment
+            //Esdeveniment_Manager.index = position
             //val intent = Intent(this, Detall::class.java)//canvio la classe
             val intent: Intent
             if (reserves) {
@@ -59,6 +59,7 @@ private var reserves: Boolean = false
                 }
             } else {
                 intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
+                    putExtra("esdeveniment", esdeveniment)
                     putExtra("detall", true)
                     //putExtra("nou", true)
                     //putExtra("modificar", false)

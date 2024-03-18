@@ -40,7 +40,6 @@ class Reserves : AppCompatActivity() {
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
         val adapter = TaulaEntradesAdapter(esdeveniment.entrades) { entrada ->
             // Gestiona el clic de l'esdeveniment
-            //obrir popup per modificar entrada??
             val intent = Intent(this, Reservar::class.java).apply {
                 putExtra("entrada", entrada)
                 putExtra("esdeveniment", esdeveniment)

@@ -29,19 +29,21 @@ import java.time.Year
 import java.util.Date
 
 class Gestio_Esdeveniment : AppCompatActivity() {
+    private var esdevenimentThis: Esdeveniment = Esdeveniment()
     private var detall: Boolean = false
     private var nou: Boolean = false
     private var modificar: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //rebo putextra de l'intent
+        esdevenimentThis = intent.getSerializableExtra("esdeveniment") as Esdeveniment? ?: Esdeveniment()
         detall = intent.getBooleanExtra("detall", false)
         nou = intent.getBooleanExtra("nou", false)
         modificar = intent.getBooleanExtra("modificar", false)
 
         setContentView(R.layout.activity_gestio_esdeveniment)
 
-        var esdevenimentThis = llegirEsdeveniment()
+        //var esdevenimentThis = llegirEsdeveniment()
 
         //declaro views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
@@ -97,8 +99,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         rgEsdeveniment.setOnCheckedChangeListener{_, isChecked ->
             resetCamps()
             habilitarCamps(esdevenimentThis)
-            //habilito camps comuns
-            llEspecific4.visibility = View.VISIBLE
         }
         btnEnrere.setOnClickListener {
             finish()
@@ -108,6 +108,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             val intent: Intent
             if (detall) {
                 intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
+                    putExtra("esdeveniment", esdevenimentThis)
                     putExtra("modificar", true)
                 }
                 startActivity(intent)
@@ -115,6 +116,28 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 //TODO("modificar esdeveniment")
             } else if (nou) {
                 //TODO("escriure esdeveniment nou")
+                val tipus: String = (if (rbPeli.isChecked){"Pel·lícula"} else if (rbXerrada.isChecked){"Xerrada"} else if (rbConcert.isChecked) {"Concert"} else {})
+                ActualitzarLlistat(this, false)
+                val nouEsdeveniment = Esdeveniment(
+                    Esdeveniment_Manager.esdeveniments.last() + 1,//id
+                    etTitol.text.toString(),//nom
+                    (Esdeveniment_Manager.esdeveniments.last() + 1).toString(),//imatge
+                    etDescripcio.text.toString,// descripcio
+                    LocalDateTime.of(etAny.text.toString().toInt(),
+                                    etMes.text.toString().toInt(),
+                                    etDia.text.toString().toInt(),
+                                    etHora.text.toString().toInt(),
+                                    etMinuts.text.toString().toInt()),// data
+                    etIdioma.text.toString(),// idioma
+                    etPreu.toString().toDouble(),// preu
+                    rbNumerat.isChecked,// numerat
+                    tipus,// tipus
+                    ,// entrades
+                    ,// especific1
+                    ,// especific2
+                    ,// especific3
+                    ,// especific4
+                )
             }
         }
         var eliminar = false
@@ -289,7 +312,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val especific1 = esdeveniment.especific1
         val especific2 = esdeveniment.especific2
         val especific3 = esdeveniment.especific3
-        val especific4 = listOf(esdeveniment.especific4).joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
+        //val especific4 = listOf(esdeveniment.especific4).joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
+        val especific4 = esdeveniment.especific4.joinToString(separator = "\n", prefix = "", postfix = "")
 
         //omplo camps comuns:
         tvEspecific1.text = titolEspecific1
@@ -377,7 +401,11 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         if (tipus == "Pel·lícula" || tipus == "Concert") {
             llEspecific1a3.visibility = View.VISIBLE
             llEspecificEntre3i4.visibility = View.VISIBLE
-            tvEspecific4.visibility = View.VISIBLE
+            //tvEspecific4.visibility = View.VISIBLE
+            llEspecific4.visibility = View.VISIBLE
+        } else if (tipus == "Xerrada") {
+            llEspecific4.visibility = View.VISIBLE
         }
+
     }
 }

@@ -61,10 +61,10 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
                 )
                 if (reserves){
                     if(esdeveniment.entrades.count() > 0) {
-                        esdeveniments.add(esdeveniment)
+                        afegirEsdeveniment(context,esdeveniment)
                     }
                 } else {
-                    esdeveniments.add(esdeveniment)
+                    afegirEsdeveniment(context,esdeveniment)
                 }
             }
 
@@ -127,6 +127,24 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
                 Toast.LENGTH_LONG
             ).show()
         }
+    }
+    fun cercarEsdeveniment(esdevenimentCercat: Esdeveniment): Int{
+        var index = -1
+        var esdeveniments = Esdeveniment_Manager.esdeveniments
+        for (i in 0 until esdeveniments.count()){
+            if (esdevenimentCercat.id == esdeveniments[i].id){
+                index = i
+            }
+        }
+        return index
+    }
+    fun afegirEsdeveniment(context: Context, esdevenimentNou: Esdeveniment){
+        Esdeveniment_Manager.esdeveniments.add(esdevenimentNou)
+        desarEsdeveniments(context)
+    }
+    fun afegirEsdeveniment(context: Context, esdevenimentNou: Esdeveniment, index: Int){
+        Esdeveniment_Manager.esdeveniments[index] = esdevenimentNou
+        desarEsdeveniments(context)
     }
 }
     /*
