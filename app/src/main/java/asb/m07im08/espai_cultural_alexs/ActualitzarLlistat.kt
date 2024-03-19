@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 //aquesta classe permet llegir i escriure desde i a JSON
 
-class ActualitzarLlistat (context: Context, reserves: Boolean) {
+class ActualitzarLlistatOLD (context: Context, reserves: Boolean) {
 
     private val jsonFilePath = context.filesDir.toString() + "/json/esdeveniments.json"
     private var esdeveniments: MutableList<Esdeveniment> = mutableListOf()
@@ -77,24 +77,25 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
                 "Error en llegir el JSON d'esdeveniments: ${e.message}",
                 Toast.LENGTH_LONG
             ).show()
+            esdeveniments.clear()
         }
         Esdeveniment_Manager.esdeveniments = esdeveniments
     }
 
 
-    fun desarEsdeveniments(context: Context) {
+    fun desarEsdevenimentsOLD(context: Context) {
         try {
             val jsonArray = JSONArray()
 
             // Recórrer la llista d'esdeveniments i afegir-los a l'array JSON
-            for (esdeveniment in esdeveniments) {
+            for (esdeveniment in Esdeveniment_Manager.esdeveniments) {
                 val jsonObject = JSONObject().apply {
                     put("id", esdeveniment.id)
                     put("nom", esdeveniment.nom)
                     put("imatge", esdeveniment.imatge)
                     put("descripcio", esdeveniment.descripcio)
                     put("data", esdeveniment.data.toString())
-                    put("data", esdeveniment.idioma.toString())
+                    put("idioma", esdeveniment.idioma.toString())
                     put("preu", esdeveniment.preu.toDouble())
                     put("numerat", esdeveniment.numerat)
                     put("tipus", esdeveniment.tipus)
@@ -130,7 +131,7 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
             ).show()
         }
     }
-    fun cercarEsdeveniment(esdevenimentCercat: Esdeveniment): Int{
+    fun cercarEsdevenimentOLD(esdevenimentCercat: Esdeveniment): Int{
         var index = -1
         var esdeveniments = Esdeveniment_Manager.esdeveniments
         for (i in 0 until esdeveniments.count()){
@@ -140,13 +141,13 @@ class ActualitzarLlistat (context: Context, reserves: Boolean) {
         }
         return index
     }
-    fun afegirEsdeveniment(context: Context, esdevenimentNou: Esdeveniment){
+    fun afegirEsdevenimentOLD(context: Context, esdevenimentNou: Esdeveniment){
         Esdeveniment_Manager.esdeveniments.add(esdevenimentNou)
-        desarEsdeveniments(context)
+        desarEsdevenimentsOLD(context)
     }
-    fun afegirEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int){
+    fun afegirEsdevenimentOLD(context: Context, esdevenimentModificat: Esdeveniment, index: Int){
         Esdeveniment_Manager.esdeveniments[index] = esdevenimentModificat
-        desarEsdeveniments(context)
+        desarEsdevenimentsOLD(context)
     }
 }
     /*

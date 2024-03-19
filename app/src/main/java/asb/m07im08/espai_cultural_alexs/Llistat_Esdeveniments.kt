@@ -37,7 +37,8 @@ private var reserves: Boolean = false
         }
         val columnesRecyclerView = 1;
 
-        ActualitzarLlistat(this, reserves)
+        //ActualitzarLlistat(this, reserves)
+        JsonIO.llegirLlistat(this, reserves)
 
         val esdeveniments = Esdeveniment_Manager.esdeveniments
 

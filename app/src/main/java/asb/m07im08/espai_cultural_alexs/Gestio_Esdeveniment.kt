@@ -43,6 +43,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         setContentView(R.layout.activity_gestio_esdeveniment)
 
+        //val actualitzarLlistat = ActualitzarLlistat(this, false)
+
+
         //var esdevenimentThis = llegirEsdeveniment()
 
         //declaro views
@@ -144,17 +147,20 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     for (linia in linies) {
                         llistaLinies.add(linia)
                     }
-                    val seguentId = Esdeveniment_Manager.esdeveniments.last().id + 1
+                    var seguentId = 1
+                    if (Esdeveniment_Manager.esdeveniments.count() > 0){
+                        seguentId = Esdeveniment_Manager.esdeveniments.last().id + 1
+                    }
                     var any = -1
                     var mes = -1
                     var dia = -1
                     var hora = -1
                     var minuts = -1
                     if (etAny.text.isNotEmpty() &&
-                        etMes.text.isNotEmpty() &&
-                        etDia.text.isNotEmpty() &&
-                        etHora.text.isNotEmpty() &&
-                        etMinuts.text.isNotEmpty()){
+                            etMes.text.isNotEmpty() &&
+                            etDia.text.isNotEmpty() &&
+                            etHora.text.isNotEmpty() &&
+                            etMinuts.text.isNotEmpty()){
                         any = etAny.text.toString().toInt()
                         mes = etMes.text.toString().toInt()
                         dia = etDia.text.toString().toInt()
@@ -167,12 +173,14 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     var preu = 1.11
                     try {
                         data =  LocalDateTime.of(any, mes, dia, hora, minuts)
-                        preu = etPreu.toString().toDouble()//NO PERMET CONVERTIR EDITTEXT A DOUBLE??
+                        val preuString = etPreu.text.toString()
+                        preu = preuString.toDouble()
                     } catch (e: Exception) {
                         esdevenimentCreable = false
                     }
                     if (esdevenimentCreable){
-                        ActualitzarLlistat(this, false)
+                        //ActualitzarLlistat(this, false)
+                        JsonIO.llegirLlistat(this, false)
                         val nouEsdeveniment = Esdeveniment(
                             seguentId,//id
                             etTitol.text.toString(),//nom
@@ -189,6 +197,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             etEspecific3.text.toString(),// especific3
                             llistaLinies// especific4
                         )
+                        //TODO("comprovar i desar les imatges")
+                        //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
+                        JsonIO.afegirEsdeveniment(this, nouEsdeveniment)
+                        //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
                     }
 
                 } else {
@@ -197,6 +209,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 if (esdevenimentCreable == false) {
                     Toast.makeText(this, "Si us plau, omple tots els camps", Toast.LENGTH_SHORT).show()
                 }
+                //ActualitzarLlistat(this, false)
             }
         }
         var eliminar = false

@@ -133,5 +133,37 @@
     "especific2": "1999",
     "especific3": "111",
     "especific4": ["Kenoa Ribes", "Catering Zeta Joan", "Garrison Porc"]
+  },
+  {
+    "id": 5,
+    "nom": "gats",
+    "imatge": "1",
+    "descripcio": "",
+    "data": "2033-02-01T04:05",
+    "idioma": "cat",
+    "preu": 666,
+    "numerat": true,
+    "tipus": "Xerrada",
+    "especific1": "",
+    "especific2": "",
+    "especific3": "",
+    "especific4": ["Garfield", "Isidoro"],
+    "entrades": [{"id": -1, "nom_reserva": ""}]
+  },
+  {
+    "id": 6,
+    "nom": "gossos",
+    "imatge": "2",
+    "descripcio": "",
+    "data": "2033-04-05T02:01",
+    "idioma": "spa",
+    "preu": 12,
+    "numerat": false,
+    "tipus": "Concert",
+    "especific1": "Guawer",
+    "especific2": "Pupum Pupum",
+    "especific3": "Gossical",
+    "especific4": ["Quisso", "Lamu", "Milú"],
+    "entrades": [{"id": -1, "nom_reserva": ""}]
   }
 ]
