@@ -22,7 +22,7 @@ class Reservar : AppCompatActivity() {
         tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
 
         val ivHR = findViewById<ImageView>(R.id.ivHR)
-        GestorImatge.inserirImatgeHR(esdevenimentThis.imatge, this, ivHR)
+        GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
 
         val tvTipusEntrades = findViewById<TextView>(R.id.tvTipusEntrades)
         if (esdevenimentThis.numerat){

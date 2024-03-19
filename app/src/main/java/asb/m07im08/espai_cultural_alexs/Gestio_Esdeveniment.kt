@@ -1,5 +1,6 @@
 package asb.m07im08.espai_cultural_alexs
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -41,6 +42,12 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         nou = intent.getBooleanExtra("nou", false)
         modificar = intent.getBooleanExtra("modificar", false)
 
+        if (Esdeveniment_Manager.esdeveniments.isNotEmpty() && nou){
+            esdevenimentThis.id = Esdeveniment_Manager.esdeveniments.last().id + 1
+        } else if (Esdeveniment_Manager.esdeveniments.isEmpty() && nou){
+            esdevenimentThis.id = 1
+        }
+
         setContentView(R.layout.activity_gestio_esdeveniment)
 
         //val actualitzarLlistat = ActualitzarLlistat(this, false)
@@ -53,7 +60,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etTitol = findViewById<EditText>(R.id.etTitol)
 
         val ivSR = findViewById<ImageView>(R.id.ivSR)
+        val btnCarregaImgSR = findViewById<Button>(R.id.btnCarregaImgSR)
+
         val ivHR = findViewById<ImageView>(R.id.ivHR)
+        val btnCarregaImgHR = findViewById<Button>(R.id.btnCarregaImgHR)
 
         val etDescripcio = findViewById<EditText>(R.id.etDescripcio)
         val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
@@ -95,8 +105,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         //inserirImatgeSR(esdevenimentThis.imatge)
         //inserirImatgeHR(esdevenimentThis.imatge)
-        GestorImatge.inserirImatgeSR(esdevenimentThis.imatge, this, ivSR)
-        GestorImatge.inserirImatgeHR(esdevenimentThis.imatge, this, ivHR)
+        GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(), this, ivSR)
+        GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
 
         resetCamps()
         habilitarCamps(esdevenimentThis)
@@ -112,6 +122,33 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             tipusTriat = true
             resetCamps()
             habilitarCamps(esdevenimentThis)
+        }
+        var highRes = true
+        btnCarregaImgHR.setOnClickListener{
+            highRes = true
+            GestorImatge.obrirImatge(this, highRes, esdevenimentThis.id.toString())
+            GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
+            //habilitarCamps(esdevenimentThis)
+        }
+        btnCarregaImgSR.setOnClickListener{
+            highRes = false
+            GestorImatge.obrirImatge(this, highRes, esdevenimentThis.id.toString())
+            GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(), this, ivSR)
+            //habilitarCamps(esdevenimentThis)
+        }
+        // funció onActivityResult de l'activitat per rebre imatge triada:
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            // Comprova si la resposta és de la galeria d'imatges
+            val PICK_IMAGE_REQUEST_CODE = 1
+            if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+                // Insereix la imatge HR des de la funció inserirImatgeHR de GestorImatge
+                if (highRes) {
+                    GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
+                } else {
+                    GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivSR)
+                }
+            }
         }
         btnEnrere.setOnClickListener {
             finish()
@@ -147,10 +184,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     for (linia in linies) {
                         llistaLinies.add(linia)
                     }
-                    var seguentId = 1
+                    /*var seguentId = 1
                     if (Esdeveniment_Manager.esdeveniments.count() > 0){
                         seguentId = Esdeveniment_Manager.esdeveniments.last().id + 1
-                    }
+                    }*/
                     var any = -1
                     var mes = -1
                     var dia = -1
@@ -182,9 +219,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                         //ActualitzarLlistat(this, false)
                         JsonIO.llegirLlistat(this, false)
                         val nouEsdeveniment = Esdeveniment(
-                            seguentId,//id
+                            //seguentId,//id
+                            esdevenimentThis.id, //id
                             etTitol.text.toString(),//nom
-                            seguentId.toString(),//imatge
+                            //seguentId.toString(),//imatge
                             etDescripcio.text.toString(),// descripcio
                             data,// data
                             etIdioma.text.toString(),// idioma

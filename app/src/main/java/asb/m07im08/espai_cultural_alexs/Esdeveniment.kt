@@ -4,9 +4,9 @@ import java.io.Serializable
 import java.time.LocalDateTime
 
 class Esdeveniment (
-    val id: Int = -1,
+    var id: Int = -1,
     val nom: String = id.toString(),
-    val imatge: String =  id.toString(),
+    //val imatge: String =  id.toString(),
     val descripcio: String = id.toString(),
     val data: LocalDateTime = LocalDateTime.now(),
     val idioma: String = id.toString(),

@@ -34,7 +34,7 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
         fun bindElement(esdeveniment: Esdeveniment) {
             val ivListEsdeveniment = itemView.findViewById<ImageView>(R.id.ivListEsdeveniment)
 
-            GestorImatge.inserirImatgeSR(esdeveniment.imatge, itemView.context, ivListEsdeveniment)
+            GestorImatge.inserirImatgeSR(esdeveniment.id.toString(), itemView.context, ivListEsdeveniment)
 
             //assigno dades als textviews
             val esdevenimentNom = itemView.findViewById<TextView>(R.id.NomListEsdeveniment)

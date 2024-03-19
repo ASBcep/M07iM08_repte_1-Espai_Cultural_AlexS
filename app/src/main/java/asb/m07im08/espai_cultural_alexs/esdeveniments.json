@@ -2,7 +2,6 @@
   {
     "id": 1,
     "nom": "Peli 1",
-    "imatge": "1",
     "descripcio": "Descripció esdeveniment 1",
     "data": "2024-03-10T12:34:56",
     "idioma": "Català",
@@ -35,7 +34,6 @@
   {
     "id": 2,
     "nom": "Xerrada Esdeveniment 2",
-    "imatge": "2",
     "descripcio": "Descripció esdeveniment 2",
     "data": "2024-03-10T12:34:56",
     "idioma": "Anglès",
@@ -64,7 +62,6 @@
   {
     "id": 3,
     "nom": "Concert Esdeveniment 3",
-    "imatge": "3",
     "descripcio": "Descripció esdeveniment 3",
     "data": "2024-03-10T12:34:56",
     "idioma": "Català",
@@ -80,7 +77,6 @@
   {
     "id": 4,
     "nom": "Pel·lícula Esdeveniment 4",
-    "imatge": "4",
     "descripcio": "Descripció esdeveniment 4",
     "data": "2024-03-10T12:34:56",
     "idioma": "Castellà",
@@ -137,7 +133,6 @@
   {
     "id": 5,
     "nom": "gats",
-    "imatge": "1",
     "descripcio": "",
     "data": "2033-02-01T04:05",
     "idioma": "cat",
@@ -153,7 +148,6 @@
   {
     "id": 6,
     "nom": "gossos",
-    "imatge": "2",
     "descripcio": "",
     "data": "2033-04-05T02:01",
     "idioma": "spa",

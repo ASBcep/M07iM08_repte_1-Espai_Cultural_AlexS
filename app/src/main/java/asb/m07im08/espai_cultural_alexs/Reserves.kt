@@ -23,7 +23,7 @@ class Reserves : AppCompatActivity() {
         tvTitol.text = "Gestionar entrades de " + esdeveniment.nom
 
         val ivHR = findViewById<ImageView>(R.id.ivHR)
-        GestorImatge.inserirImatgeHR(esdeveniment.imatge, this, ivHR)
+        GestorImatge.inserirImatgeHR(esdeveniment.id.toString(), this, ivHR)
 
 
         var index = 0

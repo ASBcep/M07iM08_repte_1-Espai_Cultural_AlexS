@@ -37,7 +37,7 @@ object JsonIO {
                 val esdeveniment = Esdeveniment(
                     id = jsonObject.getInt("id"),
                     nom = jsonObject.getString("nom"),
-                    imatge = jsonObject.getString("imatge"),
+                    //imatge = jsonObject.getString("imatge"),
                     descripcio = jsonObject.getString("descripcio"),
                     data = LocalDateTime.parse(jsonObject.getString("data")),
                     idioma = jsonObject.getString("idioma"),
@@ -88,7 +88,7 @@ object JsonIO {
                 val jsonObject = JSONObject().apply {
                     put("id", esdeveniment.id)
                     put("nom", esdeveniment.nom)
-                    put("imatge", esdeveniment.imatge)
+                    //put("imatge", esdeveniment.imatge)
                     put("descripcio", esdeveniment.descripcio)
                     put("data", esdeveniment.data.toString())
                     put("idioma", esdeveniment.idioma.toString())
@@ -118,6 +118,11 @@ object JsonIO {
             // Escriure l'array JSON a l'arxiu
             val fileWriter = FileWriter(jsonFilePath)
             fileWriter.use { it.write(jsonArray.toString()) }
+            Toast.makeText(
+                context,
+                "Esdeveniments desat",
+                Toast.LENGTH_LONG
+            ).show()
         } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(
