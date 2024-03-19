@@ -23,6 +23,8 @@ import android.widget.TimePicker
 import android.widget.Toast
 import org.w3c.dom.Text
 import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.MonthDay
@@ -34,6 +36,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
     private var detall: Boolean = false
     private var nou: Boolean = false
     private var modificar: Boolean = false
+
+    val PICK_IMAGE_REQUEST_CODE = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //rebo putextra de l'intent
@@ -126,33 +130,12 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         var highRes = true
         btnCarregaImgHR.setOnClickListener{
             highRes = true
-            GestorImatge.obrirImatge(this, highRes, esdevenimentThis.id.toString())
-            GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
-            //habilitarCamps(esdevenimentThis)
+            openImagePicker()
         }
         btnCarregaImgSR.setOnClickListener{
             highRes = false
-            GestorImatge.obrirImatge(this, highRes, esdevenimentThis.id.toString())
-            GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(), this, ivSR)
-            //habilitarCamps(esdevenimentThis)
         }
-        // funció onActivityResult de l'activitat per rebre imatge triada:
-        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            // Comprova si la resposta és de la galeria d'imatges
-            val PICK_IMAGE_REQUEST_CODE = 1
-            if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-                // Insereix la imatge HR des de la funció inserirImatgeHR de GestorImatge
-                if (highRes) {
-                    GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
-                } else {
-                    GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivSR)
-                }
-            }
-        }
-        btnEnrere.setOnClickListener {
-            finish()
-        }
+
 
         btnModifiCrear.setOnClickListener {
             if (detall) {
@@ -267,6 +250,33 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+    fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.data?.let { uri ->
+                val inputStream: InputStream? = contentResolver.openInputStream(uri)
+                inputStream?.use { input ->
+                    saveImageToFile(input)
+                }
+            }
+        }
+    }
+
+    private fun saveImageToFile(inputStream: InputStream) {
+        val file = File(filesDir, "image.jpg")
+        val outputStream = FileOutputStream(file)
+        inputStream.use { input ->
+            outputStream.use { output ->
+                input.copyTo(output)
+            }
+        }
+        // Aquí ja tens la imatge desada a la ruta filesDir/image.jpg
     }
     private fun llegirEsdeveniment():Esdeveniment {
 
