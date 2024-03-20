@@ -120,7 +120,7 @@ object JsonIO {
             fileWriter.use { it.write(jsonArray.toString()) }
             Toast.makeText(
                 context,
-                "Esdeveniment desat",
+                "Llistat d'esdeveniments desat",
                 Toast.LENGTH_LONG
             ).show()
         } catch (e: IOException) {
@@ -147,8 +147,15 @@ object JsonIO {
         escriureLlistat(context)
         llegirLlistat(context, false)
     }
-    fun afegirEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int){
-        Esdeveniment_Manager.esdeveniments[index] = esdevenimentModificat
-        escriureLlistat(context)
+    fun afegirEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int):Boolean{
+        var afegit: Boolean
+        try {
+            Esdeveniment_Manager.esdeveniments[index] = esdevenimentModificat
+            escriureLlistat(context)
+            afegit = true
+        } catch (e: Exception) {
+            afegit = false
+        }
+        return afegit
     }
 }

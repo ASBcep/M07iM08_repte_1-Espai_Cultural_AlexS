@@ -155,8 +155,84 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 startActivity(intent)
             } else if (modificar) {
                 //TODO("modificar esdeveniment")
+                var esdevenimentModificable = true
+                if (rbNumerat.isChecked || rbNoNumerat.isChecked) {aforamentTriat = true}
+                //if (rbConcert.isChecked || rbPeli.isChecked || rbXerrada.isChecked) {tipusTriat = true}
+                if (aforamentTriat){
+                    val text = etEspecific4.text.toString()
+                    val linies = text.split("\n")
+                    val llistaLinies = mutableListOf<String>()
+                    for (linia in linies) {
+                        llistaLinies.add(linia)
+                    }
+                    var descripcio = ""
+                    var any = -1
+                    var mes = -1
+                    var dia = -1
+                    var hora = -1
+                    var minuts = -1
+                    if (etDescripcio.text.isNotEmpty() &&
+                        etAny.text.isNotEmpty() &&
+                        etMes.text.isNotEmpty() &&
+                        etDia.text.isNotEmpty() &&
+                        etHora.text.isNotEmpty() &&
+                        etMinuts.text.isNotEmpty())
+                    {
+                        descripcio = etDescripcio.text.toString()
+                        any = etAny.text.toString().toInt()
+                        mes = etMes.text.toString().toInt()
+                        dia = etDia.text.toString().toInt()
+                        hora = etHora.text.toString().toInt()
+                        minuts = etMinuts.text.toString().toInt()
+                    } else {
+                        esdevenimentModificable = false
+                    }
+                    var data = LocalDateTime.now()
+                    var preu = 1.11
+                    try {
+                        data =  LocalDateTime.of(any, mes, dia, hora, minuts)
+                        val preuString = etPreu.text.toString()
+                        preu = preuString.toDouble()
+                    } catch (e: Exception) {
+                        esdevenimentModificable = false
+                    }
+                    if (esdevenimentModificable){
+                        //ActualitzarLlistat(this, false)
+                        JsonIO.llegirLlistat(this, false)
+                        val EsdevenimentModificat = Esdeveniment(
+                            //seguentId,//id
+                            esdevenimentThis.id, //id
+                            etTitol.text.toString(),//nom
+                            //seguentId.toString(),//imatge
+                            descripcio,// descripcio
+                            data,// data
+                            etIdioma.text.toString(),// idioma
+                            preu,// preu
+                            rbNumerat.isChecked,// numerat
+                            esdevenimentThis.tipus,// tipus
+                            mutableListOf(Entrada()),// entrades
+                            etEspecific1.text.toString(),// especific1
+                            etEspecific2.text.toString(),// especific2
+                            etEspecific3.text.toString(),// especific3
+                            llistaLinies// especific4
+                        )
+                        //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
+                        val indexEsdevenimentOriginal = JsonIO.cercarEsdeveniment(EsdevenimentModificat)
+                        var afegit: Boolean
+                        afegit = JsonIO.afegirEsdeveniment(this, EsdevenimentModificat, indexEsdevenimentOriginal)
+                        if (afegit) {finish()}//tanco activity
+                        //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
+
+                    }
+
+                } else {
+                    esdevenimentModificable = false
+                }
+                if (esdevenimentModificable == false) {
+                    Toast.makeText(this, "Si us plau, omple tots els camps", Toast.LENGTH_SHORT).show()
+                }
+                //ActualitzarLlistat(this, false)
             } else if (nou) {
-                //TODO("escriure esdeveniment nou")
                 var esdevenimentCreable = true
                 if (aforamentTriat && tipusTriat){
                     val tipus: String = (if (rbPeli.isChecked){
@@ -175,10 +251,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     for (linia in linies) {
                         llistaLinies.add(linia)
                     }
-                    /*var seguentId = 1
-                    if (Esdeveniment_Manager.esdeveniments.count() > 0){
-                        seguentId = Esdeveniment_Manager.esdeveniments.last().id + 1
-                    }*/
                     var descripcio = ""
                     var any = -1
                     var mes = -1
@@ -450,7 +522,15 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         var tipus = esdeveniment.tipus
         val mesFormatat = String.format("%02d", esdeveniment.data.monthValue)
-
+        /*
+        if (tipus.equals("Pel·lícula"))  {
+            rbPeli.isChecked = true
+        } else if (tipus.equals("Xerrada")) {
+            rbXerrada.isChecked = true
+        } else if (tipus.equals("Concert")) {
+            rbConcert.isChecked = true
+        }
+        */
         //activació de radiobutton tipus
         if (rbPeli.isChecked)  {
             tipus = "Pel·lícula"
@@ -564,7 +644,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnModifiCrear.text = "Desar canvis"
             btnEliminar.visibility =View.VISIBLE
         }
-
 
         //cribo segons tipus d'esdeveniment per habilitar camps específics
         if (tipus == "Pel·lícula" || tipus == "Concert") {
