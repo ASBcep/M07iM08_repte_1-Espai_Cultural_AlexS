@@ -120,7 +120,7 @@ object JsonIO {
             fileWriter.use { it.write(jsonArray.toString()) }
             Toast.makeText(
                 context,
-                "Esdeveniments desat",
+                "Esdeveniment desat",
                 Toast.LENGTH_LONG
             ).show()
         } catch (e: IOException) {

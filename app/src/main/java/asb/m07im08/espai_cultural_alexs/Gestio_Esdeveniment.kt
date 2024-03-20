@@ -7,8 +7,10 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.icu.util.Calendar
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.view.View
 import android.widget.Button
@@ -36,6 +38,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
     private var detall: Boolean = false
     private var nou: Boolean = false
     private var modificar: Boolean = false
+    var highRes = true
 
     val PICK_IMAGE_REQUEST_CODE = 1
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,16 +130,21 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             resetCamps()
             habilitarCamps(esdevenimentThis)
         }
-        var highRes = true
+
         btnCarregaImgHR.setOnClickListener{
             highRes = true
             openImagePicker()
+            GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(),this,ivHR)
         }
         btnCarregaImgSR.setOnClickListener{
             highRes = false
+            openImagePicker()
+            GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(),this,ivSR)
         }
-
-
+        btnEnrere.setOnClickListener{
+            finish()
+        }
+        //botó crear o modificar
         btnModifiCrear.setOnClickListener {
             if (detall) {
                 val intent: Intent
@@ -171,16 +179,20 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     if (Esdeveniment_Manager.esdeveniments.count() > 0){
                         seguentId = Esdeveniment_Manager.esdeveniments.last().id + 1
                     }*/
+                    var descripcio = ""
                     var any = -1
                     var mes = -1
                     var dia = -1
                     var hora = -1
                     var minuts = -1
-                    if (etAny.text.isNotEmpty() &&
-                            etMes.text.isNotEmpty() &&
-                            etDia.text.isNotEmpty() &&
-                            etHora.text.isNotEmpty() &&
-                            etMinuts.text.isNotEmpty()){
+                    if (etDescripcio.text.isNotEmpty() &&
+                        etAny.text.isNotEmpty() &&
+                        etMes.text.isNotEmpty() &&
+                        etDia.text.isNotEmpty() &&
+                        etHora.text.isNotEmpty() &&
+                        etMinuts.text.isNotEmpty())
+                    {
+                        descripcio = etDescripcio.text.toString()
                         any = etAny.text.toString().toInt()
                         mes = etMes.text.toString().toInt()
                         dia = etDia.text.toString().toInt()
@@ -206,7 +218,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             esdevenimentThis.id, //id
                             etTitol.text.toString(),//nom
                             //seguentId.toString(),//imatge
-                            etDescripcio.text.toString(),// descripcio
+                            descripcio,// descripcio
                             data,// data
                             etIdioma.text.toString(),// idioma
                             preu,// preu
@@ -218,10 +230,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             etEspecific3.text.toString(),// especific3
                             llistaLinies// especific4
                         )
-                        //TODO("comprovar i desar les imatges")
                         //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
                         JsonIO.afegirEsdeveniment(this, nouEsdeveniment)
                         //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
+                        finish()//tanco activity
                     }
 
                 } else {
@@ -251,32 +263,64 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    fun openImagePicker() {
+    //obrir selector d'imatges
+    private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.type = "image/*"
         startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
     }
+    //rebre el resultat del selector d'imatges
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
-                val inputStream: InputStream? = contentResolver.openInputStream(uri)
-                inputStream?.use { input ->
-                    saveImageToFile(input)
-                }
+                val imageType = getImageTypeFromUri(uri)
+                saveImageToFile(uri, imageType)
             }
         }
     }
-
-    private fun saveImageToFile(inputStream: InputStream) {
-        val file = File(filesDir, "image.jpg")
-        val outputStream = FileOutputStream(file)
-        inputStream.use { input ->
-            outputStream.use { output ->
-                input.copyTo(output)
+    //conèixer el tipus d'imatge
+    private fun getImageTypeFromUri(uri: Uri): String {
+        contentResolver.getType(uri)?.let { mimeType ->
+            return when {
+                mimeType.startsWith("image/png") -> "png"
+                mimeType.startsWith("image/jpeg") -> "jpg"
+                mimeType.startsWith("image/jpg") -> "jpg"
+                else -> ""
             }
         }
-        // Aquí ja tens la imatge desada a la ruta filesDir/image.jpg
+        return ""
+    }
+    //desar la imatge
+    private fun saveImageToFile(uri: Uri, imageType: String) {
+        val inputStream = contentResolver.openInputStream(uri)
+        var fileName = ""
+        if (highRes) {
+            fileName = esdevenimentThis.id.toString() + "hr" + "." + imageType
+        } else {
+            fileName = esdevenimentThis.id.toString() + "sr" + "." + imageType
+        }
+        //val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        //val directory = File(getExternalFilesDir(null), "img")
+        val directory = this.filesDir.toString() +  "/img/"
+        val file = File(directory, fileName)
+
+        inputStream?.use { input ->
+            FileOutputStream(file).use { output ->
+                val buffer = ByteArray(4 * 1024)
+                var read: Int
+                while (input.read(buffer).also { read = it } != -1) {
+                    output.write(buffer, 0, read)
+                }
+                output.flush()
+            }
+        }
+
+        Toast.makeText(this, "Imatge desada a: ${file.absolutePath}", Toast.LENGTH_LONG).show()
+        val ivHR = findViewById<ImageView>(R.id.ivHR)
+        GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(),this,ivHR)
+        val ivSR = findViewById<ImageView>(R.id.ivSR)
+        GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(),this,ivSR)
     }
     private fun llegirEsdeveniment():Esdeveniment {
 
@@ -328,8 +372,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         btnReservar.visibility = View.GONE
 
         //Buido els camps
-        etDescripcio.text = null
-
         tvEspecific1.text = null
         tvEspecific2.text = null
         tvEspecific3.text = null
@@ -491,6 +533,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         }
         if (modificar || detall) {
             etTitol.text = Editable.Factory.getInstance().newEditable(esdeveniment.nom)
+            etDescripcio.text = Editable.Factory.getInstance().newEditable(esdeveniment.descripcio)
             etAny.text = Editable.Factory.getInstance().newEditable(esdeveniment.data.year.toString())
             //etMes.text = Editable.Factory.getInstance().newEditable(esdevenimentThis.data.month.toString())
             etMes.text = Editable.Factory.getInstance().newEditable(mesFormatat)
