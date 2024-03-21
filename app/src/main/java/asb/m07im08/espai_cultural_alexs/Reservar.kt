@@ -2,12 +2,16 @@ package asb.m07im08.espai_cultural_alexs
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.coroutines.selects.select
 
 class Reservar : AppCompatActivity() {
     private var novaReserva: Boolean = false
@@ -42,7 +46,7 @@ class Reservar : AppCompatActivity() {
         val tvLocalitatsTotal = findViewById<TextView>(R.id.tvLocalitatsTotal)
         tvLocalitatsTotal.text = "Localitats: " + aforament
         val tvLocalitatsDisponibles = findViewById<TextView>(R.id.tvLocalitatsDisponibles)
-        tvLocalitatsDisponibles.text = "Disponibles: " + (aforament - entradesDisponibles).toString()
+        tvLocalitatsDisponibles.text = "Disponibles: " + (entradesDisponibles).toString()
 
         val etTitularEntrades = findViewById<TextView>(R.id.etTitularEntrades)
         if (novaReserva) {
@@ -57,15 +61,35 @@ class Reservar : AppCompatActivity() {
             for (i in 1..entradesDisponibles) {
             llistatEntradesDisponibles.add(i)
         }
+        val llSelectorEntrades = findViewById<LinearLayout>(R.id.llSelectorEntrades)
         if (llistatEntradesDisponibles.count() > 1){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, llistatEntradesDisponibles)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spEntrades.adapter = adapter
         } else {
-            Toast.makeText(this, "Error: no s'ha pogut llegir el llistat d'entrades disponibles", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No hi ha entrades disponibles", Toast.LENGTH_SHORT).show()
+            llSelectorEntrades.visibility = View.GONE
         }
-
-
+        var entradesTriades = 0
+        var entradesPreassignades = mutableListOf<Int>()
+        val tvEntradesPreassignades = findViewById<TextView>(R.id.tvEntradesPreassignades)
+        spEntrades.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long) {
+                // Aquí pots obtenir el valor de l'ítem seleccionat
+                val selectedItem = parent?.getItemAtPosition(position)
+                // Feu el que vulgueu amb el valor seleccionat
+                entradesTriades = selectedItem.toString().toInt()
+                entradesPreassignades = GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, entradesTriades, aforament)
+                tvEntradesPreassignades.text = "Se t'han preassignat les entrades: " + entradesPreassignades
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // No cal fer res aquí, ja que aquest mètode es crida quan no es selecciona cap ítem
+            }
+        }
 
 
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)

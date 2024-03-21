@@ -1,18 +1,20 @@
 package asb.m07im08.espai_cultural_alexs
 
 object GestorEntrades {
+    //retorna quantes entrades té algú
     fun entradesPerPersona(): Int {
         var numero = -1
         TODO("funció per trobar quantes entrades té una persona")
         return numero
     }
+    // retorna el número d'entrades que no s'han reservat
     fun entradesDisponiblesNumero(esdeveniment: Esdeveniment): Int {
-        var aforament = Esdeveniment_Manager.aforament
         var entradesReservades = esdeveniment.entrades.count()
-        var entradesDisponibles = aforament - entradesReservades
+        var entradesDisponibles = Esdeveniment_Manager.aforament - entradesReservades
 
         return entradesDisponibles
     }
+    //retorna el llistat d'entrades disponibles
     fun entradesDisponiblesLlistat(esdeveniment: Esdeveniment): MutableList<Int> {
         val entradesOcupades = entradesReservadesLlistat(esdeveniment)
         val entradesDisponibles = mutableListOf<Int>()
@@ -23,12 +25,12 @@ object GestorEntrades {
         }
         return entradesDisponibles
     }
-
+    //retorna el número d'entrades reservades
     fun entradesReservadesNumero(esdeveniment: Esdeveniment): Int {
         var entradesReservades = esdeveniment.entrades.count()
         return entradesReservades
     }
-
+    //retorna el llistat d'entrades reservades
     fun entradesReservadesLlistat(esdeveniment: Esdeveniment): MutableList<Int> {
         var llistatEntradesReservades = mutableListOf<Int>()
         for (entrada in esdeveniment.entrades)
@@ -38,5 +40,40 @@ object GestorEntrades {
             }
         }
         return llistatEntradesReservades
+    }
+    fun idsNovesEntradesAReservar(esdeveniment: Esdeveniment, numeroEntradesAReservar: Int): MutableList<Int> {
+        val idsDisponibles = trobarIdsDisponibles(esdeveniment.entrades, numeroEntradesAReservar, Esdeveniment_Manager.aforament)
+        val llista = mutableListOf<Int>()
+        var afegits = 0
+
+        for (index in 0 until minOf(numeroEntradesAReservar, idsDisponibles.size)) {
+            val idDisponible = idsDisponibles[index]
+            llista.add(idDisponible)
+            afegits++
+        }
+
+        return llista
+    }
+    fun trobarIdsDisponibles(entrades: MutableList<Entrada>, entradesAReservar: Int, aforament: Int): MutableList<Int> {
+        val idsDisponibles = mutableListOf<Int>()
+        var idsOcupades = trobarIdsOcupades(entrades,aforament)
+
+        for (seient in 1..aforament) {//recorro cada seient de l'aforament
+            if (!idsOcupades.contains(seient)) {//si el seient no està ocupat
+                if (idsDisponibles.count() < entradesAReservar){//si encara no hem trobat el total de seients que volem assignar
+                    idsDisponibles.add(seient)
+                }
+            }
+        }
+        return idsDisponibles
+    }
+    fun trobarIdsOcupades(entrades: MutableList<Entrada>, aforament: Int): MutableList<Int> {
+        val idsOcupades = mutableListOf<Int>()
+        for (entrada in entrades) {
+            if (entrada.id in 1..aforament) {
+                idsOcupades.add(entrada.id)
+            }
+        }
+        return idsOcupades
     }
 }

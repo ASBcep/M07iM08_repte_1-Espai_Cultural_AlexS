@@ -210,7 +210,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             preu,// preu
                             rbNumerat.isChecked,// numerat
                             esdevenimentThis.tipus,// tipus
-                            mutableListOf(Entrada()),// entrades
+                            esdevenimentThis.entrades,// entrades
                             etEspecific1.text.toString(),// especific1
                             etEspecific2.text.toString(),// especific2
                             etEspecific3.text.toString(),// especific3
