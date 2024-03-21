@@ -81,11 +81,11 @@ object JsonIO {
         val jsonFilePath = context.filesDir.toString() + "/json/esdeveniments.json"
         var esdeveniments: MutableList<Esdeveniment> = mutableListOf()
         try {
-            val jsonArray = JSONArray()
+            val jsonArrayEsdeveniments = JSONArray()
 
             // Recórrer la llista d'esdeveniments i afegir-los a l'array JSON
             for (esdeveniment in Esdeveniment_Manager.esdeveniments) {
-                val jsonObject = JSONObject().apply {
+                val jsonObjectEsdeveniment = JSONObject().apply {
                     put("id", esdeveniment.id)
                     put("nom", esdeveniment.nom)
                     //put("imatge", esdeveniment.imatge)
@@ -101,23 +101,27 @@ object JsonIO {
                     put("especific4", JSONArray(esdeveniment.especific4))
 
                     // Afegir les entrades a l'objecte JSON de l'esdeveniment
-                    val entradesJsonArray = JSONArray()
-                    for (entrada in esdeveniment.entrades) {
-                        val entradaJsonObject = JSONObject().apply {
-                            put("id", entrada.id)
-                            put("nom_reserva", entrada.nom_reserva)
+                    //if (esdeveniment.entrades.count() > 0){
+                        val JsonArrayentrades = JSONArray()
+                        for (entrada in esdeveniment.entrades) {
+                            if (entrada.id > 0 || entrada.id <= Esdeveniment_Manager.aforament){
+                                val JsonObjectentrada = JSONObject().apply {
+                                    put("id", entrada.id)
+                                    put("nom_reserva", entrada.nom_reserva)
+                            }
+                                JsonArrayentrades.put(JsonObjectentrada)
+                            }
                         }
-                        entradesJsonArray.put(entradaJsonObject)
-                    }
-                    put("entrades", entradesJsonArray)
+                        put("entrades", JsonArrayentrades)
+                    //}
                 }
 
-                jsonArray.put(jsonObject)
+                jsonArrayEsdeveniments.put(jsonObjectEsdeveniment)
             }
 
             // Escriure l'array JSON a l'arxiu
             val fileWriter = FileWriter(jsonFilePath)
-            fileWriter.use { it.write(jsonArray.toString()) }
+            fileWriter.use { it.write(jsonArrayEsdeveniments.toString()) }
             Toast.makeText(
                 context,
                 "Llistat d'esdeveniments desat",
@@ -142,12 +146,14 @@ object JsonIO {
         }
         return index
     }
+    //afegir un esdeveniment al llistat
     fun afegirEsdeveniment(context: Context, esdevenimentNou: Esdeveniment){
         Esdeveniment_Manager.esdeveniments.add(esdevenimentNou)
         escriureLlistat(context)
         llegirLlistat(context, false)
     }
-    fun afegirEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int):Boolean{
+    //modificar un esdeveniment
+    fun modificarEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int): Boolean {
         var afegit: Boolean
         try {
             Esdeveniment_Manager.esdeveniments[index] = esdevenimentModificat
@@ -157,5 +163,20 @@ object JsonIO {
             afegit = false
         }
         return afegit
+    }
+    //eliminar un esdeveniment
+    fun eliminarEsdeveniment(context: Context, esdevenimentPerEliminar: Esdeveniment): Boolean {
+        var eliminat: Boolean
+        var total = Esdeveniment_Manager.esdeveniments.count()
+        val indexPerEliminar = cercarEsdeveniment(esdevenimentPerEliminar)
+        Esdeveniment_Manager.esdeveniments.removeAt(indexPerEliminar)
+        escriureLlistat(context)
+        if (total > Esdeveniment_Manager.esdeveniments.count()){
+            eliminat = true
+        } else {
+            eliminat = false
+        }
+
+        return eliminat
     }
 }

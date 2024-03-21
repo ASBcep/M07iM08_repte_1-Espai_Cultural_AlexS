@@ -74,6 +74,7 @@ private var reserves: Boolean = false
                 }
             }
             startActivity(intent)
+            JsonIO.llegirLlistat(this, reserves)
         }
 
         // Assignar l'adaptador al RecyclerView

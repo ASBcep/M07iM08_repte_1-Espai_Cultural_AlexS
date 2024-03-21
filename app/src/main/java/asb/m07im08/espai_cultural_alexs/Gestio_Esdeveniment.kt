@@ -219,7 +219,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                         //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
                         val indexEsdevenimentOriginal = JsonIO.cercarEsdeveniment(EsdevenimentModificat)
                         var afegit: Boolean
-                        afegit = JsonIO.afegirEsdeveniment(this, EsdevenimentModificat, indexEsdevenimentOriginal)
+                        afegit = JsonIO.modificarEsdeveniment(this, EsdevenimentModificat, indexEsdevenimentOriginal)
                         if (afegit) {finish()}//tanco activity
                         //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
 
@@ -285,6 +285,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     if (esdevenimentCreable){
                         //ActualitzarLlistat(this, false)
                         JsonIO.llegirLlistat(this, false)
+                        var entradesBuit = mutableListOf(Entrada())
+                        entradesBuit.clear()
                         val nouEsdeveniment = Esdeveniment(
                             //seguentId,//id
                             esdevenimentThis.id, //id
@@ -296,7 +298,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             preu,// preu
                             rbNumerat.isChecked,// numerat
                             tipus,// tipus
-                            mutableListOf(Entrada()),// entrades
+                            entradesBuit,// entrades
                             etEspecific1.text.toString(),// especific1
                             etEspecific2.text.toString(),// especific2
                             etEspecific3.text.toString(),// especific3
@@ -321,6 +323,15 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         btnEliminar.setOnClickListener{
             if (eliminar){
                 //TODO("cercar esdeveniment al json i eliminar-lo")
+                if (JsonIO.eliminarEsdeveniment(this, esdevenimentThis)){
+                    Toast.makeText(this, "Esdeveniment eliminat", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Error: esdeveniment no eliminat", Toast.LENGTH_SHORT).show()
+                    eliminar = false
+                    btnEliminar.setBackgroundColor(R.color.boto)
+                    btnEliminar.text = "Reintentar eliminació"
+                }
             } else {
                 eliminar = true
                 btnEliminar.setBackgroundColor(Color.RED)
