@@ -94,10 +94,16 @@
                         android:paddingLeft="10dp"/>
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/tvEntradesPreassignades"
+                    android:id="@+id/tvEntradesAssignades"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Se t\'han preassignat les entrades X, Y, Z."
+                    android:paddingTop="10dp"/>
+                <TextView
+                    android:id="@+id/tvEntradesOcupades"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Les entrades X, Y, Z no estan disponibles"
                     android:paddingTop="10dp"/>
                 <LinearLayout
                     android:layout_width="wrap_content"

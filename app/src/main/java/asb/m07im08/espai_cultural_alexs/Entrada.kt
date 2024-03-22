@@ -4,5 +4,5 @@ import java.io.Serializable
 
 class Entrada(
     val id: Int = -1,
-    val nom_reserva: String = ""
+    val nom_reserva: String = "Entrada per defecte, esborrar"
 ): Serializable
