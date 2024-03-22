@@ -84,6 +84,7 @@
                     android:orientation="horizontal"
                     android:paddingTop="10dp">
                     <TextView
+                        android:id="@+id/tvTriarEntrades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Número d\'entrades a reservar:"/>
@@ -146,6 +147,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:text="Formalitzar reserva"
+            android:backgroundTint="@color/boto" />
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="Eliminar reserva"
             android:backgroundTint="@color/boto" />
 
     </LinearLayout>

@@ -1,5 +1,6 @@
 package asb.m07im08.espai_cultural_alexs
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -28,7 +29,9 @@ class Reservar : AppCompatActivity() {
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val ivHR = findViewById<ImageView>(R.id.ivHR)
         val tvTipusEntrades = findViewById<TextView>(R.id.tvTipusEntrades)
+        val llNumeradesNomPersona = findViewById<LinearLayout>(R.id.llNumeradesNomPersona)
         val etTitularEntrades = findViewById<TextView>(R.id.etTitularEntrades)
+        val tvTriarEntrades = findViewById<TextView>(R.id.tvTriarEntrades)
         val llSelectorEntrades = findViewById<LinearLayout>(R.id.llSelectorEntrades)
         val spEntrades = findViewById<Spinner>(R.id.spEntrades)
         val tvEntradesAssignades = findViewById<TextView>(R.id.tvEntradesAssignades)
@@ -37,6 +40,7 @@ class Reservar : AppCompatActivity() {
         val tvLocalitatsDisponibles = findViewById<TextView>(R.id.tvLocalitatsDisponibles)
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         val btnReservar = findViewById<Button>(R.id.btnReservar)
+        val btnEliminar = findViewById<Button>(R.id.btnEliminar)
 
         //declaro variables
         var llistaSpinner = mutableListOf<Int>()
@@ -45,8 +49,8 @@ class Reservar : AppCompatActivity() {
         var entradesPreassignades = mutableListOf<Int>()
 
         //modifico contingut de views
-        tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
-        tvEntradesOcupades.text = "Les entrades: \n" + GestorEntrades.entradesReservadesLlistat(esdevenimentThis).toString() + "\n no estan disponibles"
+
+        tvEntradesOcupades.text = "Les entrades: \n" + GestorEntrades.entradesReservadesLlistat(esdevenimentThis).toString() + "\nno estan disponibles"
         tvLocalitatsTotal.text = "Localitats: " + aforament
         tvLocalitatsDisponibles.text = "Disponibles: " + (GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)).toString()
 
@@ -56,34 +60,39 @@ class Reservar : AppCompatActivity() {
         //cribo segons si l'esdeveniment és numerat o no
         if (esdevenimentThis.numerat){
             tvTipusEntrades.text = "Entrades numerades"
-            //TODO("adaptar activity per reservar entrades numerades")
-            for (id in GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, GestorEntrades.entradesDisponiblesNumero(esdevenimentThis), Esdeveniment_Manager.aforament)) {
-                llistaSpinner.add(id)
-            }
-        } else {
-            tvTipusEntrades.text = "Entrades no numerades"
-            //TODO("adaptar activity per reservar entrades no numerades")
             llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
             var numeroDEntradesAReservar = 1
             for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)){
                 llistaSpinner.add(numeroDEntradesAReservar)
                 numeroDEntradesAReservar++
             }
+            tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNum)
+        } else {//no numerat
+            tvTipusEntrades.text = "Entrades no numerades"
+            for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)) {
+                llistaSpinner.add(id)
+            }
             tvEntradesOcupades.visibility = View.GONE
+            tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNoNum)
         }
-        
         //cribo segons si la reserva és nova o existent
         if (novaReserva) {
-
+            tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
+            btnEliminar.visibility = View.GONE
         } else {
+            tvTitol.text = "Entrades reservades de " + esdevenimentThis.nom + " a nom de " + entradaThis.nom_reserva
             etTitularEntrades.text = entradaThis.nom_reserva
+            llNumeradesNomPersona.visibility = View.GONE
         }
-        if (llistaSpinner.count() > 1){
+
+        //introduir la llista que es mostrarà a l'spinner (desplegable)
+        if (llistaSpinner.count() > 0){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, llistaSpinner)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spEntrades.adapter = adapter
         } else {
-            Toast.makeText(this, "No hi ha entrades disponibles", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.noEntrades), Toast.LENGTH_SHORT).show()
+            tvEntradesAssignades.text = getString(R.string.noEntrades)
             llSelectorEntrades.visibility = View.GONE
         }
         
@@ -98,8 +107,14 @@ class Reservar : AppCompatActivity() {
                 val selectedItem = parent?.getItemAtPosition(position)
                 // Feu el que vulgueu amb el valor seleccionat
                 entradesTriades = selectedItem.toString().toInt()
-                entradesPreassignades = GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, entradesTriades, aforament)
-                tvEntradesAssignades.text = "Se t'han preassignat les entrades: \n" + entradesPreassignades
+                if (esdevenimentThis.numerat){
+                    entradesPreassignades.clear()
+                    entradesPreassignades.add(entradesTriades)
+                    tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNum) + entradesPreassignades
+                } else {
+                    entradesPreassignades = GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, entradesTriades, aforament)
+                    tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNoNum) + entradesPreassignades
+                }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // No cal fer res aquí, ja que aquest mètode es crida quan no es selecciona cap ítem
@@ -115,7 +130,7 @@ class Reservar : AppCompatActivity() {
                 for (id in entradesPreassignades){
                     entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
                 }
-                if (!etTitularEntrades.text.equals(null)){
+                if (!etTitularEntrades.text.toString().equals("")){
                     GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
                     JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
                     finish()
@@ -123,7 +138,7 @@ class Reservar : AppCompatActivity() {
                     Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                if (!etTitularEntrades.text.equals(null)){
+                if (!etTitularEntrades.text.toString().equals("")){
                     GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
                     JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
                     finish()
@@ -132,6 +147,24 @@ class Reservar : AppCompatActivity() {
                 }
             }
         }
-        //TODO("btnEliminar.setOnClickListener{}")
+        btnEliminar.setOnClickListener{
+            //TODO("btnEliminar.setOnClickListener{}")
+        var eliminar = false
+            if (eliminar){/*//no programat
+                if (GestorEntrades.eliminarEntrada()){
+                    Toast.makeText(this, "Esdeveniment eliminat", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Error: Entrada no eliminat", Toast.LENGTH_SHORT).show()
+                    eliminar = false
+                    btnEliminar.setBackgroundColor(R.color.boto)
+                    btnEliminar.text = "Reintentar eliminació"
+                }*/
+            } else {
+                eliminar = true
+                btnEliminar.setBackgroundColor(Color.RED)
+                btnEliminar.text = "CONFIRMAR ELIMINACIÓ"
+            }
+        }
     }
 }

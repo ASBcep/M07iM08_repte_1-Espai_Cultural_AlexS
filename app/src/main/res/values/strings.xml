@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Espai Cultural - AlexS</string>
     <string name="descripcio_demo">Paràgraf de demostració. Aquí es veurà la descripció de l\'esdeveniment, segurament serà una informació molt interessant que reflectirà les grans fites emocionals que experimentarà l\'espectador.</string>
+    <!--Reservar.kt-->
+    <string name="reservartvTriarEntradesNoNum">Escull el número d\'entrades: </string>
+    <string name="reservartvTriarEntradesNum">Escull el número de l\'entrada: </string>
+    <string name="reservartvEntradesAssignadesNoNum">Se t\'han preassignat les entrades: \n</string>
+    <string name="reservartvEntradesAssignadesNum">Preassignada entrada número: \n</string>
+    <string name="noEntrades">No hi ha entrades disponibles</string>
 </resources>
