@@ -41,19 +41,6 @@ object GestorEntrades {
         }
         return llistatEntradesReservades
     }
-    fun idsNovesEntradesAReservar(esdeveniment: Esdeveniment, numeroEntradesAReservar: Int): MutableList<Int> {
-        val idsDisponibles = trobarIdsDisponibles(esdeveniment.entrades, numeroEntradesAReservar, Esdeveniment_Manager.aforament)
-        val llista = mutableListOf<Int>()
-        var afegits = 0
-
-        for (index in 0 until minOf(numeroEntradesAReservar, idsDisponibles.size)) {
-            val idDisponible = idsDisponibles[index]
-            llista.add(idDisponible)
-            afegits++
-        }
-
-        return llista
-    }
     fun trobarIdsDisponibles(entrades: MutableList<Entrada>, entradesAReservar: Int, aforament: Int): MutableList<Int> {
         val idsDisponibles = mutableListOf<Int>()
         var idsOcupades = trobarIdsOcupades(entrades,aforament)

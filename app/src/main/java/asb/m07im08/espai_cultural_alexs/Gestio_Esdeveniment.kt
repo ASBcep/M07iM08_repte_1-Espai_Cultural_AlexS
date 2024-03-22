@@ -50,7 +50,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         modificar = intent.getBooleanExtra("modificar", false)
 
         if (Esdeveniment_Manager.esdeveniments.isNotEmpty() && nou){
-            esdevenimentThis.id = Esdeveniment_Manager.esdeveniments.last().id + 1
+            //esdevenimentThis.id = Esdeveniment_Manager.esdeveniments.last().id + 1
+            esdevenimentThis.id = JsonIO.idPerNouEsdeveniment()
         } else if (Esdeveniment_Manager.esdeveniments.isEmpty() && nou){
             esdevenimentThis.id = 1
         }

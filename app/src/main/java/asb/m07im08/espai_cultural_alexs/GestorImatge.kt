@@ -40,5 +40,27 @@ object GestorImatge {
         }
         imageView.setImageBitmap(bitmap)
     }
-
+    fun eliminarImatges(id: String, context: Context): Boolean {
+        var eliminades = false
+        val imgElementPathPNGhr = context.filesDir.toString() + "/img/" + id + "hr" + ".png"
+        val imgElementPathJPGhr = context.filesDir.toString() + "/img/" + id + "hr" + ".jpg"
+        val imgElementPathPNGsr = context.filesDir.toString() + "/img/" + id + "sr" + ".png"
+        val imgElementPathJPGsr = context.filesDir.toString() + "/img/" + id + "sr" + ".jpg"
+        var arxiuImatge = File("")
+        for (i in 1..4){
+            if (i==1){
+                arxiuImatge = File(imgElementPathPNGhr)
+            } else if (i==2){
+                arxiuImatge = File(imgElementPathJPGhr)
+            } else if (i==3){
+                arxiuImatge = File(imgElementPathPNGsr)
+            } else if (i==4){
+                arxiuImatge = File(imgElementPathJPGsr)
+            }
+            if (arxiuImatge.exists()) {
+                eliminades = arxiuImatge.delete()
+            }
+        }
+        return eliminades
+    }
 }

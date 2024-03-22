@@ -136,6 +136,28 @@ object JsonIO {
             ).show()
         }
     }
+    fun idPerNouEsdeveniment():Int{
+        var idLliure = -1
+        var anterior = 0
+        var maxim = -1
+        var llistat = mutableListOf<Int>()
+
+        Esdeveniment_Manager.esdeveniments.forEachIndexed{index, value ->
+            llistat.add(value.id)
+        }
+        for (num in llistat){
+            if (num > maxim){maxim = num}
+        }
+        for (id in 1..maxim){
+            if (!llistat.contains(id) && idLliure < 0){
+                idLliure = id//aquest id no s'usa
+            }
+        }
+        if (idLliure < 0){
+            idLliure = maxim + 1
+        }
+        return idLliure
+    }
     fun cercarEsdeveniment(esdevenimentCercat: Esdeveniment): Int{
         var index = -1
         var esdeveniments = Esdeveniment_Manager.esdeveniments
@@ -176,7 +198,7 @@ object JsonIO {
         } else {
             eliminat = false
         }
-
+        GestorImatge.eliminarImatges(esdevenimentPerEliminar.id.toString(), context)
         return eliminat
     }
 }
