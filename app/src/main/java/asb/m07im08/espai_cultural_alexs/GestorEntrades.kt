@@ -63,4 +63,13 @@ object GestorEntrades {
         }
         return idsOcupades
     }
+    fun assignarEntrada(esdevenimentAReservar: Esdeveniment, entrada: Entrada){
+        esdevenimentAReservar.entrades.add(entrada)
+        //no es desa al json!!
+    }
+    fun assignarEntrades(esdevenimentAReservar: Esdeveniment, entrades: MutableList<Entrada>){
+        entrades.forEachIndexed{ index, value, ->
+            assignarEntrada(esdevenimentAReservar,value)
+        }
+    }
 }

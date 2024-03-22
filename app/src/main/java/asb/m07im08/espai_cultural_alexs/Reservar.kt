@@ -91,10 +91,23 @@ class Reservar : AppCompatActivity() {
             }
         }
 
-
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         btnEnrere.setOnClickListener {
             finish()
+        }
+        val btnReservar = findViewById<Button>(R.id.btnReservar)
+        btnReservar.setOnClickListener{
+            var entradesAReservar = mutableListOf<Entrada>()
+            for (id in entradesPreassignades){
+                entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
+            }
+            if (!etTitularEntrades.text.equals("")){
+                GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
+                JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
+                finish()
+            } else {
+                Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
