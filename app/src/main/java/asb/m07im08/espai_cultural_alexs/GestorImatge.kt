@@ -15,10 +15,12 @@ import java.io.FileOutputStream
 
 object GestorImatge {
     private const val PICK_IMAGE_REQUEST_CODE = 1
+    val sufixImgHR = "_principal"
+    val sufixImgSR = "_llista"
 
     fun inserirImatgeSR(id: String, context: Context, imageView: ImageView) {
-        val imgElementPathPNG = context.filesDir.toString() + "/img/" + id + "sr" + ".png"
-        val imgElementPathJPG = context.filesDir.toString() + "/img/" + id + "sr" + ".jpg"
+        val imgElementPathPNG = context.filesDir.toString() + "/img/" + id + sufixImgSR + ".png"
+        val imgElementPathJPG = context.filesDir.toString() + "/img/" + id + sufixImgSR + ".jpg"
         val bitmap = if (File(imgElementPathPNG).exists()) {
             BitmapFactory.decodeFile(imgElementPathPNG)
         } else if (File(imgElementPathJPG).exists()) {
@@ -29,8 +31,8 @@ object GestorImatge {
         imageView.setImageBitmap(bitmap)
     }
     fun inserirImatgeHR(id: String, context: Context, imageView: ImageView) {
-        val imgElementPathPNG = context.filesDir.toString() + "/img/" + id + "hr" + ".png"
-        val imgElementPathJPG = context.filesDir.toString() + "/img/" + id + "hr" + ".jpg"
+        val imgElementPathPNG = context.filesDir.toString() + "/img/" + id + sufixImgHR + ".png"
+        val imgElementPathJPG = context.filesDir.toString() + "/img/" + id + sufixImgHR + ".jpg"
         val bitmap = if (File(imgElementPathPNG).exists()) {
             BitmapFactory.decodeFile(imgElementPathPNG)
         } else if (File(imgElementPathJPG).exists()) {
@@ -42,10 +44,10 @@ object GestorImatge {
     }
     fun eliminarImatges(id: String, context: Context): Boolean {
         var eliminades = false
-        val imgElementPathPNGhr = context.filesDir.toString() + "/img/" + id + "hr" + ".png"
-        val imgElementPathJPGhr = context.filesDir.toString() + "/img/" + id + "hr" + ".jpg"
-        val imgElementPathPNGsr = context.filesDir.toString() + "/img/" + id + "sr" + ".png"
-        val imgElementPathJPGsr = context.filesDir.toString() + "/img/" + id + "sr" + ".jpg"
+        val imgElementPathPNGhr = context.filesDir.toString() + "/img/" + id + sufixImgHR + ".png"
+        val imgElementPathJPGhr = context.filesDir.toString() + "/img/" + id + sufixImgHR + ".jpg"
+        val imgElementPathPNGsr = context.filesDir.toString() + "/img/" + id + sufixImgSR + ".png"
+        val imgElementPathJPGsr = context.filesDir.toString() + "/img/" + id + sufixImgSR + ".jpg"
         var arxiuImatge = File("")
         for (i in 1..4){
             if (i==1){

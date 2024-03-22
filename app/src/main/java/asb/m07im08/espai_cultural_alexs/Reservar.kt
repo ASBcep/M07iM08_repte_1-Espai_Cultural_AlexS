@@ -25,28 +25,41 @@ class Reservar : AppCompatActivity() {
         esdevenimentThis = intent.getSerializableExtra("esdeveniment") as Esdeveniment? ?: Esdeveniment()
         setContentView(R.layout.activity_reservar)
 
+        val spEntrades = findViewById<Spinner>(R.id.spEntrades)
+
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
 
         val ivHR = findViewById<ImageView>(R.id.ivHR)
         GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
 
+        var llistaSpinner = mutableListOf<Int>()
         val tvTipusEntrades = findViewById<TextView>(R.id.tvTipusEntrades)
         if (esdevenimentThis.numerat){
             tvTipusEntrades.text = "Entrades numerades"
             //TODO("adaptar activity per reservar entrades numerades")
+            for (id in GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, GestorEntrades.entradesDisponiblesNumero(esdevenimentThis), Esdeveniment_Manager.aforament)) {
+                llistaSpinner.add(id)
+            }
+
         } else {
             tvTipusEntrades.text = "Entrades no numerades"
             //TODO("adaptar activity per reservar entrades no numerades")
+            llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
+            var numeroDEntradesAReservar = 1
+            for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)){
+                llistaSpinner.add(numeroDEntradesAReservar)
+                numeroDEntradesAReservar++
+            }
         }
 
         var aforament = Esdeveniment_Manager.aforament
-        val entradesDisponibles = GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)
+        //val entradesDisponibles = GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)
 
         val tvLocalitatsTotal = findViewById<TextView>(R.id.tvLocalitatsTotal)
         tvLocalitatsTotal.text = "Localitats: " + aforament
         val tvLocalitatsDisponibles = findViewById<TextView>(R.id.tvLocalitatsDisponibles)
-        tvLocalitatsDisponibles.text = "Disponibles: " + (entradesDisponibles).toString()
+        tvLocalitatsDisponibles.text = "Disponibles: " + (GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)).toString()
 
         val etTitularEntrades = findViewById<TextView>(R.id.etTitularEntrades)
         if (novaReserva) {
@@ -55,15 +68,15 @@ class Reservar : AppCompatActivity() {
             etTitularEntrades.text = entradaThis.nom_reserva
         }
 
-        val spEntrades = findViewById<Spinner>(R.id.spEntrades)
+
         //val llistatEntradesDisponibles = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
-        var llistatEntradesDisponibles = mutableListOf<Int>()
-            for (i in 1..entradesDisponibles) {
+        /*var llistatEntradesDisponibles = mutableListOf<Int>()
+            for (i in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)) {
             llistatEntradesDisponibles.add(i)
-        }
+        }*/
         val llSelectorEntrades = findViewById<LinearLayout>(R.id.llSelectorEntrades)
-        if (llistatEntradesDisponibles.count() > 1){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, llistatEntradesDisponibles)
+        if (llistaSpinner.count() > 1){
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, llistaSpinner)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spEntrades.adapter = adapter
         } else {
@@ -98,16 +111,19 @@ class Reservar : AppCompatActivity() {
         val btnReservar = findViewById<Button>(R.id.btnReservar)
         btnReservar.setOnClickListener{
             var entradesAReservar = mutableListOf<Entrada>()
-            for (id in entradesPreassignades){
-                entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
+            if (esdevenimentThis.numerat) {
+                for (id in entradesPreassignades){
+                    entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
+                }
+                if (!etTitularEntrades.text.equals("")){
+                    GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
+                    JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
+                    finish()
+                } else {
+                    Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
+                }
             }
-            if (!etTitularEntrades.text.equals("")){
-                GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
-                JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
-                finish()
-            } else {
-                Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
-            }
+
         }
     }
 }

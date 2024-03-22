@@ -380,9 +380,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val inputStream = contentResolver.openInputStream(uri)
         var fileName = ""
         if (highRes) {
-            fileName = esdevenimentThis.id.toString() + "hr" + "." + imageType
+            fileName = esdevenimentThis.id.toString() + GestorImatge.sufixImgHR + "." + imageType
         } else {
-            fileName = esdevenimentThis.id.toString() + "sr" + "." + imageType
+            fileName = esdevenimentThis.id.toString() + GestorImatge.sufixImgSR + "." + imageType
         }
         //val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         //val directory = File(getExternalFilesDir(null), "img")
