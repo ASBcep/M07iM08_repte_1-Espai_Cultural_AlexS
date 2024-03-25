@@ -124,7 +124,7 @@ object JsonIO {
             fileWriter.use { it.write(jsonArrayEsdeveniments.toString()) }
             Toast.makeText(
                 context,
-                "Llistat d'esdeveniments desat",
+                "Llistat d'esdeveniments actualitzat",
                 Toast.LENGTH_LONG
             ).show()
         } catch (e: IOException) {

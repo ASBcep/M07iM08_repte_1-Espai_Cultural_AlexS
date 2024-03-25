@@ -1,5 +1,7 @@
 package asb.m07im08.espai_cultural_alexs
 
+import android.content.Context
+
 object GestorEntrades {
     //retorna quantes entrades té algú
     fun entradesPerPersona(): Int {
@@ -71,5 +73,41 @@ object GestorEntrades {
         entrades.forEachIndexed{ index, value, ->
             assignarEntrada(esdevenimentAReservar,value)
         }
+    }
+    //localitzo entrada existent
+    fun trobarEntrada(esdeveniment: Esdeveniment, entradaATrobar: Entrada): Int {
+        var posicio: Int = -1
+        var index = 0
+        for (entrada in esdeveniment.entrades) {
+            if (entrada == entradaATrobar){
+                posicio = index
+            }
+            index++
+        }
+        return posicio
+    }
+    //elimino entrada existent, passant l'entrada com a paràmetre
+    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, entrada: Entrada): Boolean {
+        var eliminada = false
+        var midaOriginal = -1
+        midaOriginal = esdeveniment.entrades.count()
+        esdeveniment.entrades.remove(entrada)
+        if (midaOriginal == (esdeveniment.entrades.count() - 1)){
+            eliminada = true
+        }
+        JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))
+        return eliminada
+    }
+    //elimino entrada existent, passant la posició en la mutableList com a paràmetre
+    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, indexEntrada: Int): Boolean {
+        var eliminada = false
+        var midaOriginal = -1
+        midaOriginal = esdeveniment.entrades.count()
+        esdeveniment.entrades.removeAt(indexEntrada)
+        if (midaOriginal == (esdeveniment.entrades.count() - 1)){
+            eliminada = true
+        }
+        JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))
+        return eliminada
     }
 }

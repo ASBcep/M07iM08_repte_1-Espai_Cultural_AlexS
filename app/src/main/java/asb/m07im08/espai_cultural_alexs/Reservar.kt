@@ -24,7 +24,7 @@ class Reservar : AppCompatActivity() {
         entradaThis = intent.getSerializableExtra("entrada") as Entrada? ?: Entrada()
         esdevenimentThis = intent.getSerializableExtra("esdeveniment") as Esdeveniment? ?: Esdeveniment()
         setContentView(R.layout.activity_reservar)
-
+92
         //declaro views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val ivHR = findViewById<ImageView>(R.id.ivHR)
@@ -47,6 +47,7 @@ class Reservar : AppCompatActivity() {
         var aforament = Esdeveniment_Manager.aforament
         var entradesTriades = 0
         var entradesPreassignades = mutableListOf<Int>()
+        var eliminar = false
 
         //modifico contingut de views
 
@@ -59,6 +60,11 @@ class Reservar : AppCompatActivity() {
 
         //cribo segons si l'esdeveniment és numerat o no
         if (esdevenimentThis.numerat){
+            if (novaReserva){
+                tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNum)
+            } else {//modificar reserva
+                tvTriarEntrades.text = "Canvia l'entrada assignada:"
+            }
             tvTipusEntrades.text = "Entrades numerades"
             llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
             var numeroDEntradesAReservar = 1
@@ -66,8 +72,12 @@ class Reservar : AppCompatActivity() {
                 llistaSpinner.add(numeroDEntradesAReservar)
                 numeroDEntradesAReservar++
             }
-            tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNum)
         } else {//no numerat
+            if (novaReserva){
+                tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNoNum)
+            } else {//modificar reserva
+                tvTriarEntrades.text = "Modifica el número d'entrades assignades:"
+            }
             tvTipusEntrades.text = "Entrades no numerades"
             for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)) {
                 llistaSpinner.add(id)
@@ -83,6 +93,7 @@ class Reservar : AppCompatActivity() {
             tvTitol.text = "Entrades reservades de " + esdevenimentThis.nom + " a nom de " + entradaThis.nom_reserva
             etTitularEntrades.text = entradaThis.nom_reserva
             llNumeradesNomPersona.visibility = View.GONE
+            btnReservar.text = "Desar canvis"
         }
 
         //introduir la llista que es mostrarà a l'spinner (desplegable)
@@ -125,41 +136,37 @@ class Reservar : AppCompatActivity() {
             finish()
         }
         btnReservar.setOnClickListener{
-            var entradesAReservar = mutableListOf<Entrada>()
-            if (esdevenimentThis.numerat) {
-                for (id in entradesPreassignades){
-                    entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
-                }
-                if (!etTitularEntrades.text.toString().equals("")){
-                    GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
-                    JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
-                    finish()
+            if (novaReserva){
+                var entradesAReservar = mutableListOf<Entrada>()
+                if (esdevenimentThis.numerat) {
+                    for (id in entradesPreassignades){
+                        entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
+                    }
+                    if (!etTitularEntrades.text.toString().equals("")){
+                        GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
+                        JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-                    Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
+                    if (!etTitularEntrades.text.toString().equals("")){
+                        GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
+                        JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } else {
-                if (!etTitularEntrades.text.toString().equals("")){
-                    GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
-                    JsonIO.modificarEsdeveniment(this, esdevenimentThis, JsonIO.cercarEsdeveniment(esdevenimentThis))
-                    finish()
-                } else {
-                    Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
-                }
+
             }
         }
         btnEliminar.setOnClickListener{
-            //TODO("btnEliminar.setOnClickListener{}")
-        var eliminar = false
-            if (eliminar){/*//no programat
-                if (GestorEntrades.eliminarEntrada()){
-                    Toast.makeText(this, "Esdeveniment eliminat", Toast.LENGTH_SHORT).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Error: Entrada no eliminat", Toast.LENGTH_SHORT).show()
-                    eliminar = false
-                    btnEliminar.setBackgroundColor(R.color.boto)
-                    btnEliminar.text = "Reintentar eliminació"
-                }*/
+            if (eliminar){
+                //GestorEntrades.trobarEntrada(esdevenimentThis, entradaThis)
+                GestorEntrades.eliminarEntrada(this, esdevenimentThis, entradaThis)
+                finish()
             } else {
                 eliminar = true
                 btnEliminar.setBackgroundColor(Color.RED)
