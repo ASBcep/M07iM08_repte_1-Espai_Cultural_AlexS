@@ -4,10 +4,19 @@ import android.content.Context
 
 object GestorEntrades {
     //retorna quantes entrades té algú
-    fun entradesPerPersona(): Int {
+    fun entradesPerPersonaNumero(esdevenimentThis: Esdeveniment, nomReserva: String): Int {
         var numero = -1
         TODO("funció per trobar quantes entrades té una persona")
         return numero
+    }
+    fun entradesPerPersonaLlistat(esdeveniment: Esdeveniment, nomReserva: String): MutableList<Int> {
+        var llistat: MutableList<Int> = mutableListOf()
+        for (entrada in esdeveniment.entrades){
+            if (entrada.nom_reserva == nomReserva){
+                llistat.add(entrada.id)
+            }
+        }
+        return llistat
     }
     // retorna el número d'entrades que no s'han reservat
     fun entradesDisponiblesNumero(esdeveniment: Esdeveniment): Int {
@@ -65,17 +74,29 @@ object GestorEntrades {
         }
         return idsOcupades
     }
-    fun assignarEntrada(esdevenimentAReservar: Esdeveniment, entrada: Entrada){
-        esdevenimentAReservar.entrades.add(entrada)
+    fun assignarEntrada(esdevenimentAReservar: Esdeveniment, entradaAReservar: Entrada): Esdeveniment{
+        var idUsat = false
+        if (entradaAReservar.id >= 0 && entradaAReservar.id < Esdeveniment_Manager.aforament){
+            for (entrada in esdevenimentAReservar.entrades){
+                if (entradaAReservar.id == entrada.id)
+                    idUsat = true
+            }
+            if (idUsat == false){
+                esdevenimentAReservar.entrades.add(entradaAReservar)
+            }
+            idUsat = false
+        }
+        return esdevenimentAReservar
         //no es desa al json!!
     }
-    fun assignarEntrades(esdevenimentAReservar: Esdeveniment, entrades: MutableList<Entrada>){
+    fun assignarEntrades(esdevenimentAReservar: Esdeveniment, entrades: MutableList<Entrada>): Esdeveniment{
         entrades.forEachIndexed{ index, value, ->
             assignarEntrada(esdevenimentAReservar,value)
         }
+        return esdevenimentAReservar
     }
     //localitzo entrada existent
-    fun trobarEntrada(esdeveniment: Esdeveniment, entradaATrobar: Entrada): Int {
+    fun cercarEntrada(esdeveniment: Esdeveniment, entradaATrobar: Entrada): Int {
         var posicio: Int = -1
         var index = 0
         for (entrada in esdeveniment.entrades) {
@@ -87,15 +108,21 @@ object GestorEntrades {
         return posicio
     }
     //elimino entrada existent, passant l'entrada com a paràmetre
-    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, entrada: Entrada): Boolean {
+    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, entradaAEliminar: Entrada): Boolean {
         var eliminada = false
         var midaOriginal = -1
         midaOriginal = esdeveniment.entrades.count()
-        esdeveniment.entrades.remove(entrada)
-        if (midaOriginal == (esdeveniment.entrades.count() - 1)){
-            eliminada = true
+        var llistatModificat = mutableListOf<Entrada>()
+        for (entrada in esdeveniment.entrades){
+            if (entrada.id != entradaAEliminar.id){
+                llistatModificat.add(entrada)
+            }
         }
-        JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))
+        esdeveniment.entrades.clear()
+        val esdevenimentModificat = assignarEntrades(esdeveniment, llistatModificat)
+        if (midaOriginal == (esdevenimentModificat.entrades.count() + 1)){
+            eliminada = JsonIO.modificarEsdeveniment(context, esdevenimentModificat,JsonIO.cercarEsdeveniment(esdevenimentModificat))
+        }
         return eliminada
     }
     //elimino entrada existent, passant la posició en la mutableList com a paràmetre
@@ -104,7 +131,7 @@ object GestorEntrades {
         var midaOriginal = -1
         midaOriginal = esdeveniment.entrades.count()
         esdeveniment.entrades.removeAt(indexEntrada)
-        if (midaOriginal == (esdeveniment.entrades.count() - 1)){
+        if (midaOriginal == (esdeveniment.entrades.count() + 1)){
             eliminada = true
         }
         JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))

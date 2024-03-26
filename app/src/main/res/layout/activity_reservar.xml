@@ -77,6 +77,12 @@
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tvEntradesOriginals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Les teves entrades són les següents:\n X, Y, Z."
+                    android:paddingTop="10dp"/>
                 <LinearLayout
                     android:id="@+id/llSelectorEntrades"
                     android:layout_width="wrap_content"

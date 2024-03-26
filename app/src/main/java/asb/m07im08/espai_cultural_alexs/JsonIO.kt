@@ -100,22 +100,18 @@ object JsonIO {
                     put("especific3", esdeveniment.especific3)
                     put("especific4", JSONArray(esdeveniment.especific4))
 
-                    // Afegir les entrades a l'objecte JSON de l'esdeveniment
-                    //if (esdeveniment.entrades.count() > 0){
-                        val JsonArrayentrades = JSONArray()
-                        for (entrada in esdeveniment.entrades) {
-                            if (entrada.id > 0 || entrada.id <= Esdeveniment_Manager.aforament){
-                                val JsonObjectentrada = JSONObject().apply {
-                                    put("id", entrada.id)
-                                    put("nom_reserva", entrada.nom_reserva)
-                            }
-                                JsonArrayentrades.put(JsonObjectentrada)
-                            }
+                    val JsonArrayentrades = JSONArray()
+                    for (entrada in esdeveniment.entrades) {
+                        if (entrada.id > 0 && entrada.id <= Esdeveniment_Manager.aforament){
+                            val JsonObjectentrada = JSONObject().apply {
+                                put("id", entrada.id)
+                                put("nom_reserva", entrada.nom_reserva)
                         }
-                        put("entrades", JsonArrayentrades)
-                    //}
+                            JsonArrayentrades.put(JsonObjectentrada)
+                        }
+                    }
+                    put("entrades", JsonArrayentrades)
                 }
-
                 jsonArrayEsdeveniments.put(jsonObjectEsdeveniment)
             }
 

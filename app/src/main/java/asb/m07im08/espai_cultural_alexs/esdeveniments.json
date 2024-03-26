@@ -1,163 +1,26 @@
 [
-  {
-    "id": 1,
-    "nom": "Peli 1",
-    "descripcio": "Descripció esdeveniment 1",
-    "data": "2024-03-10T12:34:56",
-    "idioma": "Català",
-    "preu": 10.5,
-    "numerat": true,
-    "tipus": "Pel·lícula",
-    "entrades": [
-      {
-        "id": 1,
-        "nom_reserva": "Alexito Numerario"
-      },
-      {
-        "id": 2,
-        "nom_reserva": "Alícia Afortunada"
-      },
-      {
-        "id": 3,
-        "nom_reserva": "Benito Billete"
-      }
-    ],
-    "especific1": "Frenando Prueba",
-    "especific2": "1999",
-    "especific3": "111",
-    "especific4": [
-      "Kenoa Ribes",
-      "Catering Zeta Joan",
-      "Garrison Porc"
+  {"id":1,
+    "nom":"Peli 1",
+    "descripcio":"Descripció esdeveniment 1",
+    "data":"2024-03-10T12:34",
+    "idioma":"Català",
+    "preu":10.5,"numerat":true,
+    "tipus":"Pel·lícula",
+    "especific1":"Frenando Prueba",
+    "especific2":"1999",
+    "especific3":"111",
+    "especific4":["Kenoa Ribes",
+                  "Catering Zeta Joan",
+                  "Garrison Porc",
+                  "Brau Pits"],
+    "entrades":[
+      {"id":13,
+        "nom_reserva":"alex"},
+      {"id":1,
+        "nom_reserva":""},
+      {"id":2,
+        "nom_reserva":""}
     ]
   },
-  {
-    "id": 2,
-    "nom": "Xerrada Esdeveniment 2",
-    "descripcio": "Descripció esdeveniment 2",
-    "data": "2024-03-10T12:34:56",
-    "idioma": "Anglès",
-    "preu": 10.5,
-    "numerat": false,
-    "tipus": "Xerrada",
-    "entrades": [
-      {
-        "id": 1,
-        "nom_reserva": "Anna"
-      },
-      {
-        "id": 2,
-        "nom_reserva": "Joan"
-      },
-      {
-        "id": 3,
-        "nom_reserva": "Marc"
-      }
-    ],
-    "especific1": "",
-    "especific2": "",
-    "especific3": "",
-    "especific4": ["Alex Bolea", "Marcos Garcia", "Luis José"]
-  },
-  {
-    "id": 3,
-    "nom": "Concert Esdeveniment 3",
-    "descripcio": "Descripció esdeveniment 3",
-    "data": "2024-03-10T12:34:56",
-    "idioma": "Català",
-    "preu": 10.5,
-    "numerat": true,
-    "tipus": "Concert",
-    "entrades": [],
-    "especific1": "Joan Guillems",
-    "especific2": "Orfe o català?",
-    "especific3": "Orquesta Simfònica del Va Llest",
-    "especific4": ["Josep Violante", "Anna Guitarrín", "Mariví Piana", "Guillermina Flautènsia", "Ramon Tambort"]
-  },
-  {
-    "id": 4,
-    "nom": "Pel·lícula Esdeveniment 4",
-    "descripcio": "Descripció esdeveniment 4",
-    "data": "2024-03-10T12:34:56",
-    "idioma": "Castellà",
-    "preu": 10.5,
-    "numerat": false,
-    "tipus": "Pel·lícula",
-    "entrades": [
-      {
-        "id": 1,
-        "nom_reserva": "Pau"
-      },
-      {
-        "id": 2,
-        "nom_reserva": "Clara"
-      },
-      {
-        "id": 3,
-        "nom_reserva": "Sara"
-      },
-      {
-        "id": 4,
-        "nom_reserva": "Pol"
-      },
-      {
-        "id": 5,
-        "nom_reserva": "Júlia"
-      },
-      {
-        "id": 6,
-        "nom_reserva": "Hugo"
-      },
-      {
-        "id": 7,
-        "nom_reserva": "Berta"
-      },
-      {
-        "id": 8,
-        "nom_reserva": "Eric"
-      },
-      {
-        "id": 9,
-        "nom_reserva": "Eva"
-      },
-      {
-        "id": 10,
-        "nom_reserva": "Miquel"
-      }
-    ],
-    "especific1": "Frenando Prueba",
-    "especific2": "1999",
-    "especific3": "111",
-    "especific4": ["Kenoa Ribes", "Catering Zeta Joan", "Garrison Porc"]
-  },
-  {
-    "id": 5,
-    "nom": "gats",
-    "descripcio": "",
-    "data": "2033-02-01T04:05",
-    "idioma": "cat",
-    "preu": 666,
-    "numerat": true,
-    "tipus": "Xerrada",
-    "especific1": "",
-    "especific2": "",
-    "especific3": "",
-    "especific4": ["Garfield", "Isidoro"],
-    "entrades": [{"id": -1, "nom_reserva": ""}]
-  },
-  {
-    "id": 6,
-    "nom": "gossos",
-    "descripcio": "",
-    "data": "2033-04-05T02:01",
-    "idioma": "spa",
-    "preu": 12,
-    "numerat": false,
-    "tipus": "Concert",
-    "especific1": "Guawer",
-    "especific2": "Pupum Pupum",
-    "especific3": "Gossical",
-    "especific4": ["Quisso", "Lamu", "Milú"],
-    "entrades": [{"id": -1, "nom_reserva": ""}]
-  }
-]
+  {"id":2,
+    "nom":"Xerrada Esdeveniment 2","descripcio":"Descripció esdeveniment 2","data":"2024-03-10T12:34","idioma":"Anglès","preu":10.5,"numerat":false,"tipus":"Xerrada","especific1":"","especific2":"","especific3":"","especific4":["Alex Bolea","Marcos Garcia","Luis José"],"entrades":[{"id":1,"nom_reserva":"Anna"},{"id":2,"nom_reserva":"Joan"},{"id":3,"nom_reserva":"Marc"}]},{"id":4,"nom":"Pel·lícula Esdeveniment 4","descripcio":"Descripció esdeveniment 4","data":"2024-03-10T12:34:56","idioma":"Castellà","preu":10.5,"numerat":false,"tipus":"Pel·lícula","especific1":"Frenando Prueba","especific2":"1999","especific3":"111","especific4":["Kenoa Ribes","Catering Zeta Joan","Garrison Porc"],"entrades":[{"id":1,"nom_reserva":"Pau"},{"id":2,"nom_reserva":"Clara"},{"id":3,"nom_reserva":"Sara"},{"id":4,"nom_reserva":"Pol"},{"id":5,"nom_reserva":"Júlia"},{"id":6,"nom_reserva":"Hugo"},{"id":7,"nom_reserva":"Berta"},{"id":8,"nom_reserva":"Eric"},{"id":9,"nom_reserva":"Eva"},{"id":10,"nom_reserva":"Miquel"}]},{"id":8,"nom":"Marcos","descripcio":"xxx","data":"2025-12-05T05:00","idioma":"Català ","preu":5,"numerat":true,"tipus":"Concert","especific1":"a","especific2":"a","especific3":"a","especific4":["a"],"entrades":[{"id":1,"nom_reserva":"Puertas"},{"id":2,"nom_reserva":"Puertas"},{"id":3,"nom_reserva":"Puertas"},{"id":4,"nom_reserva":"Puertas"},{"id":5,"nom_reserva":"Puertas"},{"id":6,"nom_reserva":"Puertas"},{"id":7,"nom_reserva":"Puertas"},{"id":8,"nom_reserva":"Puertas"},{"id":9,"nom_reserva":"Puertas"},{"id":10,"nom_reserva":"Puertas"},{"id":11,"nom_reserva":"Puertas"},{"id":12,"nom_reserva":"Puertas"},{"id":13,"nom_reserva":"Puertas"},{"id":14,"nom_reserva":"Puertas"},{"id":15,"nom_reserva":"Puertas"},{"id":16,"nom_reserva":"Puertas"},{"id":17,"nom_reserva":"Puertas"},{"id":18,"nom_reserva":"Puertas"},{"id":19,"nom_reserva":"Puertas"},{"id":20,"nom_reserva":"Puertas"},{"id":21,"nom_reserva":"Puertas"},{"id":22,"nom_reserva":"Puertas"},{"id":23,"nom_reserva":"Puertas"},{"id":24,"nom_reserva":"Puertas"},{"id":25,"nom_reserva":"Puertas"},{"id":26,"nom_reserva":"Puertas"},{"id":27,"nom_reserva":"Puertas"},{"id":28,"nom_reserva":"Puertas"},{"id":29,"nom_reserva":"Puertas"},{"id":30,"nom_reserva":"Puertas"},{"id":31,"nom_reserva":"Puertas"},{"id":32,"nom_reserva":"Puertas"},{"id":33,"nom_reserva":"Puertas"},{"id":34,"nom_reserva":"Puertas"},{"id":35,"nom_reserva":"Puertas"},{"id":36,"nom_reserva":"Puertas"},{"id":37,"nom_reserva":"Puertas"},{"id":38,"nom_reserva":"Puertas"},{"id":39,"nom_reserva":"Puertas"},{"id":40,"nom_reserva":"Puertas"},{"id":41,"nom_reserva":"Puertas"},{"id":42,"nom_reserva":"Puertas"},{"id":43,"nom_reserva":"Puertas"},{"id":44,"nom_reserva":"Puertas"},{"id":45,"nom_reserva":"Puertas"},{"id":46,"nom_reserva":"Puertas"},{"id":47,"nom_reserva":"Puertas"},{"id":48,"nom_reserva":"Puertas"},{"id":49,"nom_reserva":"Puertas"},{"id":50,"nom_reserva":"Puertas"},{"id":51,"nom_reserva":"Puertas"},{"id":52,"nom_reserva":"Puertas"},{"id":53,"nom_reserva":"Puertas"},{"id":54,"nom_reserva":"Puertas"},{"id":55,"nom_reserva":"Puertas"},{"id":56,"nom_reserva":"Puertas"},{"id":57,"nom_reserva":"Puertas"},{"id":58,"nom_reserva":"Puertas"},{"id":59,"nom_reserva":"Puertas"},{"id":60,"nom_reserva":"Puertas"},{"id":61,"nom_reserva":"Puertas"},{"id":62,"nom_reserva":"Puertas"},{"id":63,"nom_reserva":"Puertas"},{"id":64,"nom_reserva":"Puertas"},{"id":65,"nom_reserva":"Puertas"},{"id":66,"nom_reserva":"Puertas"},{"id":67,"nom_reserva":"Puertas"},{"id":68,"nom_reserva":"Puertas"},{"id":69,"nom_reserva":"Puertas"},{"id":70,"nom_reserva":"Puertas"},{"id":71,"nom_reserva":"Puertas"},{"id":72,"nom_reserva":"Puertas"},{"id":73,"nom_reserva":"Puertas"},{"id":74,"nom_reserva":"Puertas"},{"id":75,"nom_reserva":"Puertas"},{"id":76,"nom_reserva":"Puertas"},{"id":77,"nom_reserva":"Puertas"},{"id":78,"nom_reserva":"Puertas"},{"id":79,"nom_reserva":"Puertas"},{"id":80,"nom_reserva":"Puertas"},{"id":81,"nom_reserva":"Puertas"},{"id":82,"nom_reserva":"Puertas"},{"id":83,"nom_reserva":"Puertas"},{"id":84,"nom_reserva":"Puertas"},{"id":85,"nom_reserva":"Puertas"},{"id":86,"nom_reserva":"Puertas"},{"id":87,"nom_reserva":"Puertas"},{"id":88,"nom_reserva":"Puertas"},{"id":89,"nom_reserva":"Puertas"},{"id":90,"nom_reserva":"Puertas"},{"id":91,"nom_reserva":"Puertas"},{"id":92,"nom_reserva":"Puertas"},{"id":93,"nom_reserva":"Puertas"},{"id":94,"nom_reserva":"Puertas"},{"id":95,"nom_reserva":"Puertas"},{"id":96,"nom_reserva":"Puertas"},{"id":97,"nom_reserva":"Puertas"},{"id":98,"nom_reserva":"Puertas"},{"id":99,"nom_reserva":"Puertas"}]}]
