@@ -126,7 +126,7 @@ object GestorEntrades {
         return eliminada
     }
     //elimino entrada existent, passant la posició en la mutableList com a paràmetre
-    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, indexEntrada: Int): Boolean {
+    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, indexEntrada: Int): Boolean {//no funciona
         var eliminada = false
         var midaOriginal = -1
         midaOriginal = esdeveniment.entrades.count()
@@ -136,5 +136,18 @@ object GestorEntrades {
         }
         JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))
         return eliminada
+    }
+    fun modificarEntrada(context: Context, esdeveniment: Esdeveniment, entradaAEliminar: Entrada, entradaAModificar: Entrada): Boolean {
+        var modificat = false
+        var entradaEnLlista = mutableListOf<Entrada>()
+        val indexEsdeveniment = JsonIO.cercarEsdeveniment(esdeveniment)
+        var esdevenimentModificat: Esdeveniment
+        entradaEnLlista.add(entradaAModificar)
+        modificat = eliminarEntrada(context, esdeveniment, entradaAEliminar)
+        if (modificat){
+            esdevenimentModificat = assignarEntrades(Esdeveniment_Manager.esdeveniments[indexEsdeveniment], entradaEnLlista)
+            modificat = JsonIO.modificarEsdeveniment(context, esdevenimentModificat, indexEsdeveniment)
+        }
+        return modificat
     }
 }

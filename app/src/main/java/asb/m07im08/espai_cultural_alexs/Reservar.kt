@@ -30,6 +30,7 @@ class Reservar : AppCompatActivity() {
         val ivHR = findViewById<ImageView>(R.id.ivHR)
         val tvTipusEntrades = findViewById<TextView>(R.id.tvTipusEntrades)
         val llNumeradesNomPersona = findViewById<LinearLayout>(R.id.llNumeradesNomPersona)
+        val tvTitularEntrades = findViewById<TextView>(R.id.tvTitularEntrades)
         val etTitularEntrades = findViewById<TextView>(R.id.etTitularEntrades)
         val tvEntradesOriginals = findViewById<TextView>(R.id.tvEntradesOriginals)
         val tvTriarEntrades = findViewById<TextView>(R.id.tvTriarEntrades)
@@ -95,8 +96,9 @@ class Reservar : AppCompatActivity() {
             btnEliminar.visibility = View.GONE
         } else {
             tvTitol.text = "Entrades reservades de " + esdevenimentThis.nom + " a nom de " + entradaThis.nom_reserva
+            tvTitularEntrades.text = "Edita el titular de la reserva:"
             etTitularEntrades.text = entradaThis.nom_reserva
-            llNumeradesNomPersona.visibility = View.GONE
+            //llNumeradesNomPersona.visibility = View.GONE
             btnReservar.text = "Desar canvis"
         }
 
@@ -171,8 +173,19 @@ class Reservar : AppCompatActivity() {
                         Toast.makeText(this, "Si us plau, introdueix un nom per fer la reserva", Toast.LENGTH_SHORT).show()
                     }
                 }
-            } else {
-                //TODO("Codi per modificar reservaa")
+            } else {//modificar reserva
+                if (esdevenimentThis.numerat) {//numerat
+                    val entradaModificada = Entrada(spEntrades.selectedItem.toString().toInt(), etTitularEntrades.text.toString())
+                    var modificada = GestorEntrades.modificarEntrada(this, esdevenimentThis, entradaThis, entradaModificada)
+                    if (modificada){
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Error: No s'han desat els canvis", Toast.LENGTH_SHORT).show()
+                    }
+                } else {//no numerat
+                    //TODO("Codi per modificar reserva no numerada")
+                    //GestorEntrades.modificarEntrada(this, esdevenimentThis,1,1)
+                }
             }
         }
         btnEliminar.setOnClickListener{
