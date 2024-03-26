@@ -142,10 +142,10 @@ class Reservar : AppCompatActivity() {
             finish()
         }
         btnReservar.setOnClickListener{
+            var entradesAReservar = mutableListOf<Entrada>()
+            var esdevenimentModificat = esdevenimentThis
+            var desat = false
             if (novaReserva){
-                var entradesAReservar = mutableListOf<Entrada>()
-                var esdevenimentModificat = esdevenimentThis
-                var desat = false
                 if (esdevenimentThis.numerat) {//numerat
                     if (!etTitularEntrades.text.toString().equals("")){
                         for (id in entradesPreassignades){
@@ -175,16 +175,52 @@ class Reservar : AppCompatActivity() {
                 }
             } else {//modificar reserva
                 if (esdevenimentThis.numerat) {//numerat
-                    val entradaModificada = Entrada(spEntrades.selectedItem.toString().toInt(), etTitularEntrades.text.toString())
-                    var modificada = GestorEntrades.modificarEntrada(this, esdevenimentThis, entradaThis, entradaModificada)
-                    if (modificada){
-                        finish()
+                    if (!etTitularEntrades.text.toString().equals("")){
+                        val entradaModificada = Entrada(spEntrades.selectedItem.toString().toInt(), etTitularEntrades.text.toString())
+                        var modificada = GestorEntrades.modificarEntrada(this, esdevenimentThis, entradaThis, entradaModificada)
+                        if (modificada){
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Error: No s'han desat els canvis", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
-                        Toast.makeText(this, "Error: No s'han desat els canvis", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Si us plau, introdueix un nom per modificar la reserva", Toast.LENGTH_SHORT).show()
                     }
                 } else {//no numerat
                     //TODO("Codi per modificar reserva no numerada")
                     //GestorEntrades.modificarEntrada(this, esdevenimentThis,1,1)
+                    if (!etTitularEntrades.text.toString().equals("")){
+                        var mateixTitular = false
+                        var mateixesEntrades = false
+                        if(etTitularEntrades.text.toString() == entradaThis.nom_reserva) { mateixTitular = true }
+                        if (GestorEntrades.entradesPerPersonaNumero(esdevenimentThis, entradaThis.nom_reserva) == spEntrades.selectedItem) {
+                            mateixesEntrades = true
+                        }
+                        if (!(mateixesEntrades&&mateixTitular)){
+                            var entradesOriginals = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, etTitularEntrades.text.toString())
+                            var eliminades = false
+                            for (entrada in esdevenimentThis.entrades){
+                                if (entradesOriginals.contains(entrada.id)){
+                                    eliminades = GestorEntrades.eliminarEntrada(this,esdevenimentThis, entrada)
+                                }
+                            }
+                            if (eliminades){
+                                eliminades = false
+                                for (id in entradesPreassignades){
+                                    entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
+                                    esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
+                                    desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))
+                                    if (desat) {
+                                        finish()
+                                    }
+                                }
+                            }
+                        } else {
+                            Toast.makeText(this, "Si us plau, tria un número d'entrades diferent a l'actual", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(this, "Si us plau, introdueix un nom per modificar la reserva", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

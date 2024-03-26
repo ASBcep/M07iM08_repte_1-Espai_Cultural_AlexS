@@ -4,9 +4,13 @@ import android.content.Context
 
 object GestorEntrades {
     //retorna quantes entrades té algú
-    fun entradesPerPersonaNumero(esdevenimentThis: Esdeveniment, nomReserva: String): Int {
-        var numero = -1
-        TODO("funció per trobar quantes entrades té una persona")
+    fun entradesPerPersonaNumero(esdeveniment: Esdeveniment, nomReserva: String): Int {
+        var numero = 0
+        for (entrada in esdeveniment.entrades){
+            if (entrada.nom_reserva == nomReserva){
+                numero++
+            }
+        }
         return numero
     }
     fun entradesPerPersonaLlistat(esdeveniment: Esdeveniment, nomReserva: String): MutableList<Int> {
@@ -126,7 +130,7 @@ object GestorEntrades {
         return eliminada
     }
     //elimino entrada existent, passant la posició en la mutableList com a paràmetre
-    fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, indexEntrada: Int): Boolean {//no funciona
+    /*fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, indexEntrada: Int): Boolean {//no funciona
         var eliminada = false
         var midaOriginal = -1
         midaOriginal = esdeveniment.entrades.count()
@@ -136,7 +140,7 @@ object GestorEntrades {
         }
         JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))
         return eliminada
-    }
+    }*/
     fun modificarEntrada(context: Context, esdeveniment: Esdeveniment, entradaAEliminar: Entrada, entradaAModificar: Entrada): Boolean {
         var modificat = false
         var entradaEnLlista = mutableListOf<Entrada>()
