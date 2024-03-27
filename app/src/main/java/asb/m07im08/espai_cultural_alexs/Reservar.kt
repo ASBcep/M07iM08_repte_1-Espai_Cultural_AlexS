@@ -92,7 +92,8 @@ class Reservar : AppCompatActivity() {
         //cribo segons si la reserva és nova o existent
         if (novaReserva) {
             tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
-            tvEntradesAssignades.visibility = View.GONE
+            tvEntradesOriginals.visibility = View.GONE
+            //tvEntradesAssignades.visibility = View.GONE
             btnEliminar.visibility = View.GONE
         } else {
             tvTitol.text = "Entrades reservades de " + esdevenimentThis.nom + " a nom de " + entradaThis.nom_reserva
@@ -101,7 +102,6 @@ class Reservar : AppCompatActivity() {
             //llNumeradesNomPersona.visibility = View.GONE
             btnReservar.text = "Desar canvis"
         }
-
         //introduir la llista que es mostrarà a l'spinner (desplegable)
         if (llistaSpinner.count() > 0){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, llistaSpinner)

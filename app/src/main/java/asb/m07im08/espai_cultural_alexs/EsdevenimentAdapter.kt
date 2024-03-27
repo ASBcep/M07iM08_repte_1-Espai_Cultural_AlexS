@@ -44,6 +44,8 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
             esdevenimentData.text = ConversorDateTime.convertir(esdeveniment.data)
             val esdevenimentPreu = itemView.findViewById<TextView>(R.id.preuEsdeveniment)
             esdevenimentPreu.text = "Preu: " + esdeveniment.preu.toString() + "€"
+            val esdevenimentEntrades = itemView.findViewById<TextView>(R.id.entradesDisponibles)
+            esdevenimentEntrades.text  = "Localitats disponibles: " + GestorEntrades.entradesDisponiblesNumero(esdeveniment)
         }
     }
 }

@@ -10,22 +10,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class Reserves : AppCompatActivity() {
-    private var esdeveniment: Esdeveniment = Esdeveniment()
+    private var esdevenimentThis: Esdeveniment = Esdeveniment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserves)
 
         //rebo putextra de l'intent
         //esdeveniment = intent.getSerializableExtra("esdeveniment", Esdeveniment)
-        esdeveniment = intent.getSerializableExtra("esdeveniment") as Esdeveniment? ?: Esdeveniment()
+        esdevenimentThis = intent.getSerializableExtra("esdeveniment") as Esdeveniment? ?: Esdeveniment()
 
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
-        tvTitol.text = "Gestionar entrades de " + esdeveniment.nom
+        tvTitol.text = "Gestionar entrades de " + esdevenimentThis.nom
 
         val ivHR = findViewById<ImageView>(R.id.ivHR)
-        GestorImatge.inserirImatgeHR(esdeveniment.id.toString(), this, ivHR)
+        GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
 
-
+        val tvLocalitatsTotal = findViewById<TextView>(R.id.tvLocalitatsTotal)
+        val tvLocalitatsDisponibles = findViewById<TextView>(R.id.tvLocalitatsDisponibles)
+        tvLocalitatsTotal.text = "Localitats: " + Esdeveniment_Manager.aforament
+        tvLocalitatsDisponibles.text = "Disponibles: " + GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)
         var index = 0
         val columnesRecyclerView = 1
 
@@ -38,11 +41,11 @@ class Reserves : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        val adapter = TaulaEntradesAdapter(esdeveniment.entrades) { entrada ->
+        val adapter = TaulaEntradesAdapter(esdevenimentThis.entrades) { entrada ->
             // Gestiona el clic de l'esdeveniment
             val intent = Intent(this, Reservar::class.java).apply {
                 putExtra("entrada", entrada)
-                putExtra("esdeveniment", esdeveniment)
+                putExtra("esdeveniment", esdevenimentThis)
             }
             startActivity(intent)
         }

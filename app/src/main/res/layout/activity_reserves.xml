@@ -60,7 +60,7 @@
                     android:id="@+id/tvTitularsEntrades"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Titular[s] entrades"
+                    android:text="Tria una entrada per modificar-la:"
                     android:textAlignment="center"/>
                 <!--LinearLayout
                     android:layout_width="match_parent"
@@ -90,42 +90,24 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Canviar número d\'entrades reservades:"/>
-                    <Spinner
-                        android:id="@+id/spEntrades"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"/>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tvEntradesAssignades"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Se t\'han assignat les entrades X, Y, Z."
-                    android:paddingTop="10dp"/>
+
                 <LinearLayout
                     android:id="@+id/llTotalLocalitats"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:paddingVertical="10dp">
                     <TextView
                         android:id="@+id/tvLocalitatsTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Localitats: 100"/>
+                        android:text="Localitats: XX"/>
                     <TextView
-                        android:id="@+id/tvLocalitatsDisponible"
+                        android:id="@+id/tvLocalitatsDisponibles"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Disponibles: 50"
+                        android:text="Disponibles: YY"
                         android:paddingLeft="10dp"/>
                 </LinearLayout>
             </LinearLayout>
