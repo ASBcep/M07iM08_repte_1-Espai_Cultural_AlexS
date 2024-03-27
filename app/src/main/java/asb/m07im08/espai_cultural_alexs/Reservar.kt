@@ -197,26 +197,33 @@ class Reservar : AppCompatActivity() {
                             mateixesEntrades = true
                         }
                         if (!(mateixesEntrades&&mateixTitular)){
-                            var entradesOriginals = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, etTitularEntrades.text.toString())
+                            var entradesOriginals = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, entradaThis.nom_reserva)
                             var eliminades = false
-                            for (entrada in esdevenimentThis.entrades){
-                                if (entradesOriginals.contains(entrada.id)){
-                                    eliminades = GestorEntrades.eliminarEntrada(this,esdevenimentThis, entrada)
+                            var entradesAEliminar = mutableListOf<Entrada>()
+                            for (entrada in esdevenimentThis.entrades){//per cada entrada
+                                if (entradesOriginals.contains(entrada.id)){//verifico que l'id coincideixi amb les entrades del titular
+                                    entradesAEliminar.add(entrada)//afegeixo entrada al llistat
                                 }
                             }
+                            eliminades = GestorEntrades.eliminarEntrades(this, esdevenimentThis, entradesAEliminar)
                             if (eliminades){
-                                eliminades = false
-                                for (id in entradesPreassignades){
-                                    entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))
-                                    esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
-                                    desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))
-                                    if (desat) {
-                                        finish()
-                                    }
+                                for (id in entradesPreassignades){//per cada número d'entrada preassignada
+                                    entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))//afegeixo l'entrada
                                 }
+                                esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)//assigno les noves entrades
+                                desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))//deso l'esdeveniment al llistat
+                                if (desat) {
+                                    finish()
+                                }
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Error: No s'han eliminat les entrades",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         } else {
-                            Toast.makeText(this, "Si us plau, tria un número d'entrades diferent a l'actual", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Si us plau, tria un número d'entrades diferent a l'actual o canvia el titular", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Toast.makeText(this, "Si us plau, introdueix un nom per modificar la reserva", Toast.LENGTH_SHORT).show()
@@ -225,7 +232,7 @@ class Reservar : AppCompatActivity() {
             }
         }
         btnEliminar.setOnClickListener{
-            if (eliminar){
+            if (eliminar){//TODO("Elminar entrades no numerades")
                 //GestorEntrades.trobarEntrada(esdevenimentThis, entradaThis)
                 var entradaEliminada = GestorEntrades.eliminarEntrada(this, esdevenimentThis, entradaThis)
                 if (entradaEliminada){

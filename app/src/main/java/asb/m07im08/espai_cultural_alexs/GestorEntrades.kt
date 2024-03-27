@@ -129,18 +129,28 @@ object GestorEntrades {
         }
         return eliminada
     }
-    //elimino entrada existent, passant la posició en la mutableList com a paràmetre
-    /*fun eliminarEntrada(context: Context, esdeveniment: Esdeveniment, indexEntrada: Int): Boolean {//no funciona
+    fun eliminarEntrades(context: Context, esdeveniment: Esdeveniment, entradesAEliminar: MutableList<Entrada>): Boolean {
         var eliminada = false
         var midaOriginal = -1
         midaOriginal = esdeveniment.entrades.count()
-        esdeveniment.entrades.removeAt(indexEntrada)
-        if (midaOriginal == (esdeveniment.entrades.count() + 1)){
-            eliminada = true
+        var llistatModificat = mutableListOf<Entrada>()
+        for (entradaAEliminar in entradesAEliminar){//per cada entrada a eliminar
+            for (entradaActual in esdeveniment.entrades){//per cada entrada de l'esdeveniment
+                if (entradaActual.id != entradaAEliminar.id){//si les entrades d'esdeveniment i a eliminar no coincideixen
+                    if (!llistatModificat.contains(entradaActual)){//si l'entrada no és al llistat definitiu d'entrades
+                        llistatModificat.add(entradaActual)//afegir l'entrada actual al llistat definitiu, ja que aquesta no s'elimina
+                    }
+                }
+            }
         }
-        JsonIO.modificarEsdeveniment(context, esdeveniment,JsonIO.cercarEsdeveniment(esdeveniment))
+        esdeveniment.entrades.clear()
+        val esdevenimentModificat = assignarEntrades(esdeveniment, llistatModificat)
+        if (midaOriginal == (esdevenimentModificat.entrades.count() + 1)){
+            eliminada = JsonIO.modificarEsdeveniment(context, esdevenimentModificat,JsonIO.cercarEsdeveniment(esdevenimentModificat))
+        }
         return eliminada
-    }*/
+    }
+
     fun modificarEntrada(context: Context, esdeveniment: Esdeveniment, entradaAEliminar: Entrada, entradaAModificar: Entrada): Boolean {
         var modificat = false
         var entradaEnLlista = mutableListOf<Entrada>()
