@@ -46,91 +46,105 @@
                 android:scaleType="fitStart"/>
 
         </LinearLayout>
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:layout_weight="1">
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ScrollView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-                <TextView
-                    android:id="@+id/tvTipusEntrades"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Entrades [no] numerades"/>
+                android:layout_weight="1">
+
                 <LinearLayout
-                    android:id="@+id/llNumeradesNomPersona"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="10dp">
+                    android:padding="10dp">
                     <TextView
-                        android:id="@+id/tvTitularEntrades"
+                        android:id="@+id/tvTipusEntrades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Introduir nom de la persona que reserva:"/>
-                    <EditText
-                        android:id="@+id/etTitularEntrades"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:text="Entrades [no] numerades"/>
+                    <LinearLayout
+                        android:id="@+id/llNumeradesNomPersona"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+                        <TextView
+                            android:id="@+id/tvTitularEntrades"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Introduir nom de la persona que reserva:"/>
+                        <EditText
+                            android:id="@+id/etTitularEntrades"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tvEntradesOriginals"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Les teves entrades són les següents:\n X, Y, Z."
-                    android:paddingTop="10dp"/>
-                <LinearLayout
-                    android:id="@+id/llSelectorEntrades"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    </LinearLayout>
                     <TextView
-                        android:id="@+id/tvTriarEntrades"
+                        android:id="@+id/tvEntradesOriginals"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Número d\'entrades a reservar:"/>
-                    <Spinner
-                        android:id="@+id/spEntrades"
+                        android:text="Les teves entrades són les següents:\n X, Y, Z."
+                        android:paddingTop="10dp"/>
+                    <LinearLayout
+                        android:id="@+id/llSelectorEntrades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"/>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tvEntradesAssignades"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Se t\'han preassignat les entrades X, Y, Z."
-                    android:paddingTop="10dp"/>
-                <TextView
-                    android:id="@+id/tvEntradesOcupades"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Les entrades X, Y, Z no estan disponibles"
-                    android:paddingTop="10dp"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="10dp">
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp">
+                        <TextView
+                            android:id="@+id/tvTriarEntrades"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Número d\'entrades a reservar:"/>
+                        <Spinner
+                            android:id="@+id/spEntrades"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"/>
+                    </LinearLayout>
                     <TextView
-                        android:id="@+id/tvLocalitatsTotal"
+                        android:id="@+id/tvEntradesAssignades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Localitats: XX"/>
+                        android:text="Se t\'han preassignat les entrades X, Y, Z."
+                        android:paddingTop="10dp"/>
                     <TextView
-                        android:id="@+id/tvLocalitatsDisponibles"
+                        android:id="@+id/tvEntradesOcupades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Disponibles: YY"
-                        android:paddingLeft="10dp"/>
+                        android:text="Les entrades X, Y, Z no estan disponibles"
+                        android:paddingTop="10dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="10dp">
+                        <TextView
+                            android:id="@+id/tvLocalitatsTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Localitats: XX"/>
+                        <TextView
+                            android:id="@+id/tvLocalitatsDisponibles"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Disponibles: YY"
+                            android:paddingLeft="10dp"/>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/planell_localitats"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/buttonsInferior"

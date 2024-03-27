@@ -80,7 +80,7 @@ class Reserves : AppCompatActivity() {
 
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         btnEnrere.setOnClickListener {
-            setResult(RESULT_OK)
+            setResult(RESULT_CANCELED)
             finish()
         }
     }

@@ -1,46 +1,60 @@
 package asb.m07im08.espai_cultural_alexs
 
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.icu.util.Calendar
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.text.Editable
 import android.view.View
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
-import org.w3c.dom.Text
+import androidx.activity.result.contract.ActivityResultContracts
 import java.io.File
 import java.io.FileOutputStream
-import java.io.InputStream
 import java.time.LocalDateTime
-import java.time.Month
-import java.time.MonthDay
-import java.time.Year
-import java.util.Date
 
 class Gestio_Esdeveniment : AppCompatActivity() {
     private var esdevenimentThis: Esdeveniment = Esdeveniment()
-    private var detall: Boolean = false
+    private var detall = false
     private var nou: Boolean = false
     private var modificar: Boolean = false
     var highRes = true
-
     val PICK_IMAGE_REQUEST_CODE = 1
+    private var resultatResult = false
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        {
+            //val txtVwAnunci = findViewById(R.id.TxtVwAnunci) as TextView
+            if(it.resultCode == AppCompatActivity.RESULT_OK) {
+                //retornar un string
+                //val nomComplet = it.data?.getStringExtra(Comprovacio.loginConstants.USUARI)
+                /*retornar un objecte
+                val satellite = it.data?.getSerializableExtra()
+                */
+                //txtVwAnunci.text = "Usuari i contrasenya correctes"
+                Toast.makeText(this, "Esdeveniment modificat", Toast.LENGTH_SHORT).show()
+                resultatResult = true
+                //recreate()
+                carregaViews()
+            }
+        }
+    private fun carregaViews() {
+        if (resultatResult){
+            esdevenimentThis = Esdeveniment_Manager.esdeveniments[JsonIO.cercarEsdeveniment(esdevenimentThis)]
+        }
+        resetCamps()
+        habilitarCamps(esdevenimentThis)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //rebo putextra de l'intent
@@ -143,6 +157,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(),this,ivSR)
         }
         btnEnrere.setOnClickListener{
+            setResult(RESULT_OK)
             finish()
         }
         //botó crear o modificar
@@ -153,9 +168,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                     putExtra("esdeveniment", esdevenimentThis)
                     putExtra("modificar", true)
                 }
-                startActivity(intent)
+                //startActivity(intent)
+                getResult.launch(intent)
             } else if (modificar) {
-                //TODO("modificar esdeveniment")
                 var esdevenimentModificable = true
                 if (rbNumerat.isChecked || rbNoNumerat.isChecked) {aforamentTriat = true}
                 //if (rbConcert.isChecked || rbPeli.isChecked || rbXerrada.isChecked) {tipusTriat = true}
@@ -221,7 +236,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                         val indexEsdevenimentOriginal = JsonIO.cercarEsdeveniment(EsdevenimentModificat)
                         var afegit: Boolean
                         afegit = JsonIO.modificarEsdeveniment(this, EsdevenimentModificat, indexEsdevenimentOriginal)
-                        if (afegit) {finish()}//tanco activity
+                        if (afegit) {
+                            setResult(RESULT_OK)
+                            finish()
+                        }//tanco activity
                         //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
 
                     }
@@ -308,6 +326,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                         //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
                         JsonIO.afegirEsdeveniment(this, nouEsdeveniment)
                         //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
+                        setResult(RESULT_OK)
                         finish()//tanco activity
                     }
 
@@ -323,9 +342,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         var eliminar = false
         btnEliminar.setOnClickListener{
             if (eliminar){
-                //TODO("cercar esdeveniment al json i eliminar-lo")
                 if (JsonIO.eliminarEsdeveniment(this, esdevenimentThis)){
                     Toast.makeText(this, "Esdeveniment eliminat", Toast.LENGTH_SHORT).show()
+                    setResult(RESULT_OK)
                     finish()
                 } else {
                     Toast.makeText(this, "Error: esdeveniment no eliminat", Toast.LENGTH_SHORT).show()
@@ -344,7 +363,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 putExtra("novaReserva", true)
                 putExtra("esdeveniment", esdevenimentThis)
             }
-            startActivity(intent)
+            //startActivity(intent)
+            getResult.launch(intent)
         }
     }
     //obrir selector d'imatges
