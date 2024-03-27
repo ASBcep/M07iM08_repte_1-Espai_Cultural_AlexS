@@ -7,11 +7,31 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class Llistat_Esdeveniments : AppCompatActivity() {
-private var reserves: Boolean = false
+    private var reserves: Boolean = false
+    private var resultatResult = false
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        {
+            //val txtVwAnunci = findViewById(R.id.TxtVwAnunci) as TextView
+            if(it.resultCode == RESULT_OK) {
+                //retornar un string
+                //val nomComplet = it.data?.getStringExtra(Comprovacio.loginConstants.USUARI)
+                /*retornar un objecte
+                val satellite = it.data?.getSerializableExtra()
+                */
+                //txtVwAnunci.text = "Usuari i contrasenya correctes"
+                Toast.makeText(this, "Reserva modificada", Toast.LENGTH_SHORT).show()
+                resultatResult = true
+                //recreate()
+                carregaViews()
+            }
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_llistat_esdeveniments)
@@ -100,6 +120,8 @@ private var reserves: Boolean = false
             }
             startActivity(intent)
         }
-
+    }
+    private fun carregaViews() {
+        TODO("Not yet implemented")
     }
 }

@@ -139,6 +139,7 @@ class Reservar : AppCompatActivity() {
         }
         //events dels buttons
         btnEnrere.setOnClickListener {
+            setResult(RESULT_CANCELED)
             finish()
         }
         btnReservar.setOnClickListener{
@@ -154,6 +155,7 @@ class Reservar : AppCompatActivity() {
                         esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
                         desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))
                         if (desat) {
+                            setResult(RESULT_OK)
                             finish()
                         }
                     } else {
@@ -167,6 +169,7 @@ class Reservar : AppCompatActivity() {
                         esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)
                         desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))
                         if (desat) {
+                            setResult(RESULT_OK)
                             finish()
                         }
                     } else {
@@ -179,6 +182,7 @@ class Reservar : AppCompatActivity() {
                         val entradaModificada = Entrada(spEntrades.selectedItem.toString().toInt(), etTitularEntrades.text.toString())
                         var modificada = GestorEntrades.modificarEntrada(this, esdevenimentThis, entradaThis, entradaModificada)
                         if (modificada){
+                            setResult(RESULT_OK)
                             finish()
                         } else {
                             Toast.makeText(this, "Error: No s'han desat els canvis", Toast.LENGTH_SHORT).show()
@@ -213,6 +217,7 @@ class Reservar : AppCompatActivity() {
                                 esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)//assigno les noves entrades
                                 desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))//deso l'esdeveniment al llistat
                                 if (desat) {
+                                    setResult(RESULT_OK)
                                     finish()
                                 }
                             } else {
@@ -236,6 +241,7 @@ class Reservar : AppCompatActivity() {
                 //GestorEntrades.trobarEntrada(esdevenimentThis, entradaThis)
                 var entradaEliminada = GestorEntrades.eliminarEntrada(this, esdevenimentThis, entradaThis)
                 if (entradaEliminada){
+                    setResult(RESULT_OK)
                     finish()
                 }
             } else {
