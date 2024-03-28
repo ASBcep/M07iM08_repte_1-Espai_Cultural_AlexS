@@ -20,23 +20,13 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
         {
-            //val txtVwAnunci = findViewById(R.id.TxtVwAnunci) as TextView
             if(it.resultCode == RESULT_OK) {
-                //retornar un string
-                //val nomComplet = it.data?.getStringExtra(Comprovacio.loginConstants.USUARI)
-                /*retornar un objecte
-                val satellite = it.data?.getSerializableExtra()
-                */
-                //txtVwAnunci.text = "Usuari i contrasenya correctes"
-                //Toast.makeText(this, "Reserves modificades", Toast.LENGTH_SHORT).show()
                 resultatResult = true
                 reserves = false
-                //recreate()
                 carregaViews()
             } else {
                 resultatResult = true
                 reserves = true
-                //recreate()
                 carregaViews()
             }
         }

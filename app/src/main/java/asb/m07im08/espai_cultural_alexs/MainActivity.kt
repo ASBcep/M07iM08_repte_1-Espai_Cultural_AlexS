@@ -28,35 +28,28 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("reserves", false)
             startActivity(intent)
         }
-
         // Inicia el compte enrere quan es crea l'activitat
         iniciarCompteEnrere()
     }
-
     private fun iniciarCompteEnrere() {
         // Cancel·la la tasca anterior per evitar múltiples execucions
         handler.removeCallbacks(runnable)
-
         // Inicia una nova tasca per a l'activitat després de 10 segons
         handler.postDelayed(runnable, 10000) // 10 segons en mil·lisegons
     }
-
     private fun iniciarActivitat() {
         // Cancel·la el compte enrere quan es toca la pantalla
         handler.removeCallbacks(runnable)
-
         // Inicia l'activitat
         val intent = Intent(this, Llistat_Esdeveniments::class.java)
         intent.putExtra("reserves", false)
         startActivity(intent)
     }
-
     override fun onResume() {
         super.onResume()
         // Reconfigura el compte enrere quan l'aplicació es torna a reprendre
         iniciarCompteEnrere()
     }
-
     override fun onPause() {
         super.onPause()
         // Cancel·la el compte enrere quan l'aplicació està en pausa per evitar fuites de memòria

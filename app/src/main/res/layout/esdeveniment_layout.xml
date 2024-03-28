@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/ivListEsdeveniment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +14,16 @@
         android:layout_weight="3"
         android:adjustViewBounds="true"
         android:scaleType="fitStart"
+        /-->
+    <ImageView
+        android:id="@+id/ivListEsdeveniment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/escut"
+        android:layout_margin="10dp"
+        android:layout_weight="3"
+        android:adjustViewBounds="true"
+        android:scaleType="fitEnd"
         />
 
     <LinearLayout

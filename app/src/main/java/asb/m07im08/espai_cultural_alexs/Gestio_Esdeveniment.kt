@@ -33,17 +33,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
         {
-            //val txtVwAnunci = findViewById(R.id.TxtVwAnunci) as TextView
             if(it.resultCode == AppCompatActivity.RESULT_OK) {
-                //retornar un string
-                //val nomComplet = it.data?.getStringExtra(Comprovacio.loginConstants.USUARI)
-                /*retornar un objecte
-                val satellite = it.data?.getSerializableExtra()
-                */
-                //txtVwAnunci.text = "Usuari i contrasenya correctes"
                 Toast.makeText(this, "Esdeveniment modificat", Toast.LENGTH_SHORT).show()
                 resultatResult = true
-                //recreate()
                 carregaViews()
             }
         }
@@ -72,11 +64,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         setContentView(R.layout.activity_gestio_esdeveniment)
 
-        //val actualitzarLlistat = ActualitzarLlistat(this, false)
-
-
-        //var esdevenimentThis = llegirEsdeveniment()
-
         //declaro views
         val tvTitol = findViewById<TextView>(R.id.tvTitol)
         val etTitol = findViewById<EditText>(R.id.etTitol)
@@ -98,7 +85,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val etIdioma = findViewById<EditText>(R.id.etIdioma)
         val etPreu = findViewById<EditText>(R.id.etPreu)
 
-        val tvAforament = findViewById<TextView>(R.id.tvAforament)
+        //val tvAforament = findViewById<TextView>(R.id.tvAforament)
         val rgNumerat = findViewById<RadioGroup>(R.id.rgNumerat)
         val rbNumerat = findViewById<RadioButton>(R.id.rbNumerat)
         val rbNoNumerat = findViewById<RadioButton>(R.id.rbNoNumerat)
@@ -107,13 +94,13 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val rbXerrada = findViewById<RadioButton>(R.id.rbXerrada)
         val rbConcert = findViewById<RadioButton>(R.id.rbConcert)
         val rgEsdeveniment = findViewById<RadioGroup>(R.id.rgEsdeveniment)
-        val tvTipus = findViewById<TextView>(R.id.tvTipus)
+        //val tvTipus = findViewById<TextView>(R.id.tvTipus)
 
         val etEspecific1 = findViewById<EditText>(R.id.etEspecific1)
         val etEspecific2 = findViewById<EditText>(R.id.etEspecific2)
         val etEspecific3 = findViewById<EditText>(R.id.etEspecific3)
-        val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
-        val llEspecificDreta4 = findViewById<LinearLayout>(R.id.llEspecificDreta4)
+        //val llEspecific4 = findViewById<LinearLayout>(R.id.llEspecific4)
+        //val llEspecificDreta4 = findViewById<LinearLayout>(R.id.llEspecificDreta4)
         val etEspecific4 = findViewById<EditText>(R.id.etEspecific4)
 
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
@@ -121,12 +108,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
         val btnReservar = findViewById<Button>(R.id.btnReservar)
 
-        //TODO //si puc faré el datetimepicker
+        //TODO ("si puc faré el datetimepicker")
+
         ivCalendari.visibility = View.GONE
 
-
-        //inserirImatgeSR(esdevenimentThis.imatge)
-        //inserirImatgeHR(esdevenimentThis.imatge)
         GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(), this, ivSR)
         GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(), this, ivHR)
 
@@ -173,7 +158,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             } else if (modificar) {
                 var esdevenimentModificable = true
                 if (rbNumerat.isChecked || rbNoNumerat.isChecked) {aforamentTriat = true}
-                //if (rbConcert.isChecked || rbPeli.isChecked || rbXerrada.isChecked) {tipusTriat = true}
                 if (aforamentTriat){
                     val text = etEspecific4.text.toString()
                     val linies = text.split("\n")
@@ -213,13 +197,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                         esdevenimentModificable = false
                     }
                     if (esdevenimentModificable){
-                        //ActualitzarLlistat(this, false)
                         JsonIO.llegirLlistat(this, false)
                         val EsdevenimentModificat = Esdeveniment(
-                            //seguentId,//id
                             esdevenimentThis.id, //id
                             etTitol.text.toString(),//nom
-                            //seguentId.toString(),//imatge
                             descripcio,// descripcio
                             data,// data
                             etIdioma.text.toString(),// idioma
@@ -232,7 +213,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             etEspecific3.text.toString(),// especific3
                             llistaLinies// especific4
                         )
-                        //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
                         val indexEsdevenimentOriginal = JsonIO.cercarEsdeveniment(EsdevenimentModificat)
                         var afegit: Boolean
                         afegit = JsonIO.modificarEsdeveniment(this, EsdevenimentModificat, indexEsdevenimentOriginal)
@@ -240,17 +220,13 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             setResult(RESULT_OK)
                             finish()
                         }//tanco activity
-                        //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
-
                     }
-
                 } else {
                     esdevenimentModificable = false
                 }
                 if (esdevenimentModificable == false) {
                     Toast.makeText(this, "Si us plau, omple tots els camps", Toast.LENGTH_SHORT).show()
                 }
-                //ActualitzarLlistat(this, false)
             } else if (nou) {
                 var esdevenimentCreable = true
                 if (aforamentTriat && tipusTriat){
@@ -302,15 +278,12 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                         esdevenimentCreable = false
                     }
                     if (esdevenimentCreable){
-                        //ActualitzarLlistat(this, false)
                         JsonIO.llegirLlistat(this, false)
                         var entradesBuit = mutableListOf(Entrada())
                         entradesBuit.clear()
                         val nouEsdeveniment = Esdeveniment(
-                            //seguentId,//id
                             esdevenimentThis.id, //id
                             etTitol.text.toString(),//nom
-                            //seguentId.toString(),//imatge
                             descripcio,// descripcio
                             data,// data
                             etIdioma.text.toString(),// idioma
@@ -323,20 +296,17 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                             etEspecific3.text.toString(),// especific3
                             llistaLinies// especific4
                         )
-                        //actualitzarLlistat.afegirEsdeveniment(this, nouEsdeveniment)
                         JsonIO.afegirEsdeveniment(this, nouEsdeveniment)
                         //Toast.makeText(this, nouEsdeveniment.nom + " " + nouEsdeveniment.data.toString(), Toast.LENGTH_SHORT).show()
                         setResult(RESULT_OK)
                         finish()//tanco activity
                     }
-
                 } else {
                     esdevenimentCreable = false
                 }
                 if (esdevenimentCreable == false) {
                     Toast.makeText(this, "Si us plau, omple tots els camps", Toast.LENGTH_SHORT).show()
                 }
-                //ActualitzarLlistat(this, false)
             }
         }
         var eliminar = false
@@ -363,7 +333,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 putExtra("novaReserva", true)
                 putExtra("esdeveniment", esdevenimentThis)
             }
-            //startActivity(intent)
             getResult.launch(intent)
         }
     }
@@ -404,8 +373,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         } else {
             fileName = esdevenimentThis.id.toString() + GestorImatge.sufixImgSR + "." + imageType
         }
-        //val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        //val directory = File(getExternalFilesDir(null), "img")
         val directory = this.filesDir.toString() +  "/img/"
         val file = File(directory, fileName)
 
@@ -425,16 +392,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(),this,ivHR)
         val ivSR = findViewById<ImageView>(R.id.ivSR)
         GestorImatge.inserirImatgeSR(esdevenimentThis.id.toString(),this,ivSR)
-    }
-    private fun llegirEsdeveniment():Esdeveniment {
-
-        var esdeveniment = Esdeveniment()
-
-        //comprovar si rebem esdeveniment o se n'ha de crear un de nou
-        if (detall || modificar){
-            esdeveniment = Esdeveniment_Manager.esdeveniments[Esdeveniment_Manager.index]
-        } // si es nou retornarà un esdeveniment buit
-        return esdeveniment
     }
     //funció per buidar camps específics
     private fun resetCamps(){
@@ -503,10 +460,9 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val btnCarregaImgHR = findViewById<Button>(R.id.btnCarregaImgHR)
 
         val llCarregaImgSR = findViewById<LinearLayout>(R.id.llCarregaImgSR)
-        val ivSR = findViewById<ImageView>(R.id.ivSR)
-        val tvCarregaImgSR = findViewById<TextView>(R.id.tvCarregaImgSR)
-        val btnCarregaImgSR = findViewById<Button>(R.id.btnCarregaImgHR)
-
+        //val ivSR = findViewById<ImageView>(R.id.ivSR)
+        //val tvCarregaImgSR = findViewById<TextView>(R.id.tvCarregaImgSR)
+        //val btnCarregaImgSR = findViewById<Button>(R.id.btnCarregaImgHR)
 
         val ivCalendari = findViewById<ImageView>(R.id.ivCalendari)
         val etDia = findViewById<EditText>(R.id.etDia)
@@ -554,15 +510,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
 
         var tipus = esdeveniment.tipus
         val mesFormatat = String.format("%02d", esdeveniment.data.monthValue)
-        /*
-        if (tipus.equals("Pel·lícula"))  {
-            rbPeli.isChecked = true
-        } else if (tipus.equals("Xerrada")) {
-            rbXerrada.isChecked = true
-        } else if (tipus.equals("Concert")) {
-            rbConcert.isChecked = true
-        }
-        */
+
         //activació de radiobutton tipus
         if (rbPeli.isChecked)  {
             tipus = "Pel·lícula"
@@ -591,7 +539,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val especific1 = esdeveniment.especific1
         val especific2 = esdeveniment.especific2
         val especific3 = esdeveniment.especific3
-        //val especific4 = listOf(esdeveniment.especific4).joinToString("\n") // Converteix la llista a una cadena de text, amb cada element en una nova línia
         val especific4 = esdeveniment.especific4.joinToString(separator = "\n", prefix = "", postfix = "")
 
         //omplo camps comuns:
@@ -641,7 +588,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnModifiCrear.text = "Modificar"
             btnEliminar.visibility = View.GONE
             btnReservar.visibility = View.VISIBLE
-
         }
         if (modificar || detall) {
             etTitol.text = Editable.Factory.getInstance().newEditable(esdeveniment.nom)
@@ -666,7 +612,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnEliminar.visibility = View.GONE
         }
         if (modificar) {
-
             if (esdeveniment.numerat){
                 rbNumerat.isChecked = true
             } else {
@@ -676,16 +621,13 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             btnModifiCrear.text = "Desar canvis"
             btnEliminar.visibility =View.VISIBLE
         }
-
         //cribo segons tipus d'esdeveniment per habilitar camps específics
         if (tipus == "Pel·lícula" || tipus == "Concert") {
             llEspecific1a3.visibility = View.VISIBLE
             llEspecificEntre3i4.visibility = View.VISIBLE
-            //tvEspecific4.visibility = View.VISIBLE
             llEspecific4.visibility = View.VISIBLE
         } else if (tipus == "Xerrada") {
             llEspecific4.visibility = View.VISIBLE
         }
-
     }
 }
