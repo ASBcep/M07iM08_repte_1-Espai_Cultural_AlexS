@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
-class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick: (Esdeveniment) -> Unit) :
+class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick: (Esdeveniment) -> Unit,
+                          val onItemLongClick: (Esdeveniment) -> Boolean) :
     RecyclerView.Adapter<EsdevenimentAdapter.EsdevenimentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EsdevenimentViewHolder {
@@ -24,6 +25,9 @@ class EsdevenimentAdapter(val esdeveniments: List<Esdeveniment>, val onItemClick
         // Configurar el clic del elemento
         holder.itemView.setOnClickListener {
             onItemClick(esdeveniment)
+        }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick(esdeveniment)
         }
     }
 

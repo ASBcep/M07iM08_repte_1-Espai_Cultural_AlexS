@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 class Llistat_Esdeveniments : AppCompatActivity() {
     private var reserves = false
     private lateinit var esdeveniments: MutableList<Esdeveniment>
+    //private lateinit var adapter: EsdevenimentAdapter
     private var resultatResult = false
     private val getResult =
         registerForActivityResult(
@@ -48,72 +49,17 @@ class Llistat_Esdeveniments : AppCompatActivity() {
             reserves = intent.getBooleanExtra("reserves", false)
         }
 
-
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         val btnReserves = findViewById<Button>(R.id.btnReserves)
         val btnNou = findViewById<Button>(R.id.btnNou)
 
-
-/*
-        if (reserves) {
-            val tvTitol = findViewById<TextView>(R.id.tvTitol)
-            tvTitol.text = "Esdeveniments reservats"
-            btnEnrere.setPadding(0,0,0,0)
-            btnReserves.visibility = View.GONE
-            btnNou.visibility = View.GONE
-
-        } else {
-            btnEnrere.visibility = View.GONE
-        }
-*/
         carregaViews()
-
-        //ActualitzarLlistat(this, reserves)
-        //JsonIO.llegirLlistat(this, reserves)
 
         esdeveniments = Esdeveniment_Manager.esdeveniments
 
         if (esdeveniments.isEmpty()){
             Toast.makeText(this, "llistat d'esdeveniments buit", Toast.LENGTH_SHORT).show()
         }
-/*
-        val columnesRecyclerView = 1;
-        // Trobar el RecyclerView pel seu ID
-        val recyclerView = findViewById<RecyclerView>(R.id.ListEsdeveniments)
-
-        // Configurar el layout manager
-        val layoutManager = GridLayoutManager(this, columnesRecyclerView)
-        recyclerView.layoutManager = layoutManager
-
-        // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        //val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
-        val adapter = EsdevenimentAdapter(esdeveniments) { esdeveniment ->
-
-        // Gestiona el clic de l'esdeveniment
-            //Esdeveniment_Manager.index = position
-            //val intent = Intent(this, Detall::class.java)//canvio la classe
-            val intent: Intent
-            if (reserves) {
-                intent = Intent(this, Reserves::class.java).apply {
-                    putExtra("esdeveniment", esdeveniment)
-                }
-            } else {
-                intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
-                    putExtra("esdeveniment", esdeveniment)
-                    putExtra("detall", true)
-                    //putExtra("nou", true)
-                    //putExtra("modificar", false)
-                }
-            }
-            //startActivity(intent)
-            getResult.launch(intent)
-            JsonIO.llegirLlistat(this, reserves)
-        }
-
-        // Assignar l'adaptador al RecyclerView
-        recyclerView.adapter = adapter
-*/
-
 
         btnEnrere.setOnClickListener {
             setResult(RESULT_OK)
@@ -151,14 +97,12 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         //ActualitzarLlistat(this, reserves)
         JsonIO.llegirLlistat(this, reserves)
 
-
         if (reserves) {
             val tvTitol = findViewById<TextView>(R.id.tvTitol)
             tvTitol.text = "Esdeveniments reservats"
             //btnEnrere.setPadding(0,0,0,0)
             btnReserves.visibility = View.GONE
             btnNou.visibility = View.GONE
-
         } else {
             btnEnrere.visibility = View.GONE
         }
@@ -173,30 +117,45 @@ class Llistat_Esdeveniments : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         // Crear un adaptador amb la llista d'esdeveniments i una funció de clic
-        //val adapter = EsdevenimentAdapter(Esdeveniment_Manager.esdeveniments) { esdeveniment, position ->
-        val adapter = EsdevenimentAdapter(esdeveniments) { esdeveniment ->
-
-            // Gestiona el clic de l'esdeveniment
-            //Esdeveniment_Manager.index = position
-            //val intent = Intent(this, Detall::class.java)//canvio la classe
-            val intent: Intent
-            if (reserves) {
-                intent = Intent(this, Reserves::class.java).apply {
-                    putExtra("esdeveniment", esdeveniment)
+        val adapter = EsdevenimentAdapter(esdeveniments,
+        //adapter = EsdevenimentAdapter(esdeveniments,
+            // Funció per al clic normal
+            { esdeveniment ->
+                // Gestiona el clic de l'esdeveniment
+                val intent: Intent = if (reserves) {
+                    Intent(this, Reserves::class.java).apply {
+                        putExtra("esdeveniment", esdeveniment)
+                    }
+                } else {
+                    Intent(this, Gestio_Esdeveniment::class.java).apply {
+                        putExtra("esdeveniment", esdeveniment)
+                        putExtra("detall", true)
+                    }
                 }
-            } else {
-                intent = Intent(this, Gestio_Esdeveniment::class.java).apply {
-                    putExtra("esdeveniment", esdeveniment)
-                    putExtra("detall", true)
-                    //putExtra("nou", true)
-                    //putExtra("modificar", false)
+                getResult.launch(intent)
+                JsonIO.llegirLlistat(this, reserves)
+            },
+            // Funció per al clic llarg
+            { esdeveniment ->
+                // Gestiona el clic llarg de l'esdeveniment aquí
+                val intent: Intent = if (reserves) {
+                    Intent(this, Reserves::class.java).apply {
+                        putExtra("esdeveniment", esdeveniment)
+                    }
+                } else {
+                    Intent(this, Gestio_Esdeveniment::class.java).apply {
+                        putExtra("esdeveniment", esdeveniment)
+                        putExtra("modificar", true)
+                    }
                 }
+                if (!reserves) {
+                    Toast.makeText(this, "Modificar esdeveniment", Toast.LENGTH_SHORT).show()
+                }
+                getResult.launch(intent)
+                JsonIO.llegirLlistat(this, reserves)
+                true // Indica que s'ha gestionat el clic llarg
             }
-            //startActivity(intent)
-            getResult.launch(intent)
-            JsonIO.llegirLlistat(this, reserves)
-        }
-
+        )
         // Assignar l'adaptador al RecyclerView
         recyclerView.adapter = adapter
     }
