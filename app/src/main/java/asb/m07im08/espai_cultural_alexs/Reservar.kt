@@ -40,6 +40,7 @@ class Reservar : AppCompatActivity() {
         val tvEntradesOcupades = findViewById<TextView>(R.id.tvEntradesOcupades)
         val tvLocalitatsTotal = findViewById<TextView>(R.id.tvLocalitatsTotal)
         val tvLocalitatsDisponibles = findViewById<TextView>(R.id.tvLocalitatsDisponibles)
+        val ivPlanellLocalitats = findViewById<ImageView>(R.id.ivPlanellLocalitats)
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         val btnReservar = findViewById<Button>(R.id.btnReservar)
         val btnEliminar = findViewById<Button>(R.id.btnEliminar)
@@ -52,7 +53,11 @@ class Reservar : AppCompatActivity() {
         var eliminar = false
 
         //modifico contingut de views
-        tvEntradesOcupades.text = "Les entrades: \n" + GestorEntrades.entradesReservadesLlistat(esdevenimentThis).toString() + "\nno estan disponibles"
+        tvEntradesOcupades.text = "Les entrades: \n" + GestorEntrades.treureClaudatorsDelLlistat(
+            JsonIO.ordenarMutableListInt(
+                GestorEntrades.entradesReservadesLlistat(esdevenimentThis)
+            ).toString()
+        ) + "\nno estan disponibles"
         tvLocalitatsTotal.text = "Localitats: " + aforament
         tvLocalitatsDisponibles.text = "Disponibles: " + (GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)).toString()
 
@@ -63,24 +68,28 @@ class Reservar : AppCompatActivity() {
         if (esdevenimentThis.numerat){
             if (novaReserva){
                 tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNum)
+                tvTitol.text = "Reservar entrada per l'esdeveniment: " + esdevenimentThis.nom
             } else {//modificar reserva
                 tvTriarEntrades.text = "Canvia l'entrada assignada:"
-                tvEntradesOriginals.text = "La teva entrada: " + entradaThis.id
+                tvTitol.text = "Modificar entrada reservada de l'esdeveniment: " + esdevenimentThis.nom + "\nTitular de la reserva: " + entradaThis.nom_reserva
+                tvEntradesOriginals.text = "Aquesta entrada és la número: " + entradaThis.id
             }
             tvTipusEntrades.text = "Entrades numerades"
             llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
-            var numeroDEntradesAReservar = 1
+            /*var numeroDEntradesAReservar = 1
             for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)){
                 llistaSpinner.add(numeroDEntradesAReservar)
                 numeroDEntradesAReservar++
-            }
+            }*/
         } else {//no numerat
             if (novaReserva){
                 tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNoNum)
+                tvTitol.text = "Reservar entrades per l'esdeveniment: " + esdevenimentThis.nom
             } else {//modificar reserva
                 tvTriarEntrades.text = "Modifica el número d'entrades assignades:"
+                tvTitol.text = "Modificar entrades reservades de l'esdeveniment: " + esdevenimentThis.nom + "\nTitular de la reserva: " + entradaThis.nom_reserva
                 val llistatEntradesPersona = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, entradaThis.nom_reserva)
-                tvEntradesOriginals.text = "Les teves entrades sumen un total de " + llistatEntradesPersona.count().toString()+ " : \n" + llistatEntradesPersona.toString()
+                tvEntradesOriginals.text = "En total tens " + llistatEntradesPersona.count().toString()+ " entrades reservades: \n" + GestorEntrades.treureClaudatorsDelLlistat(llistatEntradesPersona.toString())
             }
             tvTipusEntrades.text = "Entrades no numerades"
             for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)) {
@@ -91,12 +100,12 @@ class Reservar : AppCompatActivity() {
         }
         //cribo segons si la reserva és nova o existent
         if (novaReserva) {
-            tvTitol.text = "Reservar entrades per " + esdevenimentThis.nom
+            //tvTitol.text = "Reservar entrades per l'esdeveniment: " + esdevenimentThis.nom
             tvEntradesOriginals.visibility = View.GONE
             //tvEntradesAssignades.visibility = View.GONE
             btnEliminar.visibility = View.GONE
         } else {
-            tvTitol.text = "Entrades reservades de " + esdevenimentThis.nom + " a nom de " + entradaThis.nom_reserva
+            //tvTitol.text = "Entrades reservades de l'esdeveniment: " + esdevenimentThis.nom + " a nom de: " + entradaThis.nom_reserva
             tvTitularEntrades.text = "Edita el titular de la reserva:"
             etTitularEntrades.text = entradaThis.nom_reserva
             //llNumeradesNomPersona.visibility = View.GONE
@@ -104,6 +113,7 @@ class Reservar : AppCompatActivity() {
         }
         //introduir la llista que es mostrarà a l'spinner (desplegable)
         if (llistaSpinner.count() > 0){
+            llistaSpinner = JsonIO.ordenarMutableListInt(llistaSpinner)
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, llistaSpinner)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spEntrades.adapter = adapter
@@ -127,15 +137,20 @@ class Reservar : AppCompatActivity() {
                 if (esdevenimentThis.numerat){
                     entradesPreassignades.clear()
                     entradesPreassignades.add(entradesTriades)
-                    tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNum) + entradesPreassignades
+                    entradesPreassignades = JsonIO.ordenarMutableListInt(entradesPreassignades)
+                    tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNum) + GestorEntrades.treureClaudatorsDelLlistat(entradesPreassignades.toString())
                 } else {
                     entradesPreassignades = GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, entradesTriades, aforament)
-                    tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNoNum) + entradesPreassignades
+                    entradesPreassignades = JsonIO.ordenarMutableListInt(entradesPreassignades)
+                    tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNoNum) + GestorEntrades.treureClaudatorsDelLlistat(entradesPreassignades.toString())
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // No cal fer res aquí, ja que aquest mètode es crida quan no es selecciona cap ítem
             }
+        }
+        ivPlanellLocalitats.setOnClickListener{
+            Toast.makeText(this, "Si us plau, tria localitat al desplegable", Toast.LENGTH_SHORT).show()
         }
         //events dels buttons
         btnEnrere.setOnClickListener {
@@ -191,8 +206,6 @@ class Reservar : AppCompatActivity() {
                         Toast.makeText(this, "Si us plau, introdueix un nom per modificar la reserva", Toast.LENGTH_SHORT).show()
                     }
                 } else {//no numerat
-                    //TODO("Codi per modificar reserva no numerada")
-                    //GestorEntrades.modificarEntrada(this, esdevenimentThis,1,1)
                     if (!etTitularEntrades.text.toString().equals("")){
                         var mateixTitular = false
                         var mateixesEntrades = false

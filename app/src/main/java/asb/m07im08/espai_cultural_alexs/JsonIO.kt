@@ -83,6 +83,9 @@ object JsonIO {
         try {
             val jsonArrayEsdeveniments = JSONArray()
 
+            //TODO("Ordenar les entrades abans de desar")
+            //GestorEntrades.ordenarEntrades()
+
             // Recórrer la llista d'esdeveniments i afegir-los a l'array JSON
             for (esdeveniment in Esdeveniment_Manager.esdeveniments) {
                 val jsonObjectEsdeveniment = JSONObject().apply {
@@ -196,5 +199,12 @@ object JsonIO {
         }
         GestorImatge.eliminarImatges(esdevenimentPerEliminar.id.toString(), context)
         return eliminat
+    }
+    fun ordenarMutableListInt(llista: MutableList<Int>): MutableList<Int>{
+        //TODO("Funció que ordeni les llistes")
+        var llistaOrdenada = mutableListOf<Int>()
+        llistaOrdenada = llista.sorted().toMutableList()
+
+        return llistaOrdenada
     }
 }

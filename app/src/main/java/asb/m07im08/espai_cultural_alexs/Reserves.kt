@@ -78,6 +78,11 @@ class Reserves : AppCompatActivity() {
         // Assignar l'adaptador al RecyclerView
         recyclerView.adapter = adapter*/
 
+        val ivPlanellLocalitats = findViewById<ImageView>(R.id.ivPlanellLocalitats)
+        ivPlanellLocalitats.setOnClickListener{
+            Toast.makeText(this, "Si us plau, tria una entrada del llistat", Toast.LENGTH_SHORT).show()
+        }
+
         val btnEnrere = findViewById<Button>(R.id.btnEnrere)
         btnEnrere.setOnClickListener {
             setResult(RESULT_CANCELED)

@@ -1,6 +1,7 @@
 package asb.m07im08.espai_cultural_alexs
 
 import android.content.Context
+import androidx.core.text.buildSpannedString
 
 object GestorEntrades {
     //retorna quantes entrades té algú
@@ -163,5 +164,14 @@ object GestorEntrades {
             modificat = JsonIO.modificarEsdeveniment(context, esdevenimentModificat, indexEsdeveniment)
         }
         return modificat
+    }
+    fun treureClaudatorsDelLlistat(string: String):String {
+        var stringSenseClaudators: String
+        stringSenseClaudators = string.substring(1, string.length - 1) // Elimina els caràcters de claudàtors
+
+        return stringSenseClaudators
+    }
+    fun ordenarEntrades(entrades: MutableList<Entrada>): MutableList<Entrada>{
+        TODO("per ordenar les entrades quan es desa el llistat d'esdeveniments")
     }
 }

@@ -5,6 +5,6 @@
     <string name="reservartvTriarEntradesNoNum">Escull el número d\'entrades:</string>
     <string name="reservartvTriarEntradesNum">Escull el número de l\'entrada:</string>
     <string name="reservartvEntradesAssignadesNoNum">Se t\'han preassignat les entrades:\n</string>
-    <string name="reservartvEntradesAssignadesNum">Preassignada entrada número:\n</string>
+    <string name="reservartvEntradesAssignadesNum">Preassignada entrada número:&#xA0;&#xA0;&#xA0;</string>
     <string name="noEntrades">No hi ha entrades disponibles</string>
 </resources>
