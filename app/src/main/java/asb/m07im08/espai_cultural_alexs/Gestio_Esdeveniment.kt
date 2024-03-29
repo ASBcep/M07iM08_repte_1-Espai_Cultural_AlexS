@@ -17,6 +17,10 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDateTime
@@ -386,7 +390,6 @@ class Gestio_Esdeveniment : AppCompatActivity() {
                 output.flush()
             }
         }
-
         Toast.makeText(this, "Imatge desada a: ${file.absolutePath}", Toast.LENGTH_LONG).show()
         val ivHR = findViewById<ImageView>(R.id.ivHR)
         GestorImatge.inserirImatgeHR(esdevenimentThis.id.toString(),this,ivHR)
@@ -459,7 +462,10 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         val tvCarregaImgHR = findViewById<TextView>(R.id.tvCarregaImgHR)
         val btnCarregaImgHR = findViewById<Button>(R.id.btnCarregaImgHR)
 
+
+        val llCarregaImgHR = findViewById<LinearLayout>(R.id.llCarregaImgHR)
         val llCarregaImgSR = findViewById<LinearLayout>(R.id.llCarregaImgSR)
+        val ivHR = findViewById<ImageView>(R.id.ivHR)
         //val ivSR = findViewById<ImageView>(R.id.ivSR)
         //val tvCarregaImgSR = findViewById<TextView>(R.id.tvCarregaImgSR)
         //val btnCarregaImgSR = findViewById<Button>(R.id.btnCarregaImgHR)
@@ -556,6 +562,8 @@ class Gestio_Esdeveniment : AppCompatActivity() {
             etTitol.isEnabled = false
             tvCarregaImgHR.visibility = View.GONE
             btnCarregaImgHR.visibility = View.GONE
+            llCarregaImgHR.setBackgroundColor(getResources().getColor(R.color.fons))
+            ivHR.setPadding(0,0,0,0)
             llCarregaImgSR.visibility = View.GONE
             etDescripcio.isEnabled = false
             etAny.isEnabled = false
