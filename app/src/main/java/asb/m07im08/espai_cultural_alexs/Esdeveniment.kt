@@ -13,7 +13,7 @@ class Esdeveniment (
     val preu: Double = id.toDouble(),
     val numerat: Boolean = false,
     val tipus: String = id.toString(),
-    val entrades: MutableList<Entrada> = mutableListOf(),
+    var entrades: MutableList<Entrada> = mutableListOf(),
     val especific1: String  = id.toString(),
     val especific2: String = id.toString(),
     val especific3: String = id.toString(),

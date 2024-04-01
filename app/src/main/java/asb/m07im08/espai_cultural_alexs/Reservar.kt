@@ -251,7 +251,6 @@ class Reservar : AppCompatActivity() {
         }
         btnEliminar.setOnClickListener{
             if (eliminar){//TODO("Elminar entrades no numerades")
-                //GestorEntrades.trobarEntrada(esdevenimentThis, entradaThis)
                 var entradaEliminada = GestorEntrades.eliminarEntrada(this, esdevenimentThis, entradaThis)
                 if (entradaEliminada){
                     setResult(RESULT_OK)

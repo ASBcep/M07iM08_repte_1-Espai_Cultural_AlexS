@@ -79,12 +79,8 @@ object JsonIO {
     }
     fun escriureLlistat(context: Context) {
         val jsonFilePath = context.filesDir.toString() + "/json/esdeveniments.json"
-        var esdeveniments: MutableList<Esdeveniment> = mutableListOf()
         try {
             val jsonArrayEsdeveniments = JSONArray()
-
-            //TODO("Ordenar les entrades abans de desar")
-            //GestorEntrades.ordenarEntrades()
 
             // Recórrer la llista d'esdeveniments i afegir-los a l'array JSON
             for (esdeveniment in Esdeveniment_Manager.esdeveniments) {
@@ -177,6 +173,7 @@ object JsonIO {
     fun modificarEsdeveniment(context: Context, esdevenimentModificat: Esdeveniment, index: Int): Boolean {
         var afegit: Boolean
         try {
+            esdevenimentModificat.entrades = GestorEntrades.ordenarEntrades(esdevenimentModificat.entrades)
             Esdeveniment_Manager.esdeveniments[index] = esdevenimentModificat
             escriureLlistat(context)
             afegit = true

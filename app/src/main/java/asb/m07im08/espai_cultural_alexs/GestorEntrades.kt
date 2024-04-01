@@ -171,7 +171,23 @@ object GestorEntrades {
 
         return stringSenseClaudators
     }
-    fun ordenarEntrades(entrades: MutableList<Entrada>): MutableList<Entrada>{
-        TODO("per ordenar les entrades quan es desa el llistat d'esdeveniments")
+
+    fun ordenarEntrades(entradesDesordenades: MutableList<Entrada>): MutableList<Entrada>{
+        var idsOrdenats = mutableListOf<Int>()
+        for (entrada in entradesDesordenades) {
+            idsOrdenats.add(entrada.id)//Omplo el llistat desordenat
+        }
+        idsOrdenats = JsonIO.ordenarMutableListInt(idsOrdenats)
+        var entradesOrdenades = mutableListOf<Entrada>()
+        for (id in idsOrdenats) {
+            for (entrada in entradesDesordenades) {
+                if (entrada.id == id) {
+                    if (!entradesOrdenades.contains(entrada)){
+                        entradesOrdenades.add(entrada)
+                    }
+                }
+            }
+        }
+        return entradesOrdenades
     }
 }
