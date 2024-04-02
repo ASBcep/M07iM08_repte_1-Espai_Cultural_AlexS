@@ -238,11 +238,11 @@ class Reservar : AppCompatActivity() {
                             mateixesEntrades = true
                         }
                         if (!(mateixesEntrades&&mateixTitular)){
-                            var entradesOriginals = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, entradaThis.nom_reserva)
+                            var entradesOriginalsDelTitular = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, entradaThis.nom_reserva)
                             var eliminades = false
                             var entradesAEliminar = mutableListOf<Entrada>()
                             for (entrada in esdevenimentThis.entrades){//per cada entrada
-                                if (entradesOriginals.contains(entrada.id)){//verifico que l'id coincideixi amb les entrades del titular
+                                if (entradesOriginalsDelTitular.contains(entrada.id)){//verifico que l'id coincideixi amb les entrades del titular
                                     entradesAEliminar.add(entrada)//afegeixo entrada al llistat
                                 }
                             }

@@ -135,7 +135,7 @@ object GestorEntrades {
         var midaOriginal = -1
         midaOriginal = esdevenimentOriginal.entrades.count()
         var llistatModificat = mutableListOf<Entrada>()
-        for (entradaAEliminar in entradesAEliminar){//per cada entrada a eliminar
+        /*for (entradaAEliminar in entradesAEliminar){//per cada entrada a eliminar
             for (entradaActual in esdevenimentOriginal.entrades){//per cada entrada de l'esdeveniment
                 if (entradaActual.id != entradaAEliminar.id){//si les entrades d'esdeveniment i a eliminar no coincideixen
                     if (!llistatModificat.contains(entradaActual)){//si l'entrada no és al llistat definitiu d'entrades
@@ -143,22 +143,33 @@ object GestorEntrades {
                     }
                 }
             }
+        }*/
+        llistatModificat = esdevenimentOriginal.entrades
+        for (entradaAEliminar in entradesAEliminar){
+            if (esdevenimentOriginal.entrades.contains(entradaAEliminar)){
+                llistatModificat.remove(entradaAEliminar)
+            }
         }
+
         esdevenimentOriginal.entrades.clear()
         val esdevenimentModificat = assignarEntrades(esdevenimentOriginal, llistatModificat)
         //if (midaOriginal == (esdevenimentModificat.entrades.count() + 1)){
         if (midaOriginal != (esdevenimentModificat.entrades.count())){
             eliminada = JsonIO.modificarEsdeveniment(context, esdevenimentModificat,JsonIO.cercarEsdeveniment(esdevenimentModificat))
         } else {
+            var entradesAEliminarNum = 0
+            var entradesEliminades = 0
             for (entradaE in entradesAEliminar){
-                if (!esdevenimentModificat.entrades.contains(entradaE)) {
+                if (esdevenimentModificat.entrades.contains(entradaE)) {
+                    entradesAEliminarNum++
+                } else {
                     eliminada = true
+                    entradesEliminades++
                 }
             }
         }
         return eliminada
     }
-
     fun modificarEntrada(context: Context, esdeveniment: Esdeveniment, entradaAEliminar: Entrada, entradaAModificar: Entrada): Boolean {
         var modificat = false
         var entradaEnLlista = mutableListOf<Entrada>()
@@ -172,9 +183,10 @@ object GestorEntrades {
         }
         return modificat
     }
+    // Elimina els caràcters claudàtors de l'string (primer i últim)
     fun treureClaudatorsDelLlistat(string: String):String {
         var stringSenseClaudators: String
-        stringSenseClaudators = string.substring(1, string.length - 1) // Elimina els caràcters de claudàtors
+        stringSenseClaudators = string.substring(1, string.length - 1)
 
         return stringSenseClaudators
     }
