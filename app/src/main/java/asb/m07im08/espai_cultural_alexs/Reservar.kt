@@ -66,6 +66,7 @@ class Reservar : AppCompatActivity() {
 
         //cribo segons si l'esdeveniment és numerat o no
         if (esdevenimentThis.numerat){
+            llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
             if (novaReserva){
                 tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNum)
                 tvTitol.text = "Reservar entrada per l'esdeveniment: " + esdevenimentThis.nom
@@ -73,15 +74,13 @@ class Reservar : AppCompatActivity() {
                 tvTriarEntrades.text = "Canvia l'entrada assignada:"
                 tvTitol.text = "Modificar entrada reservada de l'esdeveniment: " + esdevenimentThis.nom + "\nTitular de la reserva: " + entradaThis.nom_reserva
                 tvEntradesOriginals.text = "Aquesta entrada és la número: " + entradaThis.id
+                llistaSpinner.add(entradaThis.id)
             }
             tvTipusEntrades.text = "Entrades numerades"
-            llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
-            /*var numeroDEntradesAReservar = 1
-            for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)){
-                llistaSpinner.add(numeroDEntradesAReservar)
-                numeroDEntradesAReservar++
-            }*/
+            //llistaSpinner = GestorEntrades.entradesDisponiblesLlistat(esdevenimentThis)
+            JsonIO.ordenarMutableListInt(llistaSpinner)
         } else {//no numerat
+            var numeroEntradesDelTitular = 0
             if (novaReserva){
                 tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNoNum)
                 tvTitol.text = "Reservar entrades per l'esdeveniment: " + esdevenimentThis.nom
@@ -90,11 +89,19 @@ class Reservar : AppCompatActivity() {
                 tvTitol.text = "Modificar entrades reservades de l'esdeveniment: " + esdevenimentThis.nom + "\nTitular de la reserva: " + entradaThis.nom_reserva
                 val llistatEntradesPersona = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, entradaThis.nom_reserva)
                 tvEntradesOriginals.text = "En total tens " + llistatEntradesPersona.count().toString()+ " entrades reservades: \n" + GestorEntrades.treureClaudatorsDelLlistat(llistatEntradesPersona.toString())
+                numeroEntradesDelTitular = GestorEntrades.entradesPerPersonaNumero(esdevenimentThis, entradaThis.nom_reserva)
             }
             tvTipusEntrades.text = "Entrades no numerades"
             for (id in 1..GestorEntrades.entradesDisponiblesNumero(esdevenimentThis)) {
                 llistaSpinner.add(id)
             }
+            if (numeroEntradesDelTitular > 0) {
+                for (id in 1..numeroEntradesDelTitular) {
+                    llistaSpinner.add(llistaSpinner.max() + id)
+                }
+                //TODO("no funciona, no mostra correctament les entrades que es tenen")
+            }
+            JsonIO.ordenarMutableListInt(llistaSpinner)
             tvEntradesOcupades.visibility = View.GONE
             tvTriarEntrades.text = getString(R.string.reservartvTriarEntradesNoNum)
         }
@@ -121,6 +128,21 @@ class Reservar : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.noEntrades), Toast.LENGTH_SHORT).show()
             tvEntradesAssignades.text = getString(R.string.noEntrades)
             llSelectorEntrades.visibility = View.GONE
+        }
+        //assigno valor a mostrar per defecte a l'spinner
+        if (!novaReserva) {
+            if (esdevenimentThis.numerat) {
+                var index = 0
+                for (id in 0..(llistaSpinner.count() - 1)) {
+                    if (llistaSpinner[id] == entradaThis.id) {
+                        index = id
+                    }
+                    //index = index
+                }//FALLA??
+                spEntrades.setSelection(index)
+            } else {
+                spEntrades.setSelection(GestorEntrades.entradesPerPersonaNumero(esdevenimentThis, entradaThis.nom_reserva))
+            }
         }
         
         //event de l'spinner
@@ -209,7 +231,9 @@ class Reservar : AppCompatActivity() {
                     if (!etTitularEntrades.text.toString().equals("")){
                         var mateixTitular = false
                         var mateixesEntrades = false
-                        if(etTitularEntrades.text.toString() == entradaThis.nom_reserva) { mateixTitular = true }
+                        if(etTitularEntrades.text.toString() == entradaThis.nom_reserva) {
+                            mateixTitular = true
+                        }
                         if (GestorEntrades.entradesPerPersonaNumero(esdevenimentThis, entradaThis.nom_reserva) == spEntrades.selectedItem) {
                             mateixesEntrades = true
                         }

@@ -130,13 +130,13 @@ object GestorEntrades {
         }
         return eliminada
     }
-    fun eliminarEntrades(context: Context, esdeveniment: Esdeveniment, entradesAEliminar: MutableList<Entrada>): Boolean {
+    fun eliminarEntrades(context: Context, esdevenimentOriginal: Esdeveniment, entradesAEliminar: MutableList<Entrada>): Boolean {
         var eliminada = false
         var midaOriginal = -1
-        midaOriginal = esdeveniment.entrades.count()
+        midaOriginal = esdevenimentOriginal.entrades.count()
         var llistatModificat = mutableListOf<Entrada>()
         for (entradaAEliminar in entradesAEliminar){//per cada entrada a eliminar
-            for (entradaActual in esdeveniment.entrades){//per cada entrada de l'esdeveniment
+            for (entradaActual in esdevenimentOriginal.entrades){//per cada entrada de l'esdeveniment
                 if (entradaActual.id != entradaAEliminar.id){//si les entrades d'esdeveniment i a eliminar no coincideixen
                     if (!llistatModificat.contains(entradaActual)){//si l'entrada no és al llistat definitiu d'entrades
                         llistatModificat.add(entradaActual)//afegir l'entrada actual al llistat definitiu, ja que aquesta no s'elimina
@@ -144,10 +144,17 @@ object GestorEntrades {
                 }
             }
         }
-        esdeveniment.entrades.clear()
-        val esdevenimentModificat = assignarEntrades(esdeveniment, llistatModificat)
-        if (midaOriginal == (esdevenimentModificat.entrades.count() + 1)){
+        esdevenimentOriginal.entrades.clear()
+        val esdevenimentModificat = assignarEntrades(esdevenimentOriginal, llistatModificat)
+        //if (midaOriginal == (esdevenimentModificat.entrades.count() + 1)){
+        if (midaOriginal != (esdevenimentModificat.entrades.count())){
             eliminada = JsonIO.modificarEsdeveniment(context, esdevenimentModificat,JsonIO.cercarEsdeveniment(esdevenimentModificat))
+        } else {
+            for (entradaE in entradesAEliminar){
+                if (!esdevenimentModificat.entrades.contains(entradaE)) {
+                    eliminada = true
+                }
+            }
         }
         return eliminada
     }
