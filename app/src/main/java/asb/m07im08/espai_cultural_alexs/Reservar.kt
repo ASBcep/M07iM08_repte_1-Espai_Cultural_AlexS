@@ -108,15 +108,11 @@ class Reservar : AppCompatActivity() {
         }
         //cribo segons si la reserva és nova o existent
         if (novaReserva) {
-            //tvTitol.text = "Reservar entrades per l'esdeveniment: " + esdevenimentThis.nom
             tvEntradesOriginals.visibility = View.GONE
-            //tvEntradesAssignades.visibility = View.GONE
             btnEliminar.visibility = View.GONE
         } else {
-            //tvTitol.text = "Entrades reservades de l'esdeveniment: " + esdevenimentThis.nom + " a nom de: " + entradaThis.nom_reserva
             tvTitularEntrades.text = "Edita el titular de la reserva:"
             etTitularEntrades.text = entradaThis.nom_reserva
-            //llNumeradesNomPersona.visibility = View.GONE
             btnReservar.text = "Desar canvis"
         }
         //introduir la llista que es mostrarà a l'spinner (desplegable)
@@ -161,7 +157,22 @@ class Reservar : AppCompatActivity() {
                     entradesPreassignades = JsonIO.ordenarMutableListInt(entradesPreassignades)
                     tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNum) + GestorEntrades.treureClaudatorsDelLlistat(entradesPreassignades.toString())
                 } else {
-                    entradesPreassignades = GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, entradesTriades, aforament)
+                    entradesPreassignades.clear()
+                    var entradesOriginalsDelTitular = GestorEntrades.entradesPerPersonaLlistat(esdevenimentThis, entradaThis.nom_reserva)
+                    var diferencia = entradesTriades - entradesOriginalsDelTitular.count()
+                    if (entradesTriades < entradesOriginalsDelTitular.count()) {
+                        diferencia = diferencia * - 1
+                        for (id in 0 until(entradesOriginalsDelTitular.count() - diferencia)) {
+                            entradesPreassignades.add(entradesOriginalsDelTitular[id])
+                        }
+                    } else if (entradesTriades == entradesOriginalsDelTitular.count()) {
+                        entradesPreassignades = entradesOriginalsDelTitular
+                    } else { //entradesOriginals
+                        entradesPreassignades = GestorEntrades.trobarIdsDisponibles(esdevenimentThis.entrades, (diferencia), aforament)
+                        for (id in entradesOriginalsDelTitular) {
+                            entradesPreassignades.add(id)
+                        }
+                    }
                     entradesPreassignades = JsonIO.ordenarMutableListInt(entradesPreassignades)
                     tvEntradesAssignades.text = getString(R.string.reservartvEntradesAssignadesNoNum) + GestorEntrades.treureClaudatorsDelLlistat(entradesPreassignades.toString())
                 }

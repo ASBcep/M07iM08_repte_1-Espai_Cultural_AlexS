@@ -51,7 +51,7 @@
     ]
   },
   {
-    "id":4,
+    "id":3,
     "nom":"Pel·lícula Esdeveniment 4",
     "descripcio":"Descripció esdeveniment 4",
     "data":"2024-03-10T12:34:56",
@@ -98,6 +98,23 @@
       {
         "id":10,"nom_reserva":"Miquel"
       }
+    ]
+  },
+  {
+    "id":4,
+    "nom":"Sense reserves",
+    "descripcio":"esdeveniment sense reserves per debugar",
+    "data":"2024-03-10T12:34:56",
+    "idioma":"Castellà",
+    "preu":10,"numerat":true,
+    "tipus":"Pel·lícula",
+    "especific1":"Frenando Prueba",
+    "especific2":"1999",
+    "especific3":"111",
+    "especific4":["Kenoa Ribes",
+      "Catering Zeta Joan",
+      "Garrison Porc"],
+    "entrades":[
     ]
   }
 ]
