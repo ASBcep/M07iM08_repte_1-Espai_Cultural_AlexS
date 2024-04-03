@@ -130,7 +130,7 @@ class Reservar : AppCompatActivity() {
         if (!novaReserva) {
             if (esdevenimentThis.numerat) {
                 var index = 0
-                for (id in 0..(llistaSpinner.count() - 1)) {
+                for (id in 0 until(llistaSpinner.count())) {
                     if (llistaSpinner[id] == entradaThis.id) {
                         index = id
                     }
@@ -190,6 +190,7 @@ class Reservar : AppCompatActivity() {
             finish()
         }
         btnReservar.setOnClickListener{
+            JsonIO.llegirLlistat(this,false)
             var entradesAReservar = mutableListOf<Entrada>()
             var esdevenimentModificat = esdevenimentThis
             var desat = false

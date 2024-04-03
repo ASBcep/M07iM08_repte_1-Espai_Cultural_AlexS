@@ -11,24 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Espai_Cultural_AlexS"
-        tools:targetApi="31"
-        android:screenOrientation="landscape">
+        tools:targetApi="31">
         <activity
             android:name=".Reserves"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".Reservar"
             android:exported="false"
             android:screenOrientation="landscape"/>
         <activity
             android:name=".Gestio_Esdeveniment"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".Llistat_Esdeveniments"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

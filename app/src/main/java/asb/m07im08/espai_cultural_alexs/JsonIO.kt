@@ -116,11 +116,7 @@ object JsonIO {
             // Escriure l'array JSON a l'arxiu
             val fileWriter = FileWriter(jsonFilePath)
             fileWriter.use { it.write(jsonArrayEsdeveniments.toString()) }
-            Toast.makeText(
-                context,
-                "Llistat d'esdeveniments actualitzat",
-                Toast.LENGTH_LONG
-            ).show()
+            //Toast.makeText(context, "Llistat d'esdeveniments actualitzat", Toast.LENGTH_LONG).show()
         } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(
