@@ -316,7 +316,7 @@ class Gestio_Esdeveniment : AppCompatActivity() {
         var eliminar = false
         btnEliminar.setOnClickListener{
             if (eliminar){
-                if (JsonIO.eliminarEsdeveniment(this, esdevenimentThis)){
+                if (JsonIO.eliminarEsdeveniment(this, esdevenimentThis)) {
                     Toast.makeText(this, "Esdeveniment eliminat", Toast.LENGTH_SHORT).show()
                     setResult(RESULT_OK)
                     finish()

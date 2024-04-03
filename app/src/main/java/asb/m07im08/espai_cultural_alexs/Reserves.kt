@@ -20,15 +20,8 @@ class Reserves : AppCompatActivity() {
         {
             //val txtVwAnunci = findViewById(R.id.TxtVwAnunci) as TextView
             if(it.resultCode == RESULT_OK) {
-                //retornar un string
-                //val nomComplet = it.data?.getStringExtra(Comprovacio.loginConstants.USUARI)
-                /*retornar un objecte
-                val satellite = it.data?.getSerializableExtra()
-                */
-                //txtVwAnunci.text = "Usuari i contrasenya correctes"
                 Toast.makeText(this, "Reserva modificada", Toast.LENGTH_SHORT).show()
                 resultatResult = true
-                //recreate()
                 carregaViews()
             }
         }

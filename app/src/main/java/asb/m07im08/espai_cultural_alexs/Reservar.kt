@@ -97,7 +97,8 @@ class Reservar : AppCompatActivity() {
             }
             if (numeroEntradesDelTitular > 0) {
                 for (id in 1..numeroEntradesDelTitular) {
-                    llistaSpinner.add(llistaSpinner.max() + id)
+                    //llistaSpinner.add(llistaSpinner.max() + id)
+                    llistaSpinner.add(llistaSpinner.max() + 1)
                 }
                 //TODO("no funciona, no mostra correctament les entrades que es tenen")
             }
@@ -137,14 +138,12 @@ class Reservar : AppCompatActivity() {
                     if (llistaSpinner[id] == entradaThis.id) {
                         index = id
                     }
-                    //index = index
-                }//FALLA??
+                }
                 spEntrades.setSelection(index)
             } else {
-                spEntrades.setSelection(GestorEntrades.entradesPerPersonaNumero(esdevenimentThis, entradaThis.nom_reserva))
+                spEntrades.setSelection(GestorEntrades.entradesPerPersonaNumero(esdevenimentThis, entradaThis.nom_reserva) - 1)
             }
         }
-        
         //event de l'spinner
         spEntrades.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -251,7 +250,8 @@ class Reservar : AppCompatActivity() {
                                 for (id in entradesPreassignades){//per cada número d'entrada preassignada
                                     entradesAReservar.add (Entrada(id, etTitularEntrades.text.toString()))//afegeixo l'entrada
                                 }
-                                esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)//assigno les noves entrades
+                                //esdevenimentModificat = GestorEntrades.assignarEntrades(esdevenimentThis, entradesAReservar)//assigno les noves entrades
+                                esdevenimentModificat = GestorEntrades.assignarEntrades(Esdeveniment_Manager.esdeveniments[JsonIO.cercarEsdeveniment(esdevenimentThis)], entradesAReservar)//assigno les noves entrades
                                 desat = JsonIO.modificarEsdeveniment(this, esdevenimentModificat, JsonIO.cercarEsdeveniment(esdevenimentThis))//deso l'esdeveniment al llistat
                                 if (desat) {
                                     setResult(RESULT_OK)

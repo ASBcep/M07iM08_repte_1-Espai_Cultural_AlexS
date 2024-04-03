@@ -11,13 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Espai_Cultural_AlexS"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:screenOrientation="landscape">
         <activity
             android:name=".Reserves"
             android:exported="false" />
         <activity
             android:name=".Reservar"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".Gestio_Esdeveniment"
             android:exported="false" />

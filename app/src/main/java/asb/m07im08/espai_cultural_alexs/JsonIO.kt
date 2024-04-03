@@ -87,7 +87,6 @@ object JsonIO {
                 val jsonObjectEsdeveniment = JSONObject().apply {
                     put("id", esdeveniment.id)
                     put("nom", esdeveniment.nom)
-                    //put("imatge", esdeveniment.imatge)
                     put("descripcio", esdeveniment.descripcio)
                     put("data", esdeveniment.data.toString())
                     put("idioma", esdeveniment.idioma.toString())
@@ -105,7 +104,7 @@ object JsonIO {
                             val JsonObjectentrada = JSONObject().apply {
                                 put("id", entrada.id)
                                 put("nom_reserva", entrada.nom_reserva)
-                        }
+                            }
                             JsonArrayentrades.put(JsonObjectentrada)
                         }
                     }
@@ -198,7 +197,6 @@ object JsonIO {
         return eliminat
     }
     fun ordenarMutableListInt(llista: MutableList<Int>): MutableList<Int>{
-        //TODO("Funció que ordeni les llistes")
         var llistaOrdenada = mutableListOf<Int>()
         llistaOrdenada = llista.sorted().toMutableList()
 

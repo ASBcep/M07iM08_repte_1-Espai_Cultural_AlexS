@@ -81,7 +81,8 @@ object GestorEntrades {
     }
     fun assignarEntrada(esdevenimentAReservar: Esdeveniment, entradaAReservar: Entrada): Esdeveniment{
         var idUsat = false
-        if (entradaAReservar.id >= 0 && entradaAReservar.id < Esdeveniment_Manager.aforament){
+        //if (entradaAReservar.id >= 0 && entradaAReservar.id < Esdeveniment_Manager.aforament){
+        if (entradaAReservar.id > 0 && entradaAReservar.id <= Esdeveniment_Manager.aforament){
             for (entrada in esdevenimentAReservar.entrades){
                 if (entradaAReservar.id == entrada.id)
                     idUsat = true
@@ -94,8 +95,8 @@ object GestorEntrades {
         return esdevenimentAReservar
         //no es desa al json!!
     }
-    fun assignarEntrades(esdevenimentAReservar: Esdeveniment, entrades: MutableList<Entrada>): Esdeveniment{
-        entrades.forEachIndexed{ index, value, ->
+    fun assignarEntrades(esdevenimentAReservar: Esdeveniment, entradesPerAssignar: MutableList<Entrada>): Esdeveniment{
+        entradesPerAssignar.forEachIndexed{ index, value, ->
             assignarEntrada(esdevenimentAReservar,value)
         }
         return esdevenimentAReservar
@@ -135,38 +136,18 @@ object GestorEntrades {
         var midaOriginal = -1
         midaOriginal = esdevenimentOriginal.entrades.count()
         var llistatModificat = mutableListOf<Entrada>()
-        /*for (entradaAEliminar in entradesAEliminar){//per cada entrada a eliminar
-            for (entradaActual in esdevenimentOriginal.entrades){//per cada entrada de l'esdeveniment
-                if (entradaActual.id != entradaAEliminar.id){//si les entrades d'esdeveniment i a eliminar no coincideixen
-                    if (!llistatModificat.contains(entradaActual)){//si l'entrada no és al llistat definitiu d'entrades
-                        llistatModificat.add(entradaActual)//afegir l'entrada actual al llistat definitiu, ja que aquesta no s'elimina
-                    }
-                }
-            }
-        }*/
-        llistatModificat = esdevenimentOriginal.entrades
+        for (entrada in esdevenimentOriginal.entrades) {
+            llistatModificat.add(entrada)
+        }
         for (entradaAEliminar in entradesAEliminar){
             if (esdevenimentOriginal.entrades.contains(entradaAEliminar)){
                 llistatModificat.remove(entradaAEliminar)
             }
         }
-
         esdevenimentOriginal.entrades.clear()
         val esdevenimentModificat = assignarEntrades(esdevenimentOriginal, llistatModificat)
-        //if (midaOriginal == (esdevenimentModificat.entrades.count() + 1)){
         if (midaOriginal != (esdevenimentModificat.entrades.count())){
             eliminada = JsonIO.modificarEsdeveniment(context, esdevenimentModificat,JsonIO.cercarEsdeveniment(esdevenimentModificat))
-        } else {
-            var entradesAEliminarNum = 0
-            var entradesEliminades = 0
-            for (entradaE in entradesAEliminar){
-                if (esdevenimentModificat.entrades.contains(entradaE)) {
-                    entradesAEliminarNum++
-                } else {
-                    eliminada = true
-                    entradesEliminades++
-                }
-            }
         }
         return eliminada
     }
